@@ -5,10 +5,10 @@ class Learner::ArticlesController < ApplicationController
   def show
   end
 
-  def search
+  def new
   end
 
-  def new
+  def search
   end
 
   def tipcorn

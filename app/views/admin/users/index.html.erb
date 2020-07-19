@@ -1,2 +1,25 @@
-<h1>Admin::Users#index</h1>
+<h1>管理者　利用者一覧</h1>
 <p>Find me in app/views/admin/users/index.html.erb</p>
+
+<%= link_to "利用者トップ", learner_root_path %>
+<%= link_to "利用者記事一覧", learner_articles_path %>
+<%= link_to "利用者新規投稿", new_learner_article_path %>
+<%= link_to "利用者映画検索", learner_search_path %>
+<%= link_to "tipcorn", learner_tipcorn_path %>
+<%= link_to "管理者トップ", admin_root_path %>
+<%= link_to "管理者利用者一覧", admin_users_path %>
+<%= link_to "管理者記事一覧", admin_articles_path %>
+<%= link_to "管理者コメント一覧", admin_comments_path %>
+<%= link_to "管理者タグ一覧", admin_tags_path %>
+
+<%
+=begin %>
+<%= link_to "利用者トップ", learner_users_top_path %>
+<%= link_to "利用者情報編集", edit_learner_user_path %>
+<%= link_to "マイページ", learner_user_path %>
+<%= link_to "利用者記事編集", edit_learner_article_path %>
+<%= link_to "利用者記事詳細", learner_article_path %>
+<%= link_to "管理者利用者詳細", admin_user_path %>
+<%= link_to "管理者記事詳細", admin_article_path %>
+<%
+=end %>
