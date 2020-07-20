@@ -21,13 +21,16 @@
       <%= link_to "管理者記事一覧", admin_articles_path %> <br>
       <%= link_to "管理者コメント一覧", admin_comments_path %> <br>
       <%= link_to "管理者タグ一覧", admin_tags_path %> <br>
+      <% if current_learner_user %>
+        <%= link_to "マイページ", learner_user_path(current_learner_user) %>
+      <% end %>
       <%= link_to "ユーザサインイン", new_learner_user_registration_path, method: :post %> <br>
       <%= link_to "ユーザログイン", new_learner_user_session_path, method: :post %> <br>
       <%= link_to "ユーザログアウト", destroy_learner_user_session_path, method: :delete %> <br>
       <%= link_to "管理者ログイン", new_admin_admin_session_path, method: :post %> <br>
       <%= link_to "管理者ログアウト", destroy_admin_admin_session_path, method: :delete %> <br>
-      <%# <%= link_to "マイページ", learner_user_path(current_learner_user) %> <br> %>
-      <%
+
+<%
 =begin %>
 <%= link_to "利用者記事詳細", learner_article_path %> <br>
 <%= link_to "利用者トップ", learner_users_top_path %> <br>
@@ -37,6 +40,7 @@
 <%= link_to "管理者記事詳細", admin_article_path %> <br>
 <%
 =end %>
+
 </div>
       <div class="col-md-10">
     <%= yield %>
