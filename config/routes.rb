@@ -2,7 +2,12 @@ Rails.application.routes.draw do
 # アプリケーション
   namespace :learner do
     scope module: :users do
-      devise_for :users
+      devise_for :users,
+      controllers: {
+        sessions: 'users/sessions',
+        registrations: "users/registrations",
+        omniauth_callbacks: 'users/omniauth_callbacks'
+      }
     end
     root 'users#top'
     resources :users, only: [:show, :edit]
