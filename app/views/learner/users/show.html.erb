@@ -1,25 +1,72 @@
 <h1>マイページ</h1>
 <p>Find me in app/views/learner/users/show.html.erb</p>
 
-<%= link_to "利用者トップ", learner_root_path %>
-<%= link_to "利用者記事一覧", learner_articles_path %>
-<%= link_to "利用者新規投稿", new_learner_article_path %>
-<%= link_to "利用者映画検索", learner_search_path %>
-<%= link_to "tipcorn", learner_tipcorn_path %>
-<%= link_to "管理者トップ", admin_root_path %>
-<%= link_to "管理者利用者一覧", admin_users_path %>
-<%= link_to "管理者記事一覧", admin_articles_path %>
-<%= link_to "管理者コメント一覧", admin_comments_path %>
-<%= link_to "管理者タグ一覧", admin_tags_path %>
+<%# 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 %>
+<%# 　　　自分と他ユーザとのページをパーシャルを使って分ける　　　 %>
+<%# 　　　ユーザーテーブルカラムに、イントロダクションを追加　　　 %>
+<%# 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 %>
 
-<%
-=begin %>
-<%= link_to "利用者トップ", learner_users_top_path %>
-<%= link_to "利用者情報編集", edit_learner_user_path %>
-<%= link_to "マイページ", learner_user_path %>
-<%= link_to "利用者記事編集", edit_learner_article_path %>
-<%= link_to "利用者記事詳細", learner_article_path %>
-<%= link_to "管理者利用者詳細", admin_user_path %>
-<%= link_to "管理者記事詳細", admin_article_path %>
-<%
-=end %>
+<%# プロフィール %>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">データ1</th>
+      <th scope="col">データ2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">名前　全</th>
+      <td><%= @user.name %></td>
+      <td>Otto</td>
+    </tr>
+    <tr>
+      <th scope="row">紹介文　全</th>
+      <td>紹介文を追加予定</td>
+      <td>Otto</td>
+    </tr>
+    <tr>
+      <th scope="row">メール　個</th>
+      <td><%= @user.email %></td>
+      <td>Thornton</td>
+    </tr>
+    <tr>
+      <th scope="row">レベル と 言語　全</th>
+      <td><%= @user.level %></td>
+      <td><%= @user.language %></td>
+    </tr>
+    <tr>
+      <th scope="row">投稿記事数　全</th>
+      <td><%= @user.articles.count %></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<%# フォロワー %>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="follow-tab" data-toggle="tab" href="#follow" role="tab" aria-controls="follow" aria-selected="true">フォロー 人</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="follower-tab" data-toggle="tab" href="#follower" role="tab" aria-controls="follower" aria-selected="false">フォロワー 人</a>
+  </li>
+
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="follow" role="tabpanel" aria-labelledby="follow-tab">
+<% @follows.each do |follow| %>
+  <%= link_to learner_user_path(follow) do %>
+    <%= follow.name %><br>
+  <% end %>
+<% end %>
+  </div>
+  <div class="tab-pane fade" id="follower" role="tabpanel" aria-labelledby="follower-tab">
+<% @followers.each do |follower| %>
+  <%= link_to learner_user_path(follower) do %>
+    <%= follower.name %><br>
+  <% end %>
+<% end %>
+  </div>
+</div>
