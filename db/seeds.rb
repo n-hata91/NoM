@@ -11,12 +11,15 @@ User.create!(
 15.times do |n|
   name = ForgeryJa(:name).full_name
   email = ForgeryJa('email').address
+  introduction = "#{ForgeryJa(:date).month}生まれ、#{ForgeryJa(:address).full_address}在住です。"
   level = rand(1..5)
   language = ['英語','スペイン語','フランス語','中国語']
   password = 'password'
   User.create!(
     name: name,
     email: email,
+    image_id: open("./app/assets/images/no_image.jpg"),
+    introduction: introduction,
     level: level,
     language: language[rand(0..3)],
     password: password

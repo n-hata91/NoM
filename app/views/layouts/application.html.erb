@@ -4,16 +4,14 @@
     <title>NoM</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
     <div class="container">
       <div class="row">
 <div class="col-md-2">
-      <%= link_to "利用者トップ", learner_root_path %> <br>
+      <%= link_to "利用者トップ", learner_root_path, class: "btn" %> <br>
       <%= link_to "利用者記事一覧", learner_articles_path %> <br>
       <%= link_to "利用者映画検索", learner_search_path %> <br>
       <%= link_to "利用者新規投稿", new_learner_article_path %> <br>
