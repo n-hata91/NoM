@@ -1,0 +1,50 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ // Custom bootstrap variables must be set or imported *before* bootstrap.
+  @import "bootstrap";
+
+// learner_top
+  .jumbotron {
+    background-size: cover;
+    background-attachment: fixed;
+    height: 650px;
+  }
+  .first {
+    background-image: url("language.jpg");
+    background-position: 0% 0%;
+    clip-path: polygon(0 0%, 100% 0, 100% 93%, 0 100%);
+  }
+  .second {
+    background-image: url("study.jpg");
+    background-position: 0% 0%;
+    clip-path: polygon(0 7%, 100% 0, 100% 100%, 0 93%);
+  }
+  .third {
+    background-image: url("popcorn.jpg");
+    background-position: 30% 30%;
+    clip-path: polygon(0 0%, 100% 7%, 100% 93%, 0 100%);
+  }
+  .fourth {
+    background-image: url("chat.jpg");
+    background-position: 50% 50%;
+    clip-path: polygon(0 7%, 100% 0, 100% 100%, 0 93%);
+  }
+  .fifth {
+    background-image: url("screen.jpg");
+    background-position: 0% 50%;
+    clip-path: polygon(0 0%, 100% 7%, 100% 100%, 0 100%);
+    background-attachment: scroll;
+  }
