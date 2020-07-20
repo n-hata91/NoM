@@ -1,9 +1,10 @@
 <h1>マイページ</h1>
+<h1>or</h1>
+<h1>ユーザー詳細</h1>
 <p>Find me in app/views/learner/users/show.html.erb</p>
 
 <%# 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 %>
 <%# 　　　自分と他ユーザとのページをパーシャルを使って分ける　　　 %>
-<%# 　　　ユーザーテーブルカラムに、イントロダクションを追加　　　 %>
 <%# 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 %>
 
 <%# プロフィール %>
@@ -18,12 +19,12 @@
   <tbody>
     <tr>
       <th scope="row">名前　全</th>
+      <td><%= attachment_image_tag @user, :image, size: "50x50", fallback: "no_image.jpg" %></td>
       <td><%= @user.name %></td>
-      <td>Otto</td>
     </tr>
     <tr>
       <th scope="row">紹介文　全</th>
-      <td>紹介文を追加予定</td>
+      <td><%= @user.introduction %></td>
       <td>Otto</td>
     </tr>
     <tr>
@@ -43,6 +44,8 @@
     </tr>
   </tbody>
 </table>
+
+<%# フォローボタン %>
 
 <%# フォロワー %>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
