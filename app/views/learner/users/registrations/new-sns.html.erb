@@ -1,11 +1,21 @@
-<h2>Sign up</h2>
-
+<h2>ようこそ<%= @user.name %>さん</h2>
+<% resource = @user %>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "admin/admins/shared/error_messages", resource: resource %>
+  <%= render "learner/users/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :"name" %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+  </div>
 
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"language" %><br />
+    <%= f.text_field :language, autofocus: true, autocomplete: "language" %>
   </div>
 
   <div class="field">
@@ -22,11 +32,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up",class: "btn btn-primary" %>
   </div>
 <% end %>
-aaaaaaaaaaaaaaaaa
-<%= link_to 'facebook', learner_user_facebook_omniauth_authorize_path %>
-<%= link_to 'google', learner_user_google_oauth2_omniauth_authorize_path %>
-
-<%= render "admin/admins/shared/links" %>

@@ -8,27 +8,27 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <div class="container">
+    <div class="mx-4">
       <div class="row">
 <div class="col-md-2">
-      <%= link_to "利用者トップ", learner_root_path, class: "btn" %> <br>
-      <%= link_to "利用者記事一覧", learner_articles_path %> <br>
-      <%= link_to "利用者映画検索", learner_search_path %> <br>
-      <%= link_to "利用者新規投稿", new_learner_article_path %> <br>
-      <%= link_to "tipcorn", learner_tipcorn_path %> <br>
-      <%= link_to "管理者トップ", admin_root_path %> <br>
-      <%= link_to "管理者利用者一覧", admin_users_path %> <br>
-      <%= link_to "管理者記事一覧", admin_articles_path %> <br>
-      <%= link_to "管理者コメント一覧", admin_comments_path %> <br>
-      <%= link_to "管理者タグ一覧", admin_tags_path %> <br>
+      <%= link_to "利用者トップ", root_path, class: "btn btn-outline-dark" %> <br>
+      <%= link_to "利用者記事一覧", learner_articles_path, class: "btn btn-outline-dark" %> <br>
+      <%= link_to "利用者映画検索", learner_search_path, class: "btn btn-outline-dark" %> <br>
+      <%= link_to "利用者新規投稿", new_learner_article_path, class: "btn btn-outline-dark" %> <br>
+      <%= link_to "tipcorn", learner_tipcorn_path, class: "btn btn-outline-dark" %> <br>
+      <%= link_to "管理者トップ", admin_root_path, class: "btn btn-outline-danger" %> <br>
+      <%= link_to "管理者利用者一覧", admin_users_path, class: "btn btn-outline-danger" %> <br>
+      <%= link_to "管理者記事一覧", admin_articles_path, class: "btn btn-outline-danger" %> <br>
+      <%= link_to "管理者コメント一覧", admin_comments_path, class: "btn btn-outline-danger" %> <br>
+      <%= link_to "管理者タグ一覧", admin_tags_path, class: "btn btn-outline-danger" %> <br>
       <% if current_learner_user %>
-        <%= link_to "マイページ", learner_user_path(current_learner_user) %>
+        <%= link_to "マイページ", learner_user_path(current_learner_user), class: "btn btn-outline-info" %><br>
       <% end %>
-      <%= link_to "ユーザサインイン", new_learner_user_registration_path, method: :post %> <br>
-      <%= link_to "ユーザログイン", new_learner_user_session_path, method: :post %> <br>
-      <%= link_to "ユーザログアウト", destroy_learner_user_session_path, method: :delete %> <br>
-      <%= link_to "管理者ログイン", new_admin_admin_session_path, method: :post %> <br>
-      <%= link_to "管理者ログアウト", destroy_admin_admin_session_path, method: :delete %> <br>
+      <%= link_to "ユーザサインイン", new_learner_user_registration_path, class: "btn btn-outline-primary" %> <br>
+      <%= link_to "ユーザログイン", new_learner_user_session_path, class: "btn btn-outline-primary" %> <br>
+      <%= link_to "ユーザログアウト", destroy_learner_user_session_path, class: "btn btn-outline-primary", method: :delete %> <br>
+      <%= link_to "管理者ログイン", new_admin_admin_session_path, class: "btn btn-outline-danger" %> <br>
+      <%= link_to "管理者ログアウト", destroy_admin_admin_session_path, class: "btn btn-outline-danger", method: :delete %> <br>
 
 <%
 =begin %>
