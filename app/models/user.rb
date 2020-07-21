@@ -9,7 +9,35 @@ class User < ApplicationRecord
   has_many :articles, dependent: :destroy
   attachment :image
 
-# ユーザーサインインの方法をOAuth連携
+# ユーザーテーブルの中から、SNSからユーザーの情報を取得し、以前に登録されているか否かで条件分岐
+# callbackに渡すデータを選定する
+  def self.find_oauth(auth)
+    uid = auth.uid #SNS情報からuidを取り出す
+    provider = auth.provider　#SNS情報からproviderを取り出す
+    snscredential = SnsCredential.where(uid: uid, provider: provider).first #以前に登録していないか確認
+    if snscredential.present?
+      user = with_sns_data(auth, snscredential)[:user] #登録していたらそれを使って
+      sns = snscredential
+    else
+      user = without_sns_data(auth)[:user]
+      sns = without_sns_data(auth)[:sns]
+    end
+    return { user: user ,sns: sns}
+  end
+
+# SnsCredentialに以前登録された記録がない場合
+  def self.with_sns_data(auth, snscredential)
+    user = User.where(id: snscredential.user_id).first
+    unless user.present?
+      user = User.new(
+        name: auth.info.name,
+        email: auth.info.email,
+      )
+    end
+    return {user: user}
+  end
+
+# SnsCredentialに以前登録された記録がない場合
   def self.without_sns_data(auth)
     user = User.where(email: auth.info.email).first
     if user.present?
@@ -20,38 +48,13 @@ class User < ApplicationRecord
       )
     else
       user = User.new(
-        nickname: auth.info.name,
+        name: auth.info.name,
         email: auth.info.email,
       )
       sns = SnsCredential.new(
         uid: auth.uid,
         provider: auth.provider
       )
-    end
-    return { user: user ,sns: sns}
-  end
-
-  def self.with_sns_data(auth, snscredential)
-    user = User.where(id: snscredential.user_id).first
-    unless user.present?
-      user = User.new(
-        nickname: auth.info.name,
-        email: auth.info.email,
-      )
-    end
-    return {user: user}
-  end
-
-  def self.find_oauth(auth)
-    uid = auth.uid
-    provider = auth.provider
-    snscredential = SnsCredential.where(uid: uid, provider: provider).first
-    if snscredential.present?
-      user = with_sns_data(auth, snscredential)[:user]
-      sns = snscredential
-    else
-      user = without_sns_data(auth)[:user]
-      sns = without_sns_data(auth)[:sns]
     end
     return { user: user ,sns: sns}
   end

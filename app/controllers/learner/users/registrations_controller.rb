@@ -12,13 +12,9 @@ class Learner::Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
-    password = Devise.friendly_token.first(6)
-    if session[:provider].present? && session[:uid].present?
-      @user = User.create(nickname:session[:nickname], email: session[:email], password: "password", password_confirmation: "password", f_name_kana: session[:f_name_kana],l_name_kana: session[:l_name_kana], f_name_kanji: session[:f_name_kanji], l_name_kanji: session[:l_name_kanji], birthday: session[:birthday], tel: params[:user][:tel])
-      sns = SnsCredential.create(user_id: @user.id,uid: session[:uid], provider: session[:provider])
-    else
-      @user = User.create(nickname:session[:nickname], email: session[:email], password: session[:password], password_confirmation: session[:password_confirmation], f_name_kana: session[:f_name_kana],l_name_kana: session[:l_name_kana], f_name_kanji: session[:f_name_kanji], l_name_kanji: session[:l_name_kanji], birthday: session[:birthday], tel: params[:user][:tel])
-    end
+    sns = SnsCredential.new(session[:sns])
+    sns.user_id = resource.id
+    sns.save
   end
 
   # GET /resource/edit
@@ -60,8 +56,7 @@ class Learner::Users::RegistrationsController < Devise::RegistrationsController
   # The path used after sign up.
   def after_sign_up_path_for(resource)
     super(resource)
-    byebug
-    learner_root_path
+    root_path
   end
 
   # The path used after sign up for inactive accounts.
