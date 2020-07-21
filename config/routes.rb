@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       }
       
     end
+    get 'users/welcome' => 'users#welcome', as: 'welcome'
     resources :users, only: [:show, :edit]
     get 'articles/search' => 'articles#search', as: 'search'
     get 'articles/tipcorn' => 'articles#tipcorn', as: 'tipcorn'

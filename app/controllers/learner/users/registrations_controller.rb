@@ -10,12 +10,9 @@ class Learner::Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  def create
-    super
-    sns = SnsCredential.new(session[:sns])
-    sns.user_id = resource.id
-    sns.save
-  end
+  # def create
+  #   super
+  # end
 
   # GET /resource/edit
   # def edit
@@ -56,7 +53,11 @@ class Learner::Users::RegistrationsController < Devise::RegistrationsController
   # The path used after sign up.
   def after_sign_up_path_for(resource)
     super(resource)
-    root_path
+    if resource.language.blank?
+      learner_welcome_path
+    else
+      root_path
+    end
   end
 
   # The path used after sign up for inactive accounts.
