@@ -15,13 +15,13 @@ Rails.application.routes.draw do
     end
     get 'users/welcome' => 'users#welcome', as: 'welcome'
     resources :users, only: [:show, :edit]
-    get 'articles/search' => 'articles#search', as: 'search'
     get 'articles/tipcorn' => 'articles#tipcorn', as: 'tipcorn'
+    get 'movies/search' => 'movies#search', as: 'search'
+    resources :movies
     resources :articles do
-      resources :comments, only: [:create, :destroy]
+      resources :comments, only: [:index, :create, :destroy]
     end
     resources :favorites, only: [:create, :destroy]
-    resources :movies, only: [:create]
   end
   
 # 管理者
