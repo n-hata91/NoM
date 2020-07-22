@@ -1,0 +1,52 @@
+<h1>映画検索</h1>
+<p>インクリメンタルサーチ、非同期でスムーズにAPI結果を表示</p>
+<div class="jumbotron jumbotron-fluid m-0 search d-flex justify-content-center align-items-center">
+  <input type="text">
+  <button class="btn btn-info">映画を検索</button>
+</div>
+
+<%# 映画カード %>
+<% @movies.each do |movie| %>
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <%= attachment_image_tag(movie, :image_id, size: "120x120", fallback: "no_image.jpg") %>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <%= link_to new_learner_article_path(movie.id) do %>
+            <h5 class="card-title"><%= movie.title %></h5>
+            <%= movie.overview %>
+          <% end %>
+          
+          <!-- あらすじモーダル -->
+          <!-- モーダルボタン -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop_<%= movie.id %>">
+            あらすじ
+          </button>
+
+          <!-- モーダル -->
+          <div class="modal fade" id="staticBackdrop_<%= movie.id %>" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel"><%= movie.title %></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <%= movie.overview %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

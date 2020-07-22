@@ -5,13 +5,13 @@
 <div class="card mb-3" style="max-width: 1200px;">
   <div class="row no-gutters">
     <div class="col-md-3">
-      <%= attachment_image_tag(session[:movie], :image_id, size: "215x340", fallback: "no_image.jpg") %>
+      <%= attachment_image_tag(@movie, :image_id, size: "215x340", fallback: "no_image.jpg") %>
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 id="MovieTitle" class="card-title"><%= session[:movie].title %></h5>
-        <p class="card-text"><%= session[:movie].overview %></p>
-        <p class="card-text"><small class="text-muted"><%= session[:movie].created_at %></small></p>
+        <h5 id="MovieTitle" class="card-title"><%= @movie.title %></h5>
+        <p class="card-text"><%= @movie.overview %></p>
+        <p class="card-text"><small class="text-muted"><%= @movie.created_at %></small></p>
       </div>
     </div>
   </div>
@@ -26,7 +26,7 @@
     <div class="col-md-8">
       <div class="card-body">
         <h4 class="card-title">記事入力</h4>
-        <%= form_with model:@articles, url: learner_articles_path, local: true do |f| %>
+        <%= form_with model: @article, url: learner_articles_path, local: true do |f| %>
           <%= f.label :title, "タイトル" %>
           <%= f.text_field :title %><br>
           <%= f.label :content, "内容" %>
@@ -34,26 +34,26 @@
 
           <div class="rate-range">
             <%= f.label :difficulty, "難易度" %>
-            <%= f.range_field :difficulty, in: 1..5 %>
+            <%= f.range_field :difficulty, in: 1..5, id:"difficulty" %>
             <span id="value"></span>
           </div>
           <div class="rate-range">
             <%= f.label :length, "映画の長さ" %>
-            <%= f.range_field :length, in: 1..5 %>
+            <%= f.range_field :length, in: 1..5, id:"length" %>
             <span id="value"></span>
           </div>
           <div class="rate-range">
             <%= f.label :practicality, "実用性" %>
-            <%= f.range_field :practicality, in: 1..5 %>
+            <%= f.range_field :practicality, in: 1..5, id:"practicality" %>
             <span id="value"></span>
           <div class="rate-range">
             <%= f.label :speed, "スピード" %>
-            <%= f.range_field :speed, in: 1..5 %>
+            <%= f.range_field :speed, in: 1..5, id:"speed" %>
             <span id="value"></span>
           </div>
           <div class="rate-range">
             <%= f.label :accent, "発音のクセ" %>
-            <%= f.range_field :accent, in: 1..5 %>
+            <%= f.range_field :accent, in: 1..5, id:"accent" %>
             <span id="value"></span>
           </div>
           <div class="rate-range">
@@ -61,6 +61,7 @@
             <%= f.range_field :rate, in: 1..5 %>
             <span id="value"></span>
           </div>
+          <%= f.hidden_field :movie_id, value: @movie.id %>
           <%= f.submit "送信", class: "btn btn-outline-info" %>
         <% end %>
       </div>
@@ -73,9 +74,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
 <%# レンジバーの描写 %>
 <script>
+(function() {
   var params = document.getElementsByClassName('rate-range'); // の増減
   var rate = function (params, stars) {
-
     return function(evt) {
       apple = ""
       stars.innerHTML = apple.repeat( params.value );
@@ -89,11 +90,11 @@
       var paramater = ["難易度", "長さ", "実用性", "早さ", "クセ"]
       var data = [difficulty, length, practicality, speed, accent]
       var myRadarChart = new Chart(ctx, {
-          type: 'radar', 
+        type: 'radar', 
           data: { 
-          labels: paramater,
+            labels: paramater,
             datasets: [{
-                  label: movie_title.textContent,
+              label: movie_title.textContent,
                   data: data,
                   backgroundColor: 'RGBA(225,95,150, 0.5)',
                   pointBackgroundColor: 'RGB(46,106,177)',
@@ -102,17 +103,17 @@
               }]
           },
           options: {
-              title: {
-                  display: true,
+            title: {
+              display: true,
                   text: "評価"
               },
               scale:{
-                  ticks:{
-                      suggestedMin: 0,
+                ticks:{
+                  suggestedMin: 0,
                       suggestedMax: 5,
                       stepSize: 1,
                       callback: function(value, index, values){
-                          return  value
+                        return  value
                       }
                   }
               }
@@ -121,9 +122,9 @@
     }
   }
   for(var i = 0, max = params.length; i < max; i++){
-    input_bar = params[i].getElementsByTagName('input')[0];
+    range_bar = params[i].getElementsByTagName('input')[0];
     stars = params[i].getElementsByTagName('span')[0];
-    input_bar.addEventListener('input', rate(input_bar, stars));
+    range_bar.addEventListener('input', rate(range_bar , stars));
   }
-
+}());
   </script>

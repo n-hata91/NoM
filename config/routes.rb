@@ -15,12 +15,11 @@ Rails.application.routes.draw do
     end
     get 'users/welcome' => 'users#welcome', as: 'welcome'
     resources :users, only: [:show, :edit]
-    get 'articles/search' => 'articles#search', as: 'search'
     get 'articles/tipcorn' => 'articles#tipcorn', as: 'tipcorn'
-    resources :movies do
-      resources :articles do
-        resources :comments, only: [:index, :create, :destroy]
-      end
+    get 'movies/search' => 'movies#search', as: 'search'
+    resources :movies
+    resources :articles do
+      resources :comments, only: [:index, :create, :destroy]
     end
     resources :favorites, only: [:create, :destroy]
   end
