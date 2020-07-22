@@ -17,11 +17,12 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :edit]
     get 'articles/search' => 'articles#search', as: 'search'
     get 'articles/tipcorn' => 'articles#tipcorn', as: 'tipcorn'
-    resources :articles do
-      resources :comments, only: [:create, :destroy]
+    resources :movies do
+      resources :articles do
+        resources :comments, only: [:index, :create, :destroy]
+      end
     end
     resources :favorites, only: [:create, :destroy]
-    resources :movies, only: [:create]
   end
   
 # 管理者

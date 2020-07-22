@@ -8,11 +8,34 @@ class Learner::ArticlesController < ApplicationController
   end
 
   def new
+    session[:movie] = Movie.find(params[:format])
+    @article = Article.new
   end
 
+  def create
+    # @movie = Movie.find(params[:movie_id])
+    byebug
+    @article = current_learner_user.articles.new(article_params)
+    @article.movie_id = session[:movie]["id"]
+    if @article.save
+      flash[:success] = "Articel successfully created"
+      redirect_to root_path
+    else
+      flash[:error] = "Something went wrong"
+      render 'new'
+    end
+  end
+  
+
   def search
+    @movies = Movie.all.shuffle
   end
 
   def tipcorn
+  end
+
+  private
+  def article_params
+    params.require(:article).permit(:user_id, :movie_id, :title, :content, :rate, :difficulty, :length, :practicality, :speed, :accent)
   end
 end
