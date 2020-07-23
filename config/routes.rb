@@ -11,15 +11,16 @@ Rails.application.routes.draw do
         registrations: 'learner/users/registrations',
         omniauth_callbacks: 'learner/users/omniauth_callbacks'
       }
-      
     end
     get 'users/welcome' => 'users#welcome', as: 'welcome'
-    resources :users, only: [:show, :edit]
-    get 'articles/tipcorn' => 'articles#tipcorn', as: 'tipcorn'
     get 'movies/search' => 'movies#search', as: 'search'
-    resources :movies
-    resources :articles do
-      resources :comments, only: [:index, :create, :destroy]
+    get 'articles/index' => 'articles#index', as: 'articles'
+    get 'articles/tipcorn' => 'articles#tipcorn', as: 'tipcorn'
+    resources :users, only: [:show, :edit]
+    resources :movies do
+      resources :articles do
+        resources :comments, only: [:index, :create, :destroy]
+      end
     end
     resources :favorites, only: [:create, :destroy]
   end

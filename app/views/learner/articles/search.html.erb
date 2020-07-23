@@ -1,3 +1,5 @@
+<%
+=begin %>
 <h1>映画検索</h1>
 <p>インクリメンタルサーチ、非同期でスムーズにAPI結果を表示</p>
 <div class="jumbotron jumbotron-fluid m-0 search d-flex justify-content-center align-items-center">
@@ -10,11 +12,11 @@
   <div class="card mb-3" style="max-width: 540px;">
     <div class="row no-gutters">
       <div class="col-md-4">
-        <%= attachment_image_tag(movie, :image_id, size: "120x120", fallback: "no_image.jpg") %>
+        <%= image_tag movie.image_id, size: '200x300' %>
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <%= link_to new_learner_article_path(movie.id) do %>
+          <%= link_to new_learner_movie_article_path(movie.id) do %>
             <h5 class="card-title"><%= movie.title %></h5>
             <%= movie.overview %>
           <% end %>
@@ -50,3 +52,5 @@
     </div>
   </div>
 <% end %>
+<%
+=end %>

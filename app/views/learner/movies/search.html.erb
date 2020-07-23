@@ -1,47 +1,10 @@
 <h1>映画検索</h1>
 <p>インクリメンタルサーチ、非同期でスムーズにAPI結果を表示</p>
 <div class="jumbotron jumbotron-fluid m-0 search d-flex justify-content-center align-items-center">
-  <input type="text">
-  <button class="btn btn-info">映画を検索</button>
+  <%= form_with model: @movie, url:learner_movies_path do |f| %>
+    <%= f.text_field :search_word %>
+    <%= f.submit "検索", id: "search_btn", class: "btn btn-success" %>
+  <% end %>
 </div>
-
-<%# APIハンズオン %>
-<h3>映画検索</h3>
-    <label>キーワード</label>
-    <input id="search_word" type="text" size="14" maxlength="14" placeholder="タイトルで検索">
-    <button id="search_btn">検索</button><br>
-    <div id="movie_list"></div>
-
-<script>
-$(function(){
-  $('#search_btn').on('click', function() {
-  $('.btn-info').text('jQ working');
-// 入力されたキーワードでWebAPIに映画情報をリクエスト
-    $.ajax({
-      // エンコード
-      // search_word = $('#search_word').val()
-      // var componented = encodeURIComponent(search_word);
-      // url指定
-      // url: "https://api.themoviedb.org/3/search/movie?api_key=ENV['TMDB_API_KEY']&language=ja&query=" + componented + "&include_adult=false",
-      // url: "https://api.themoviedb.org/3/search/movie?api_key=ENV['TMDB_API_KEY']&language=ja&query=%E3%83%90%E3%83%BC%E3%83%AC%E3%82%B9%E3%82%AF&include_adult=false",
-      url: "https://api.themoviedb.org/3/search/movie?api_key=bfa8b90085cfbcbbb443eeacf4d3422e&language=ja&query=%E9%9B%A8&include_adult=false",
-      // 受け取るデータの型
-      dataType : 'jsonp',
-    }).done(function (data){
-       data.results.map(movie => {
-         //通信成功
-      // タイトル
-      $('<h4>', { class:'fuga', text:`タイトル: ${movie.title}` }).appendTo('#movie_list');
-      // あらすじ
-      $('<div>', { class:'fuga', text:`あらすじ: ${movie.overview}` }).appendTo('#movie_list');
-      // パンフレット画像
-      $('<img>', { src:`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${movie.poster_path}`, text:`画像: ${movie.poster_path}` }).appendTo('#movie_list');
-      $('<div>', { id:`${movie.id}`, text:`id: ${movie.id}` }).appendTo('#movie_list');
-      });
-    }).fail(function (data) {
-      //通信失敗
-    });
-  });
-});
-</script>
+<div id="movie_list" class="row"></div>
 
