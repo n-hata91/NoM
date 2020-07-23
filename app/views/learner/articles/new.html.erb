@@ -1,11 +1,10 @@
 <h1>新規投稿</h1>
 <p>Find me in app/views/learner/articles/new.html.erb</p>
-
 <%# 投稿映画情報 %>
 <div class="card mb-3" style="max-width: 1200px;">
   <div class="row no-gutters">
     <div class="col-md-3">
-      <%= attachment_image_tag(@movie, :image_id, size: "215x340", fallback: "no_image.jpg") %>
+      <%= image_tag @movie.image_id, size: '200x300' %>
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -26,7 +25,7 @@
     <div class="col-md-8">
       <div class="card-body">
         <h4 class="card-title">記事入力</h4>
-        <%= form_with model: @article, url: learner_articles_path, local: true do |f| %>
+        <%= form_with model: @article, url: learner_movie_articles_path do |f| %>
           <%= f.label :title, "タイトル" %>
           <%= f.text_field :title %><br>
           <%= f.label :content, "内容" %>

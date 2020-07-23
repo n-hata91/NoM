@@ -4,6 +4,7 @@
     <title>NoM</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= Gon::Base.render_data %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -14,7 +15,6 @@
       <%= link_to "利用者トップ", root_path, class: "btn btn-outline-dark" %> <br>
       <%= link_to "利用者記事一覧", learner_articles_path, class: "btn btn-outline-dark" %> <br>
       <%= link_to "利用者映画検索", learner_search_path, class: "btn btn-outline-dark" %> <br>
-      <%= link_to "利用者新規投稿", new_learner_article_path, class: "btn btn-outline-dark" %> <br>
       <%= link_to "tipcorn", learner_tipcorn_path, class: "btn btn-outline-dark" %> <br>
       <%= link_to "管理者トップ", admin_root_path, class: "btn btn-outline-danger" %> <br>
       <%= link_to "管理者利用者一覧", admin_users_path, class: "btn btn-outline-danger" %> <br>

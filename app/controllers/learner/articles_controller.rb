@@ -8,7 +8,7 @@ class Learner::ArticlesController < ApplicationController
   end
 
   def new
-    @movie = Movie.find(params[:format])
+    @movie = Movie.find(params[:movie_id])
     @article = Article.new
   end
 

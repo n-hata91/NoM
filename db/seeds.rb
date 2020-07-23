@@ -29,24 +29,31 @@ User.create!(
 end
 
 # 映画
-5.times do |n|
-  title = Faker::Movie.title
-  content = Faker::Lorem.sentence
-  Movie.create!(
-    title: title,
-    overview: content,
-  )
-end
+require 'net/http'
+require 'uri'
+require 'json'
+  uri = URI.parse("https://api.themoviedb.org/3/search/movie?api_key=#{ENV['TMDB_API_KEY']}&language=ja&query=%E3%82%A6%E3%82%A9%E3%83%BC%E3%83%AB&include_adult=false")
+  json = Net::HTTP.get(uri)
+  result = JSON.parse(json)
+  jsonMovies = result["results"]
+  jsonMovies.each do |movie|
+    Movie.create!(
+      title: movie["title"],
+      overview: movie["overview"],
+      image_id: "https://image.tmdb.org/t/p/w500#{movie["poster_path"]}"
+    )
+  end
 
 # 記事
 2.times do |n|
   users = User.all[1..15]
   users.each do |user|
-    title = "【#{user.language}】おもしろい"
-    content = "【#{user.language}】#{user.name}とても勉強になります。"
+    movie_id = rand(1..5)
+    title = "【#{user.language}】#{Movie.find(movie_id).title}は勉強になります。"
+    content = "【#{user.language}】内容も良くて楽しみながら勉強できます。#{user.name}"
     rate = rand(1..5)
     user.articles.create!(
-      movie_id: rand(1..4),
+      movie_id: movie_id,
       title: title,
       content: content,
       rate: rate,

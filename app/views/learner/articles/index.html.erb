@@ -5,15 +5,16 @@
   <div class="card mb-3" style="max-width: 540px;">
     <div class="row no-gutters">
       <div class="col-md-4">
-        <img src="no_image.jpg" class="card-img" alt="...">
+        <%= image_tag article.movie.image_id, size: "200x300" %>
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <%= link_to learner_article_path(article) do %>
+          <%= link_to learner_movie_article_path(article.movie_id, article) do %>
             <h5 class="card-title"><%= article.movie.title %></h5>
           <% end %>
           <h5 class="card-title"><%= article.title %></h5>
           <p class="card-text"><%= article.content %></p>
+            <p class="card-text"><%= article.rate %></p>
           <%= link_to learner_user_path(article.user) do %>
             <p class="card-text"><%= article.user.name %></p>
           <% end %>
