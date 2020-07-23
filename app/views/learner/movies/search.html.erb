@@ -5,48 +5,43 @@
   <button class="btn btn-info">映画を検索</button>
 </div>
 
-<%# 映画カード %>
-<% @movies.each do |movie| %>
-  <div class="card mb-3" style="max-width: 540px;">
-    <div class="row no-gutters">
-      <div class="col-md-4">
-        <%= attachment_image_tag(movie, :image_id, size: "120x120", fallback: "no_image.jpg") %>
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <%= link_to new_learner_article_path(movie.id) do %>
-            <h5 class="card-title"><%= movie.title %></h5>
-            <%= movie.overview %>
-          <% end %>
-          
-          <!-- あらすじモーダル -->
-          <!-- モーダルボタン -->
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop_<%= movie.id %>">
-            あらすじ
-          </button>
+<%# APIハンズオン %>
+<h3>映画検索</h3>
+    <label>キーワード</label>
+    <input id="search_word" type="text" size="14" maxlength="14" placeholder="タイトルで検索">
+    <button id="search_btn">検索</button><br>
+    <div id="movie_list"></div>
 
-          <!-- モーダル -->
-          <div class="modal fade" id="staticBackdrop_<%= movie.id %>" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabel"><%= movie.title %></h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <%= movie.overview %>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
+<script>
+$(function(){
+  $('#search_btn').on('click', function() {
+  $('.btn-info').text('jQ working');
+// 入力されたキーワードでWebAPIに映画情報をリクエスト
+    $.ajax({
+      // エンコード
+      // search_word = $('#search_word').val()
+      // var componented = encodeURIComponent(search_word);
+      // url指定
+      // url: "https://api.themoviedb.org/3/search/movie?api_key=ENV['TMDB_API_KEY']&language=ja&query=" + componented + "&include_adult=false",
+      // url: "https://api.themoviedb.org/3/search/movie?api_key=ENV['TMDB_API_KEY']&language=ja&query=%E3%83%90%E3%83%BC%E3%83%AC%E3%82%B9%E3%82%AF&include_adult=false",
+      url: "https://api.themoviedb.org/3/search/movie?api_key=bfa8b90085cfbcbbb443eeacf4d3422e&language=ja&query=%E9%9B%A8&include_adult=false",
+      // 受け取るデータの型
+      dataType : 'jsonp',
+    }).done(function (data){
+       data.results.map(movie => {
+         //通信成功
+      // タイトル
+      $('<h4>', { class:'fuga', text:`タイトル: ${movie.title}` }).appendTo('#movie_list');
+      // あらすじ
+      $('<div>', { class:'fuga', text:`あらすじ: ${movie.overview}` }).appendTo('#movie_list');
+      // パンフレット画像
+      $('<img>', { src:`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${movie.poster_path}`, text:`画像: ${movie.poster_path}` }).appendTo('#movie_list');
+      $('<div>', { id:`${movie.id}`, text:`id: ${movie.id}` }).appendTo('#movie_list');
+      });
+    }).fail(function (data) {
+      //通信失敗
+    });
+  });
+});
+</script>
 
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
