@@ -1,10 +1,7 @@
 class Relation < ApplicationRecord
-  has_many :follow_to, class_name: "Relation",
-                        foreign_key: "follower_id",
-                        dependent: :destroy
-  has_many :follow_from, class_name: "Relation",
-                        foreign_key: "followed_id",
-                        dependent: :destroy
-  has_many :following, through: :follow_to, source: :followed
-  has_many :followers, through: :follow_from, source: :follower
+  belongs_to :follower, class_name: "User"
+  belongs_to :followed, class_name: "User"
+  validates :follower_id, presence: true
+  validates :followed_id, presence: true
+  
 end
