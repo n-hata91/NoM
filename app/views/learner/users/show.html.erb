@@ -2,11 +2,6 @@
 <h1>or</h1>
 <h1>ユーザー詳細</h1>
 <p>Find me in app/views/learner/users/show.html.erb</p>
-
-<%# 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 %>
-<%# 　　　自分と他ユーザとのページをパーシャルを使って分ける　　　 %>
-<%# 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 %>
-
 <%# プロフィール %>
 <table class="table">
   <thead class="thead-dark">
@@ -44,32 +39,30 @@
     </tr>
   </tbody>
 </table>
-
 <%# フォローボタン %>
-
+<%= render 'follow_form', user: @user %>
 <%# フォロワー %>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="follow-tab" data-toggle="tab" href="#follow" role="tab" aria-controls="follow" aria-selected="true">フォロー 人</a>
+    <a class="nav-link active" id="follower-tab" data-toggle="tab" href="#follower" role="tab" aria-controls="follower" aria-selected="false">フォロワー <%= @user.followers.count %> 人</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="follower-tab" data-toggle="tab" href="#follower" role="tab" aria-controls="follower" aria-selected="false">フォロワー 人</a>
+    <a class="nav-link" id="follow-tab" data-toggle="tab" href="#follow" role="tab" aria-controls="follow" aria-selected="true">フォロー <%= @user.following.count %> 人</a>
   </li>
-
 </ul>
 <div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="follow" role="tabpanel" aria-labelledby="follow-tab">
-<% @follows.each do |follow| %>
-  <%= link_to learner_user_path(follow) do %>
-    <%= follow.name %><br>
-  <% end %>
-<% end %>
+  <div class="tab-pane fade" id="follow" role="tabpanel" aria-labelledby="follow-tab">
+    <% @follows.each do |follow| %>
+      <%= link_to learner_user_path(follow) do %>
+        <%= follow.name %><br>
+      <% end %>
+    <% end %>
   </div>
-  <div class="tab-pane fade" id="follower" role="tabpanel" aria-labelledby="follower-tab">
-<% @followers.each do |follower| %>
-  <%= link_to learner_user_path(follower) do %>
-    <%= follower.name %><br>
-  <% end %>
-<% end %>
+  <div class="tab-pane fade show active" id="follower" role="tabpanel" aria-labelledby="follower-tab">
+    <% @followers.each do |follower| %>
+      <%= link_to learner_user_path(follower) do %>
+        <%= follower.name %><br>
+      <% end %>
+    <% end %>
   </div>
 </div>

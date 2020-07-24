@@ -2,12 +2,37 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :validatable,
-  :omniauthable, omniauth_providers: %i[facebook google_oauth2]
-  
+          :recoverable, :rememberable, :validatable,
+          :omniauthable, omniauth_providers: %i[facebook google_oauth2]
   has_many :sns_credentials, dependent: :destroy
   has_many :articles, dependent: :destroy
   attachment :image
+
+  has_many :follow_to, class_name:  "Relation",
+                                  foreign_key: "follower_id",
+                                  dependent:   :destroy
+  has_many :follow_from, class_name:  "Relation",
+                                  foreign_key: "followed_id",
+                                  dependent:   :destroy
+  has_many :following, through: :follow_to,  source: :followed
+  has_many :followers, through: :follow_from, source: :follower #source 不要
+
+  validates :name, presence: true, length: {maximum: 10, minimum: 2}
+  validates :introduction, length: {maximum: 50}
+  has_many :favorites
+
+# フォロー機能
+  def follow(other_user)
+    following << other_user
+  end
+
+  def unfollow(other_user)
+    self.follow_to.find_by(followed_id: other_user.id).destroy
+  end
+
+  def following?(other_user)
+    following.include?(other_user)
+  end
 
 # ユーザーテーブルの中から、SNSからユーザーの情報を取得し、以前に登録されているか否かで条件分岐
 # callbackに渡すデータを選定する
