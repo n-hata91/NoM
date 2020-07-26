@@ -1,2 +1,148 @@
 <h1>管理者　top</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+
+<%# 登録者数 %>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" colspan="4">利用者数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row" colspan="2">累計</th>
+      <td><%= @users.count %></td>
+      <td>Otto</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>本日登録者数</td>
+      <td><%= @users_today.nil? ? 0 : @users_today.count %></td>
+      <td>@fat</td>
+    </tr>
+  </tbody>
+</table>
+
+<%# 投稿数 %>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col" colspan="4">投稿記事</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row" colspan="2">累計</th>
+      <td><%= @articles.count %></td>
+      <td>Otto</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>投稿数（本日）</td>
+      <td><%= @articles_today.nil? ? 0 : @articles_today.count %></td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>映画記事</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>tipcorn</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+
+<%# コメント %>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" colspan="4">コメント</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row" colspan="2">累計</th>
+      <td><%= @comments.count %></td>
+      <td>Otto</td>
+
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>コメント数（本日）</td>
+      <td><%= @comments_today.nil? ? 0 : @comments_today.count %></td>
+      <td>@fat</td>
+    </tr>
+  </tbody>
+</table>
+
+<%# タグ %>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col" colspan="4">タグ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row" colspan="2">累計</th>
+      <td><%= @tags.count %></td>
+      <td>Otto</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>投稿数（本日）</td>
+      <td><%= @tags_today.nil? ? 0 : @tags_today.count %></td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>映画記事</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>tipcorn</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+<%# 予備 %>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" colspan="4">人気</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">累計</th>
+      <td>累計投稿記事数</td>
+      <td>Otto</td>
+      <td>Otto</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>投稿数（本日）</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>映画記事</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>tipcorn</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>

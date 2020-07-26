@@ -10,15 +10,16 @@ class User < ApplicationRecord
 
   has_many :follow_to, class_name:  "Relation",
                                   foreign_key: "follower_id",
-                                  dependent:   :destroy
+                                  dependent:  :destroy
   has_many :follow_from, class_name:  "Relation",
                                   foreign_key: "followed_id",
-                                  dependent:   :destroy
+                                  dependent:  :destroy
   has_many :following, through: :follow_to,  source: :followed
   has_many :followers, through: :follow_from, source: :follower #source 不要
 
-  validates :name, presence: true, length: {maximum: 10, minimum: 2}
+  validates :name, presence: true, length: {maximum: 50, minimum: 2}
   validates :introduction, length: {maximum: 50}
+  has_many :comments
   has_many :favorites
 
 # フォロー機能
@@ -34,11 +35,12 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+# OAuth認証
 # ユーザーテーブルの中から、SNSからユーザーの情報を取得し、以前に登録されているか否かで条件分岐
 # callbackに渡すデータを選定する
   def self.find_oauth(auth)
     uid = auth.uid #SNS情報からuidを取り出す
-    provider = auth.provider　#SNS情報からproviderを取り出す
+    provider = auth.provider #SNS情報からproviderを取り出す
     snscredential = SnsCredential.where(uid: uid, provider: provider).first #以前に登録していないか確認
     if snscredential.present?
       user = with_sns_data(auth, snscredential)[:user] #登録していたらそれを使って
@@ -49,7 +51,6 @@ class User < ApplicationRecord
     end
     return { user: user ,sns: sns}
   end
-
 # SnsCredentialに以前登録された記録がない場合
   def self.with_sns_data(auth, snscredential)
     user = User.where(id: snscredential.user_id).first
@@ -61,7 +62,6 @@ class User < ApplicationRecord
     end
     return {user: user}
   end
-
 # SnsCredentialに以前登録された記録がない場合
   def self.without_sns_data(auth)
     user = User.where(email: auth.info.email).first

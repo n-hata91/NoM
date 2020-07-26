@@ -16,6 +16,10 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
+* {
+  font-family: "Montserrat", "游ゴシック", 'Lato', YuGothic, 'Noto Sans JP', "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+}
+
 // learner_top
   .jumbotron {
     background-size: cover;
@@ -53,4 +57,7 @@
     background-position: 50% 50%;
     clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0 100%);
     background-attachment: scroll;
+  }
+  .reply-form {
+    display: none;
   }
