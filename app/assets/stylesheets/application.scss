@@ -27,33 +27,33 @@
     height: 650px;
   }
   .first {
-    background-image: url("language.jpg");
+    background-image: image-url("language.jpg");
     background-position: 0% 0%;
     clip-path: polygon(0 0%, 100% 0, 100% 93%, 0 100%);
   }
   .second {
-    background-image: url("study.jpg");
+    background-image: image-url("study.jpg");
     background-position: 0% 0%;
     clip-path: polygon(0 7%, 100% 0, 100% 100%, 0 93%);
   }
   .third {
-    background-image: url("popcorn.jpg");
+    background-image: image-url("popcorn.jpg");
     background-position: 30% 30%;
     clip-path: polygon(0 0%, 100% 7%, 100% 93%, 0 100%);
   }
   .fourth {
-    background-image: url("chat.jpg");
+    background-image: image-url("chat.jpg");
     background-position: 50% 50%;
     clip-path: polygon(0 7%, 100% 0, 100% 100%, 0 93%);
   }
   .fifth {
-    background-image: url("screen.jpg");
+    background-image: image-url("screen.jpg");
     background-position: 0% 50%;
     clip-path: polygon(0 0%, 100% 7%, 100% 100%, 0 100%);
     background-attachment: scroll;
   }
   .search {
-    background-image: url("screen.jpg");
+    background-image: image-url("screen.jpg");
     background-position: 50% 50%;
     clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0 100%);
     background-attachment: scroll;
