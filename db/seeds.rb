@@ -66,6 +66,34 @@ require 'json'
   end
 end
 
+# コメント
+2.times do |n|
+  users = User.all[1..15]
+  users.each do |user|
+    content = "#{user.name}コメントしました。"
+    user.comments.create!(
+      article_id: rand(1..30),
+      content: content,
+    )
+  end
+end
+# 返信コメント
+2.times do |n|
+  users = User.all[1..15]
+  users.each do |user|
+  content = "#{n}への返信コメント"
+  reply_to = rand(1..30)
+  article = Comment.find(reply_to).article_id
+  user.comments.create!(
+    reply_to: reply_to,
+    article_id: article,
+    content: content
+    )
+  end
+end
+
+
+
 # 言語（確定）
 Language.create!(
   [

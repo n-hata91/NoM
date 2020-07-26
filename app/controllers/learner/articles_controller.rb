@@ -5,6 +5,8 @@ class Learner::ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    @new_comment = Comment.new
+    @comments = @article.comments.order(created_at: "desc")
   end
 
   def new
