@@ -14,3 +14,23 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+//= require jquery3
+//= require popper
+//= require bootstrap
+
+(function() {
+  // 返信フォーム表示
+  $(document).on("click", ".reply-btn", function() {
+    var form_id = $(this).attr('id');
+    $("#show-" + form_id).slideDown();
+    $(".reply_cansel_btn").on("click", function() {
+      $("#show-" + form_id).slideUp();
+      $(".reply-btn").show();
+    });
+  });
+  // 返信リスト表示
+  $(document).on("click", ".show-replies", function() {
+    var list_id = $(this).attr('id');
+    $("#show-" + list_id).slideToggle();
+  });
+}());

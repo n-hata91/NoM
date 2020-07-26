@@ -1,0 +1,68 @@
+<h1>マイページ</h1>
+<h1>or</h1>
+<h1>ユーザー詳細</h1>
+<p>Find me in app/views/learner/users/show.html.erb</p>
+<%# プロフィール %>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">データ1</th>
+      <th scope="col">データ2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">名前　全</th>
+      <td><%= attachment_image_tag @user, :image, size: "50x50", fallback: "no_image.jpg" %></td>
+      <td><%= @user.name %></td>
+    </tr>
+    <tr>
+      <th scope="row">紹介文　全</th>
+      <td><%= @user.introduction %></td>
+      <td>Otto</td>
+    </tr>
+    <tr>
+      <th scope="row">メール　個</th>
+      <td><%= @user.email %></td>
+      <td>Thornton</td>
+    </tr>
+    <tr>
+      <th scope="row">レベル と 言語　全</th>
+      <td><%= @user.level %></td>
+      <td><%= @user.language %></td>
+    </tr>
+    <tr>
+      <th scope="row">投稿記事数　全</th>
+      <td><%= @user.articles.count %></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<%# フォローボタン %>
+<%= render 'follow_form', user: @user %>
+<%# フォロワー %>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="follower-tab" data-toggle="tab" href="#follower" role="tab" aria-controls="follower" aria-selected="false">フォロワー <%= @user.followers.count %> 人</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="follow-tab" data-toggle="tab" href="#follow" role="tab" aria-controls="follow" aria-selected="true">フォロー <%= @user.following.count %> 人</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade" id="follow" role="tabpanel" aria-labelledby="follow-tab">
+    <% @follows.each do |follow| %>
+      <%= link_to learner_user_path(follow) do %>
+        <%= follow.name %><br>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="tab-pane fade show active" id="follower" role="tabpanel" aria-labelledby="follower-tab">
+    <% @followers.each do |follower| %>
+      <%= link_to learner_user_path(follower) do %>
+        <%= follower.name %><br>
+      <% end %>
+    <% end %>
+  </div>
+</div>

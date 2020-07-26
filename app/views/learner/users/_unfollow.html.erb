@@ -1,0 +1,3 @@
+ <%= form_with model:current_learner_user.follow_to.find_by(followed_id: user.id), url:learner_relation_path ,method: :delete do |f| %>
+  <%= f.submit "フォロー中", class: "btn btn-outline-primary" %>
+<% end %>

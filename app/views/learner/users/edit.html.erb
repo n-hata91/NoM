@@ -1,0 +1,15 @@
+<h1>利用者　情報編集</h1>
+<p>Find me in app/views/learner/users/edit.html.erb</p>
+
+<%
+=begin %> 
+<%= form_with model:@user do |f| %>
+  <%= f.attachment_field :image %>
+  <%= f.text_field :name %>
+  <%= f.text_area :introduction %>
+  <%= f.select :level %>
+  <%= f.select :language %>
+  <%= f.submit %>
+<% end %>
+<%
+=end %> 

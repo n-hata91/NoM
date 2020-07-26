@@ -1,0 +1,2 @@
+module Learner::ArticlesHelper
+end
