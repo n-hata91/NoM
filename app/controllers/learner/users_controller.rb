@@ -9,6 +9,7 @@ class Learner::UsersController < ApplicationController
     @user = User.find(params[:id])
     @follows = @user.following
     @followers = @user.followers
+    @articles = Article.where(id: @user.favorites)
   end
 
   def edit

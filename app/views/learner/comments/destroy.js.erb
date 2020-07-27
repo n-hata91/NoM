@@ -1,4 +1,2 @@
-
-<%# 返信削除 %>
 $(".destroy_<%=params[:id]%>").remove();
 $("#list<%=@comment_id%>").html("<%= j("#{@reply_count} 件のコメント") %>");
