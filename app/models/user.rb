@@ -19,8 +19,8 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: {maximum: 50, minimum: 2}
   validates :introduction, length: {maximum: 50}
-  has_many :comments
-  has_many :favorites
+  has_many :comments, dependent:  :destroy
+  has_many :favorites, dependent:  :destroy
 
 # フォロー機能
   def follow(other_user)

@@ -8,10 +8,9 @@ class Learner::CommentsController < ApplicationController
       flash[:success] = "Object successfully created"
       @new_comment = Comment.new
       @comments = @article.comments.order(created_at: "desc")
-      # redirect_to request.referer
     else
       flash[:error] = "Something went wrong"
-      render root_path
+      redirect_to request.referer
     end
   end
 
