@@ -27,87 +27,152 @@ $subtext-color: rgb(55, 108, 206);
   font-family: "Montserrat", "游ゴシック", 'Lato', YuGothic, 'Noto Sans JP', "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
 }
 
-// ドロワー
-.icon-bar {
-  display: block;
-  width: 40px;
-  height: 3px;
-  background: #000;
-  transition: .3s;
+/* サイドバーメニュー */
+.primary-nav {
+	position: fixed;
+	z-index: 9;
+	.menu li {
+		position: relative;
+	}
 }
-.icon-bar + .icon-bar {
-  margin-top: 5px;
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-
-#nav-container:focus-within .button {
-  pointer-events: none;
+.open-panel {
+  border: none;
+  background-color:#fff;
+  padding: 0;
 }
-#nav-container:focus-within .icon-bar:nth-of-type(1) {
-  transform: translate3d(0,8px,0) rotate(45deg);
-}
-#nav-container:focus-within .icon-bar:nth-of-type(2) {
-  opacity: 0;
-}
-#nav-container:focus-within .icon-bar:nth-of-type(3) {
-  transform: translate3d(0,-8px,0) rotate(-45deg);
-}
-
-//-- 開いた時 --//
-#nav-content {
-  margin-top: 70px;
-  padding: 20px;
-  width: 90%;
-  max-width: 300px;
-  position: absolute;
+.hamburger {
+	background: #fff;
+	position: relative;
+	text-align: center;
+	display: block;
+	padding: 13px 0;
+	width: 50px;
+  height: 73px;
   top: 0;
-  left: 0;
-  height: calc(100% - 70px);
-  background: #ececec;
-  pointer-events: auto;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  transform: translateX(-100%);
-  transition: transform .3s;
-  will-change: transform;
-  contain: paint;
+	left: 0;
+	z-index: 10;
+	cursor: pointer;
+	&:hover:before {
+		color: #777;
+	}
+	&:before {
+		content:"\2630";
+		display: block;
+		color: #000;
+		line-height: 32px;
+		font-size: 16px;
+	}
 }
-
-#nav-content ul {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+.open-drower .hamburger:before {
+	content:"\2715";
+	display: block;
+  color: #000;
+  line-height: 32px;
+  font-size: 16px;
 }
-
-#nav-content li a {
-  padding: 10px 5px;
+.menu,
+.menu a,
+.menu a:visited {
+	color: #aaa;
+	text-decoration: none!important;
+	position: relative;
+}
+.menu {
+	position: absolute;
+	display: block;
+	left: -200px;
+  top: 0;
+	width: 250px;
+  transition: all 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+  background-color: rgb(0, 58, 103);
+	margin-bottom: 3em;
+	z-index: 9;
+	.icon {
+		position: absolute;
+		top: 12px;
+		right: 10px;
+		pointer-events: none;
+		width: 24px;
+		height: 24px;
+		color: #fff;
+	}	
+	a {
+		display: block;
+		white-space: nowrap;
+		padding: 1em;
+		font-size: 14px;
+		&:hover {
+			color: #fff;
+		}
+	}	
+	input[type="checkbox"] {
+		display: none;
+	}
+}
+.drower-menu {
+  top: 0;
+  overflow-y: auto;
+	li {
+		.icon {
+			color: #777;
+		}
+		&:hover .icon {
+			color: #fff;
+		}
+	}
+}
+input#menu[type="checkbox"] {
+  display: none;
+}
+#menu:checked + ul.drower-menu {   
+		left: 0;
+    -webkit-animation: all .45s cubic-bezier(0.77, 0, 0.175, 1);
+            animation: all .45s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.overflow-container {
+  position: relative;
+  height: calc(100vh - 73px)!important;
+  overflow-y: auto;
+  border-top: 73px solid #fff;
+  z-index: -1;
+  display:block;
+}
+.menu a.logotype {
+  position: absolute!important;
+  top: 11px;
+  left: 55px;
   display: block;
+  font-family: 'Work Sans', sans-serif;
   text-transform: uppercase;
-  transition: color .1s;
+  font-weight: 800;
+  color: #000;
+  font-size: 21px;
+  padding: 10px;
+	&:hover {
+		color: #777;
+	}
 }
-
-#nav-content li a:hover {
-  color: #BF7497;
+.menu:hover {
+	position: absolute;
+	left: 0;
+	top: 0;
 }
-
-#nav-content li:not(.small) + .small {
-  margin-top: auto;
-}
-
-.small {
-  display: flex;
-  align-self: center;
-}
-
-.small a {
-  font-size: 12px;
-  font-weight: 400;
-  color: #888;
-}
-.small a + a {
-  margin-left: 15px;
-}
-
-#nav-container:focus-within #nav-content {
-  transform: none;
+.open-drower {
+	.menu:hover {
+		position: absolute;
+		left: -200px;
+		top: 73px;
+	}
+	.menu {
+		top: 73px;
+		transform: translate3d(200px, 0, 0);
+    transition: transform .45s cubic-bezier(0.77, 0, 0.175, 1);
+	}
 }
 
 
@@ -131,34 +196,41 @@ $subtext-color: rgb(55, 108, 206);
 // learner_top
   .jumbotron {
     background-size: cover;
-    background-attachment: fixed;
     height: 650px;
   }
-
+  
   .first-image {
-    background-image: image-url("language.jpg");
+    margin-bottom: 500px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1)) ,image-url("language.jpg");
     background-position: 0% 0%;
-    clip-path: polygon(0 0%, 100% 0, 100% 93%, 0 100%);
+    clip-path: polygon(0 0%, 100% 0, 100% 85%, 0 100%);
+    background-attachment: fixed;
   }
   .second-image {
-    background-image: image-url("study.jpg");
-    background-position: 0% 0%;
-    clip-path: polygon(0 7%, 100% 0, 100% 100%, 0 93%);
+    margin-bottom: 500px;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0) 20%, #fff 100%) ,image-url("study.jpg");
+    background-position: 50% 100%;
+    clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 85%);
+    background-attachment: fixed;
   }
   .third-image {
-    background-image: image-url("popcorn.jpg");
-    background-position: 30% 30%;
-    clip-path: polygon(0 0%, 100% 7%, 100% 93%, 0 100%);
+    margin-bottom: 500px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1)) ,image-url("popcorn.jpg");
+    background-position: 70% 50%;
+    clip-path: polygon(0 0%, 100% 15%, 100% 85%, 0 100%);
+    background-attachment: fixed;
   }
   .fourth-image {
-    background-image: image-url("chat.jpg");
+    margin-bottom: 500px;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1)) ,image-url("chat.jpg");
     background-position: 50% 50%;
-    clip-path: polygon(0 7%, 100% 0, 100% 100%, 0 93%);
+    clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 85%);
+    background-attachment: fixed;
   }
   .fifth-image {
     background-image: image-url("screen.jpg");
     background-position: 0% 50%;
-    clip-path: polygon(0 0%, 100% 7%, 100% 100%, 0 100%);
+    clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0 100%);
     background-attachment: scroll;
   }
   .search {

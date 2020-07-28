@@ -8,44 +8,41 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-  
-    <div class="mx-4">
-      <div class="row">
-<div class="col-md-2">
-      <%= link_to "利用者トップ", root_path, class: "btn btn-outline-dark" %> <br>
-      <%= link_to "利用者記事一覧", learner_articles_path, class: "btn btn-outline-dark" %> <br>
-      <%= link_to "利用者映画検索", learner_search_path, class: "btn btn-outline-dark" %> <br>
-      <%= link_to "tipcorn", learner_tipcorn_path, class: "btn btn-outline-dark" %> <br>
-      <%= link_to "管理者トップ", admin_root_path, class: "btn btn-outline-danger" %> <br>
-      <%= link_to "管理者利用者一覧", admin_users_path, class: "btn btn-outline-danger" %> <br>
-      <%= link_to "管理者記事一覧", admin_articles_path, class: "btn btn-outline-danger" %> <br>
-      <%= link_to "管理者コメント一覧", admin_comments_path, class: "btn btn-outline-danger" %> <br>
-      <%= link_to "管理者タグ一覧", admin_tags_path, class: "btn btn-outline-danger" %> <br>
+
+
+<%# ドロワー %>
+<div class="primary-nav">
+  <span class="hamburger open-panel drower-toggle"></span>
+	<nav role="navigation" class="menu">
+		<a href="/" class="logotype">MENU</a>
+		<div class="overflow-container">
+			<ul class="drower-menu">
+				<li><%= link_to "利用者トップ", root_path, class: "btn btn-outline-dark" %><span class="icon"><i></i></span></li>
+      <li><%= link_to "利用者記事一覧", learner_articles_path, class: "btn btn-outline-dark" %><span class="icon"><i></i></span></li>
+      <li><%= link_to "利用者映画検索", learner_search_path, class: "btn btn-outline-dark" %><span class="icon"><i></i></span></li>
+      <li><%= link_to "tipcorn", learner_tipcorn_path, class: "btn btn-outline-dark" %><span class="icon"><i></i></span></li>
+      <li><%= link_to "管理者トップ", admin_root_path, class: "btn btn-outline-danger" %><span class="icon"><i>©</i></span></li>
+      <li><%= link_to "管理者利用者一覧", admin_users_path, class: "btn btn-outline-danger" %><span class="icon"><i>©</i></span></li>
+      <li><%= link_to "管理者記事一覧", admin_articles_path, class: "btn btn-outline-danger" %><span class="icon"><i>©</i></span></li>
+      <li><%= link_to "管理者コメント一覧", admin_comments_path, class: "btn btn-outline-danger" %><span class="icon"><i>©</i></span></li>
+      <li><%= link_to "管理者タグ一覧", admin_tags_path, class: "btn btn-outline-danger" %><span class="icon"><i>©</i></span></li>
       <% if current_learner_user %>
-        <%= link_to "マイページ", learner_user_path(current_learner_user), class: "btn btn-outline-info" %><br>
+        <li><%= link_to "マイページ", learner_user_path(current_learner_user), class: "btn btn-outline-info" %><span class="icon"><i>®</i></span></li>
       <% end %>
-      <%= link_to "ユーザサインイン", new_learner_user_registration_path, class: "btn btn-outline-primary" %> <br>
-      <%= link_to "ユーザログイン", new_learner_user_session_path, class: "btn btn-outline-primary" %> <br>
-      <%= link_to "ユーザログアウト", destroy_learner_user_session_path, class: "btn btn-outline-primary", method: :delete %> <br>
-      <%= link_to "管理者ログイン", new_admin_admin_session_path, class: "btn btn-outline-danger" %> <br>
-      <%= link_to "管理者ログアウト", destroy_admin_admin_session_path, class: "btn btn-outline-danger", method: :delete %> <br>
-
-<%
-=begin %>
-<%= link_to "利用者記事詳細", learner_article_path %> <br>
-<%= link_to "利用者トップ", learner_users_top_path %> <br>
-<%= link_to "利用者情報編集", edit_learner_user_path %> <br>
-<%= link_to "利用者記事編集", edit_learner_article_path %> <br>
-<%= link_to "管理者利用者詳細", admin_user_path %> <br>
-<%= link_to "管理者記事詳細", admin_article_path %> <br>
-<%
-=end %>
-
+      <li><%= link_to "ユーザサインイン", new_learner_user_registration_path, class: "btn btn-outline-primary" %><span class="icon"><i>∂</i></span></li>
+      <li><%= link_to "ユーザログイン", new_learner_user_session_path, class: "btn btn-outline-primary" %><span class="icon"><i>∂</i></span></li>
+      <li><%= link_to "ユーザログアウト", destroy_learner_user_session_path, class: "btn btn-outline-primary", method: :delete %><span class="icon"><i>∂</i></span></li>
+      <li><%= link_to "管理者ログイン", new_admin_admin_session_path, class: "btn btn-outline-danger" %><span class="icon"><i>©</i></span></li>
+      <li><%= link_to "管理者ログアウト", destroy_admin_admin_session_path, class: "btn btn-outline-danger", method: :delete %><span class="icon"><i>©</i></span></li>
+			</ul>
+		</div>
+	</nav>
 </div>
-      <div class="col-md-10">
-    <%= yield %>
-      </div>
-      </div>
-    </div>
+
+
+<div class="container">
+        <%= yield %>
+</div>
+
   </body>
 </html>

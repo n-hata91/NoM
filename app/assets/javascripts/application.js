@@ -18,6 +18,14 @@
 //= require popper
 //= require bootstrap
 
+// サイドバーメニュー
+$(document).on('click','.drower-toggle',function(e) {
+  e.preventDefault();
+  $("html").toggleClass("open-drower");
+  $(".drower-toggle").toggleClass("active");
+});
+
+
 // コメント機能
 (function() {
   // 返信フォーム表示
