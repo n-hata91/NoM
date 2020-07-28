@@ -1,4 +1,19 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'articles/index'
+    get 'articles/show'
+  end
+  namespace :admin do
+    get 'comments/index'
+  end
+  namespace :admin do
+    get 'tags/index'
+  end
+  namespace :admin do
+    get 'users/top'
+    get 'users/index'
+    get 'users/show'
+  end
 # アプリケーション
   scope module: :learner do
     root 'users#top'

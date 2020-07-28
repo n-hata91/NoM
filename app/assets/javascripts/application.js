@@ -18,6 +18,15 @@
 //= require popper
 //= require bootstrap
 
+// サイドバーメニュー
+$(document).on('click','.drower-toggle',function(e) {
+  e.preventDefault();
+  $("html").toggleClass("open-drower");
+  $(".drower-toggle").toggleClass("active");
+});
+
+
+// コメント機能
 (function() {
   // 返信フォーム表示
   $(document).on("click", ".reply-btn", function() {
@@ -33,4 +42,9 @@
     var list_id = $(this).attr('id');
     $("#show-" + list_id).slideToggle();
   });
+}());
+
+// お気に入り機能
+(function () {
+  
 }());

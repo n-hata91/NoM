@@ -1,8 +1,8 @@
 class CreateArticleTags < ActiveRecord::Migration[5.2]
   def change
     create_table :article_tags do |t|
-      t.references :article, foreign_key: true
-      t.references :tag, foreign_key: true
+      t.integer :article_id
+      t.integer :tag_id
 
       t.timestamps
     end

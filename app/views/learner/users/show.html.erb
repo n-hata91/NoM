@@ -39,8 +39,14 @@
     </tr>
   </tbody>
 </table>
+
+
 <%# フォローボタン %>
 <%= render 'follow_form', user: @user %>
+
+<%# お気に入り記事表示 %>
+<%= render 'article_index', articles: @articles %>
+
 <%# フォロワー %>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
