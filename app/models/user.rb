@@ -15,12 +15,15 @@ class User < ApplicationRecord
                                   foreign_key: "followed_id",
                                   dependent:  :destroy
   has_many :following, through: :follow_to,  source: :followed
-  has_many :followers, through: :follow_from, source: :follower #source 不要
+  has_many :followers, through: :follow_from
 
   validates :name, presence: true, length: {maximum: 50, minimum: 2}
   validates :introduction, length: {maximum: 50}
   has_many :comments, dependent:  :destroy
   has_many :favorites, dependent:  :destroy
+  has_many :favorite_articles, through: :favorites, source: :article
+
+  enum level: { '初心者レベル': 0, '初級会話レベル': 1, '日常会話レベル': 2, 'ビジネスレベル': 3 }
 
 # フォロー機能
   def follow(other_user)

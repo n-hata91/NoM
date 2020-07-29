@@ -1,5 +1,39 @@
-<h2>ようこそ  <%= current_learner_user.name %></h2>
+<h2>ようこそ  <%= current_learner_user.name %>さん</h2>
 
 <h3>詳細登録</h3>
 <p>null ok のユーザー情報を追加登録</p>
-<p>言語, レベル, 紹介文, 画像...</p>
+<p>後から変更できます的な</p>
+
+
+<%= form_with model: @user, url: learner_user_path(@user), local: true do |f| %>
+<div class="form-row align-items-center">
+  <div class="col-auto my-1">
+  <div class="item-image">
+    <%= attachment_image_tag current_learner_user, :image, id: "prev_image", fallback: "no_image.jpg", size:"100x100", style: "border-radius: 18px;" %>   <!-- classを追加 -->
+    <%= f.label :language, "プロフィール画像を登録" %>
+    <%= f.attachment_field :image, id: "change_image" %><br>
+  </div>
+    <%= f.label :language, "学習言語を登録" %>
+    <%= f.collection_select :language, @languages, :language, :language, {prompt: "選択してください"}, class: "custom-select mr-sm-2" %><br>
+
+    <%= f.label :level, "学習レベルを登録" %>
+    <%#= f.select :level, User.levels.keys.to_a, {}, class: "custom-select mr-sm-2" %><br>
+    <%= f.select :level, User.levels.keys.map {|k| [k, k]},{}, class: "custom-select mr-sm-2" %>
+    <%= f.label :introduction, "自己紹介" %>
+    <%= f.text_area :introduction, class: "form-control", rows: "3" %>
+    <%= f.submit "登録", class:'btn btn-success' %>
+  </div>
+</div>
+<% end %>
+
+<script>
+$(function(){
+    $('#change_image').on('change', function (e) {
+    var new_image = new FileReader();
+    new_image.onload = function (e) {
+        $("#prev_image").attr('src', e.target.result);
+    }
+    new_image.readAsDataURL(e.target.files[0]);
+});
+});
+</script>

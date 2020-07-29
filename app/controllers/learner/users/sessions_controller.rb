@@ -22,7 +22,7 @@ class Learner::Users::SessionsController < Devise::SessionsController
     if resource.language.blank?
       learner_welcome_path
     else
-      root_path
+      learner_articles_path
     end
   end
 

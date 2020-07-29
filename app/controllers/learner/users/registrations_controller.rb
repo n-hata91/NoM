@@ -56,7 +56,7 @@ class Learner::Users::RegistrationsController < Devise::RegistrationsController
     if resource.language.blank?
       learner_welcome_path
     else
-      root_path
+      learner_articles_path
     end
   end
 

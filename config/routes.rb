@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
 # アプリケーション
   scope module: :learner do
     root 'users#top'
@@ -16,10 +17,9 @@ Rails.application.routes.draw do
     get 'movies/search' => 'movies#search', as: 'search'
     get 'articles/index' => 'articles#index', as: 'articles'
     get 'articles/tipcorn' => 'articles#tipcorn', as: 'tipcorn'
-    resources :users, only: [:show, :edit]
+    resources :users, only: [:show, :edit, :update]
     resources :relations, only: [:create, :destroy]
     resources :favorites, only: [:create, :destroy]
-    
     resources :movies do
       resources :articles do
         resources :comments, only: [:index, :create, :destroy]

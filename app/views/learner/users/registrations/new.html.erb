@@ -1,39 +1,54 @@
-<h2>ユーザー Sign up</h2>
-<% resource = User.new unless resource %>
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "learner/users/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :"name" %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :"language" %><br />
-    <%= f.text_field :language, autofocus: true, autocomplete: "language" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up",class: "btn btn-primary" %>
-  </div>
-<% end %>
-
-<%= render "learner/users/shared/links" %>
+<div class="container">
+  <h2>ユーザー Sign up</h2>
+  <% resource = User.new unless resource %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "learner/users/shared/error_messages", resource: resource %>
+    <div class="form">
+      <div class="col-md-6 mb-3">
+        <div class="field">
+          <%= f.label :"name", "お名前" %><br />
+          <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+        </div>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="field">
+          <%= f.label :email, "メールアドレス" %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="field">
+          <%= f.label :password, "パスワード" %>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> 文字以上)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "new-password" %>
+        </div>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="field">
+          <%= f.label :password_confirmation, "パスワード（確認）" %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        </div>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="actions">
+        <%= f.submit "サインアップ",class: "btn btn-outline-primary" %>
+      </div>
+      <%= render "learner/users/shared/links" %>
+    </div>
+  <% end %>
+</div>
