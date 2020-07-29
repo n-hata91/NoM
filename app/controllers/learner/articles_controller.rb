@@ -18,7 +18,9 @@ class Learner::ArticlesController < ApplicationController
     @article = current_learner_user.articles.new(article_params)
     if @article.save
       flash[:success] = "Articel successfully created"
-      redirect_to root_path
+      @new_comment = Comment.new
+      @comments = @article.comments.order(created_at: "desc")
+      redirect_to learner_movie_article_path(@article.movie_id,@article)
     else
       flash[:error] = "Something went wrong"
       render 'new'

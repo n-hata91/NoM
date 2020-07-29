@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Learner::Users::SessionsController < Devise::SessionsController
+class Admin::Admins::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -17,18 +17,6 @@ class Learner::Users::SessionsController < Devise::SessionsController
   # def destroy
   #   super
   # end
-
-  def after_sign_in_path_for(resource)
-    if resource.language.blank?
-      learner_welcome_path
-    else
-      learner_articles_path
-    end
-  end
-
-  def after_sign_out_path_for(resource)
-    new_learner_user_session_path
-  end
 
   # protected
 

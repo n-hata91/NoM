@@ -7,7 +7,7 @@ class Article < ApplicationRecord
   has_many :article_tags, dependent: :destroy
 
   def favorited?(user)
-    favorites.where(user_id: user.id).exists?
+    favorites.where(user_id: user.id).exists? if favorites.exists?
   end
   
 end
