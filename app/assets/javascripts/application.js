@@ -43,8 +43,3 @@ $(document).on('click','.drower-toggle',function(e) {
     $("#show-" + list_id).slideToggle();
   });
 }());
-
-// お気に入り機能
-(function () {
-  
-}());

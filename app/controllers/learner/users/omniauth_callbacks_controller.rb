@@ -50,7 +50,7 @@ class Learner::Users::OmniauthCallbacksController < Devise::OmniauthCallbacksCon
       if @user.language.blank?
         redirect_to learner_welcome_path
       else
-        redirect_to learner_root_path
+        redirect_to learner_articles_path
       end
       set_flash_message(:notice, :success, kind: "#{provider}".capitalize) if is_navigational_format?
     else 

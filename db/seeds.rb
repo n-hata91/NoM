@@ -51,17 +51,22 @@ require 'json'
     movie_id = rand(1..5)
     title = "【#{user.language}】#{Movie.find(movie_id).title}は勉強になります。"
     content = "【#{user.language}】内容も良くて楽しみながら勉強できます。#{user.name}"
-    rate = rand(1..5)
+    rate1 = rand(1..5)
+    rate2 = rand(1..5)
+    rate3 = rand(1..5)
+    rate4 = rand(1..5)
+    rate5 = rand(1..5)
+    rate = ((rate1 + rate2+ rate3 + rate4 + rate5)/5).round
     user.articles.create!(
       movie_id: movie_id,
       title: title,
       content: content,
       rate: rate,
-      difficulty: rate,
-      length: rate,
-      practicality: rate,
-      speed: rate,
-      accent: rate
+      difficulty: rate1,
+      length: rate2,
+      practicality: rate3,
+      speed: rate4,
+      accent: rate5
     )
   end
 end
@@ -97,10 +102,12 @@ end
 # 言語（確定）
 Language.create!(
   [
-    { language:'フランス語' },
     { language:'英語' },
-    { language:'アラビア語' },
     { language:'スペイン語' },
+    { language:'繁体中国語' },
+    { language:'簡体中国語' },
+    { language:'フランス語' },
+    { language:'アラビア語' },
     { language:'ドイツ語' },
     { language:'イタリア語' },
     { language:'インドネシア語' },
@@ -110,9 +117,6 @@ Language.create!(
     { language:'ロシア語' },
     { language:'オランダ語' },
     { language:'フィリピノ語' },
-    { language:'マレー語' },
-    { language:'繁体中国語' },
-    { language:'簡体中国語' },
     { language:'ヒンディー語' },
     { language:'ノルウェー語' },
     { language:'スウェーデン語' },
@@ -120,14 +124,11 @@ Language.create!(
     { language:'デンマーク語' },
     { language:'ポーランド語' },
     { language:'ハンガリー語' },
-    { language:'ペルシア語' },
-    { language:'ヘブライ語' },
     { language:'タイ語' },
     { language:'ウクライナ語' },
     { language:'チェコ語' },
     { language:'ルーマニア語' },
     { language:'イギリス英語' },
     { language:'ベトナム語' },
-    { language:'ベンガル語' }
   ]
 )
