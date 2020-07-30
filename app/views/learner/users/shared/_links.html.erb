@@ -1,14 +1,14 @@
 <%# OAuth認証 callbackのリンク %>
 <%- if devise_mapping.omniauthable? %>
   <%= link_to learner_user_facebook_omniauth_authorize_path do %>
-    <div class="btn btn-outline-secondary my-1">
-      <i class="fab fa-facebook">：Facebookアカウントを使用する</i>
-    </div> <br>
+    <p class="btn btn-outline-secondary my-1 faa-parent animated-hover">
+      <i class="fab fa-facebook faa-tada animated-hover"></i>：Facebookアカウントを使用する
+    </p> <br>
   <% end %>
   <%= link_to learner_user_google_oauth2_omniauth_authorize_path do %>
-    <div class="btn btn-outline-secondary my-1">
-      <i class="fab fa-google">：Googleアカウントを使用する</i>
-    </div> <br>
+    <p class="btn btn-outline-secondary my-1 faa-parent animated-hover">
+      <i class="fab fa-google faa-tada animated-hover"></i>：Googleアカウントを使用する
+    </p> <br>
   <% end %>
 <% end %>
 

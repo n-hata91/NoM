@@ -52,7 +52,7 @@
           <%= f.text_field :content, placeholder: "Add a public reply...", id: "reply-text", class: "form-control" %>
           <%= f.hidden_field :reply_to, value: comment.id %>
           <div class="row">
-            <div class="reply_cansel_btn ml-auto"><i class="fas fa-window-close fa-2x"></i></div>
+            <div class="reply_cansel_btn ml-auto"><i class="fas fa-window-close fa-2x fa-fw"></i></div>
             <div class="comment_reply_bottom_btn">
               <%= f.submit "返信", class: 'btn btn-outline-dark' %>
             </div>
@@ -93,4 +93,3 @@
   <% end %>
 </div>
 <% end %>
-
