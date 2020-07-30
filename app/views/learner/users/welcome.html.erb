@@ -9,9 +9,10 @@
 <div class="form-row align-items-center">
   <div class="col-auto my-1">
   <div class="item-image">
-    <%= attachment_image_tag current_learner_user, :image, id: "prev_image", fallback: "no_image.jpg", size:"100x100", style: "border-radius: 18px;" %>   <!-- classを追加 -->
-    <%= f.label :language, "プロフィール画像を登録" %>
+    <%= attachment_image_tag current_learner_user, :image, id: "prev_image", fallback: "no_image.jpg", size:"100x100", style: "border-radius: 18px;", onClick: "$('#change_image').click()" %>   <!-- classを追加 -->
     <%= f.attachment_field :image, id: "change_image" %><br>
+    <i class="fas fa-sync-alt fa-2x fa-fw" onClick="$('#change_image').click()" ></i>
+    <%= f.label :language, "プロフィール画像を登録" %>
   </div>
     <%= f.label :language, "学習言語を登録" %>
     <%= f.collection_select :language, @languages, :language, :language, {prompt: "選択してください"}, class: "custom-select mr-sm-2" %><br>

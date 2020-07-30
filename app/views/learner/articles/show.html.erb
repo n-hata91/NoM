@@ -45,13 +45,11 @@
     <%= render 'comment', {comments: @comments, new_comment: @new_comment, article: @article} %>
   </div>
 </div>
-<input type="hidden" id="difficulty" value="<%= @article.difficulty %>"></input>
-<input type="hidden" id="length" value="<%= @article.length %>"></input>
-<input type="hidden" id="practicality" value="<%= @article.practicality %>"></input>
-<input type="hidden" id="speed" value="<%= @article.speed %>"></input>
-<input type="hidden" id="accent" value="<%= @article.accent %>"></input>
-
-
+<input type="hidden" id="difficulty" value="<%= @article.difficulty %>">
+<input type="hidden" id="length" value="<%= @article.length %>">
+<input type="hidden" id="practicality" value="<%= @article.practicality %>">
+<input type="hidden" id="speed" value="<%= @article.speed %>">
+<input type="hidden" id="accent" value="<%= @article.accent %>">
 
 
 
@@ -60,42 +58,42 @@
 <%# レンジバーの描写 %>
 <script>
     var ctx = document.getElementById("myRaderChart");
-      var movie_title = document.getElementById("MovieTitle");
-      var difficulty = document.getElementById("difficulty").value;
-      var length = document.getElementById("length").value;
-      var practicality = document.getElementById("practicality").value;
-      var speed = document.getElementById("speed").value;
-      var accent = document.getElementById("accent").value;
-      var paramater = ["難易度", "長さ", "実用性", "早さ", "クセ"]
-      var data = [difficulty, length, practicality, speed, accent]
-      var myRadarChart = new Chart(ctx, {
-        type: 'radar', 
-          data: { 
-            labels: paramater,
-            datasets: [{
-              label: movie_title.textContent,
-                  data: data,
-                  backgroundColor: 'RGBA(225,95,150, 0.5)',
-                  pointBackgroundColor: 'RGB(46,106,177)',
-                  borderColor: 'RGBA(225,95,150, 1)',
-                  borderWidth: 2
-              }]
-          },
-          options: {
-            title: {
-              display: true,
-                  text: "評価"
-              },
-              scale:{
-                ticks:{
-                  suggestedMin: 0,
-                      suggestedMax: 5,
-                      stepSize: 1,
-                      callback: function(value, index, values){
-                        return  value
-                      }
-                  }
-              }
-          }
-      });
+    var movie_title = document.getElementById("MovieTitle");
+    var difficulty = document.getElementById("difficulty").value;
+    var length = document.getElementById("length").value;
+    var practicality = document.getElementById("practicality").value;
+    var speed = document.getElementById("speed").value;
+    var accent = document.getElementById("accent").value;
+    var paramater = ["難易度", "長さ", "実用性", "早さ", "クセ"]
+    var data = [difficulty, length, practicality, speed, accent]
+    var myRadarChart = new Chart(ctx, {
+      type: 'radar', 
+        data: { 
+          labels: paramater,
+          datasets: [{
+            label: movie_title.textContent,
+                data: data,
+                backgroundColor: 'RGBA(225,95,150, 0.5)',
+                pointBackgroundColor: 'RGB(46,106,177)',
+                borderColor: 'RGBA(225,95,150, 1)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+          title: {
+            display: true,
+                text: "評価"
+            },
+            scale:{
+              ticks:{
+                suggestedMin: 0,
+                    suggestedMax: 5,
+                    stepSize: 1,
+                    callback: function(value, index, values){
+                      return  value
+                    }
+                }
+            }
+        }
+    });
   </script>
