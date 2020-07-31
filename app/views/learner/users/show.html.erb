@@ -1,91 +1,97 @@
 <div class="container">
-<h1>マイページ or ユーザー詳細</h1>
-<p>Find me in app/views/learner/users/show.html.erb</p>
-<%= link_to edit_learner_user_path(current_learner_user), class: "btn btn-outline-success" do %>
-  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-  </svg>編集
-<% end %>
-<div class="m-2"></div>
-<%# プロフィール %>
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">データ1</th>
-      <th scope="col">データ2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">名前　全</th>
-      <td><%= attachment_image_tag @user, :image, size: "50x50", fallback: "no_image.jpg", style: "border-radius: 18px;" %></td>
-      <td><%= @user.name %></td>
-    </tr>
-    <tr>
-      <th scope="row">紹介文　全</th>
-      <td><%= @user.introduction %></td>
-      <td>Otto</td>
-    </tr>
-    <tr>
-      <th scope="row">メール　個</th>
-      <td><%= @user.email %></td>
-      <td>Thornton</td>
-    </tr>
-    <tr>
-      <th scope="row">レベル と 言語　全</th>
-      <td><%= @user.level %></td>
-      <td><%= @user.language %></td>
-    </tr>
-    <tr>
-      <th scope="row">投稿記事数　全</th>
-      <td><%= @user.articles.count %></td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
-
-<%# フォローボタン %>
-<%= render 'follow_form', user: @user %>
-
-<%# フォロワー %>
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="post-tag" data-toggle="tab" href="#post" role="tab" aria-controls="post" aria-selected="false">投稿記事 <%= @user.articles.count %>件</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="article-tag" data-toggle="tab" href="#article" role="tab" aria-controls="article" aria-selected="false">お気に入り記事 <%= @articles.count %>件</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="follower-tab" data-toggle="tab" href="#follower" role="tab" aria-controls="follower" aria-selected="false">フォロワー <%= @user.followers.count %> 人</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="follow-tab" data-toggle="tab" href="#follow" role="tab" aria-controls="follow" aria-selected="true">フォロー <%= @user.following.count %> 人</a>
-  </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="post">
-    <%# 投稿記事表示 %>
-    <%= render 'article_index', articles: @posts %>
-  </div>
-  <div class="tab-pane fade" id="article" role="tabpanel" aria-labelledby="article">
-    <%# お気に入り記事表示 %>
-    <%= render 'article_index', articles: @articles %>
-  </div>
-  <div class="tab-pane fade" id="follow" role="tabpanel" aria-labelledby="follow-tab">
-    <% @follows.each do |follow| %>
-      <%= link_to learner_user_path(follow) do %>
-        <%= follow.name %><br>
-      <% end %>
+  <% if current_learner_user.id == @user.id %>
+    <h1>マイページ</h1>
+  <% else %>
+    <h1>ユーザー詳細</h1>
+  <% end %>
+  <p>Find me in app/views/learner/users/show.html.erb</p>
+  <% if current_learner_user.id == @user.id %>
+    <%= link_to edit_learner_user_path(current_learner_user), class: "btn btn-outline-success" do %>
+      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+      </svg>編集
     <% end %>
-  </div>
-  <div class="tab-pane fade" id="follower" role="tabpanel" aria-labelledby="follower-tab">
-    <% @followers.each do |follower| %>
-      <%= link_to learner_user_path(follower) do %>
-        <%= follower.name %><br>
+  <% end %>
+  <div class="m-2"></div>
+  <%# プロフィール %>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">データ1</th>
+        <th scope="col">データ2</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">名前　全</th>
+        <td><%= attachment_image_tag @user, :image, size: "50x50", fallback: "no_image.jpg", style: "border-radius: 18px;" %></td>
+        <td><%= @user.name %></td>
+      </tr>
+      <tr>
+        <th scope="row">紹介文　全</th>
+        <td><%= @user.introduction %></td>
+        <td>Otto</td>
+      </tr>
+      <tr>
+        <th scope="row">メール　個</th>
+        <td><%= @user.email %></td>
+        <td>Thornton</td>
+      </tr>
+      <tr>
+        <th scope="row">レベル と 言語　全</th>
+        <td><%= @user.level %></td>
+        <td><%= @user.language %></td>
+      </tr>
+      <tr>
+        <th scope="row">投稿記事数　全</th>
+        <td><%= @user.articles.count %></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%# フォローボタン %>
+  <%= render 'follow_form', user: @user %>
+
+  <%# フォロワー %>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" id="post-tag" data-toggle="tab" href="#post" role="tab" aria-controls="post" aria-selected="false">投稿記事 <%= @user.articles.count %>件</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="article-tag" data-toggle="tab" href="#article" role="tab" aria-controls="article" aria-selected="false">お気に入り記事 <%= @articles.count %>件</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="follower-tab" data-toggle="tab" href="#follower" role="tab" aria-controls="follower" aria-selected="false">フォロワー <%= @user.followers.count %> 人</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="follow-tab" data-toggle="tab" href="#follow" role="tab" aria-controls="follow" aria-selected="true">フォロー <%= @user.following.count %> 人</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="post">
+      <%# 投稿記事 表示%>
+      <%= render 'article_index', articles: @posts %>
+    </div>
+    <div class="tab-pane fade" id="article" role="tabpanel" aria-labelledby="article">
+      <%# お気に入り記事表示 %>
+      <%= render 'article_index', articles: @articles %>
+    </div>
+    <div class="tab-pane fade" id="follow" role="tabpanel" aria-labelledby="follow-tab">
+      <% @follows.each do |follow| %>
+        <%= link_to learner_user_path(follow) do %>
+          <%= follow.name %><br>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
+    <div class="tab-pane fade" id="follower" role="tabpanel" aria-labelledby="follower-tab">
+      <% @followers.each do |follower| %>
+        <%= link_to learner_user_path(follower) do %>
+          <%= follower.name %><br>
+        <% end %>
+      <% end %>
+    </div>
   </div>
-</div>
 </div>

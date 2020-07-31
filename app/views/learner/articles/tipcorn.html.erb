@@ -1,2 +1,39 @@
-<h1>tipcorn</h1>
-<p>Find me in app/views/learner/articles/tipcorn.html.erb</p>
+
+<div class="container">
+  <h1>tipcorn</h1>
+  <%# 投稿映画情報 %>
+  <h4>記事入力</h4>
+  <div class="card mb-3">
+    <%= form_with model: @article, url: learner_movie_articles_path(1, @article.id) do |f| %>
+      <div class="row no-gutters">
+        <div class="col-md-5">
+          <div class="item-image">
+            <%= attachment_image_tag @article, :image, id: "prev_image", fallback: "no_image.jpg", size:"450x310", style: "border-radius: 6px;", onClick: "$('#change_image').click()" %>
+            <%= f.attachment_field :image, id: "change_image" %><br>
+            <i class="fas fa-sync-alt fa-2x fa-fw" onClick="$('#change_image').click()" ></i>
+            <%= f.label :language, "画像を追加" %>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="card-body">
+            <div class="form-group">
+              <%= f.label :title, "タイトル" %>
+              <%= f.text_field :title, class: "form-control" %><br>
+              <%= f.label :content, "内容" %>
+              <%= f.text_area :content, class: "form-control" %>
+              <%= f.hidden_field :movie_id, value: 1 %>
+                <div class="article-tags-field">
+                  <%= f.label "タグ" %>
+                  <ul id="article-tags">
+                    <%# デフォルトタグの設定: tipcorn %>
+                    <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable"><span class="tagit-label"></span><a class="tagit-close"><span class="text-icon">tipcorn</span><span class="ui-icon ui-icon-close"></span></a></li>
+                  </ul>
+                </div>
+              <%= f.submit "送信", class: "btn btn-outline-info my-2" %>    
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

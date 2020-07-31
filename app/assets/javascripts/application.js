@@ -12,11 +12,16 @@
 //
 //= require rails-ujs
 //= require activestorage
+//= require jquery3
+//= require jquery_ujs
+//= require jquery-ui
+//= require tag-it
 //= require turbolinks
 //= require_tree .
-//= require jquery3
 //= require popper
 //= require bootstrap
+
+
 
 // サイドバーメニュー
 $(document).on('click','.drower-toggle',function(e) {
@@ -25,6 +30,16 @@ $(document).on('click','.drower-toggle',function(e) {
   $(".drower-toggle").toggleClass("active");
 });
 
+// 画像プレビュー
+$(function(){
+  $('#change_image').on('change', function (e) {
+  var new_image = new FileReader();
+  new_image.onload = function (e) {
+      $("#prev_image").attr('src', e.target.result);
+  }
+  new_image.readAsDataURL(e.target.files[0]);
+});
+});
 
 // コメント機能
 (function() {

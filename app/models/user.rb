@@ -1,12 +1,14 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  validates :name, presence: true, length: {maximum: 30, minimum: 1}
+  validates :introduction, length: {maximum: 140}
+  attachment :image
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable,
           :omniauthable, omniauth_providers: %i[facebook google_oauth2]
   has_many :sns_credentials, dependent: :destroy
   has_many :articles, dependent: :destroy
-  attachment :image
 
   has_many :follow_to, class_name:  "Relation",
                                   foreign_key: "follower_id",
@@ -16,13 +18,11 @@ class User < ApplicationRecord
                                   dependent:  :destroy
   has_many :following, through: :follow_to,  source: :followed
   has_many :followers, through: :follow_from
-
-  validates :name, presence: true, length: {maximum: 50, minimum: 2}
-  validates :introduction, length: {maximum: 50}
   has_many :comments, dependent:  :destroy
   has_many :favorites, dependent:  :destroy
   has_many :favorite_articles, through: :favorites, source: :article
-
+  has_many :article_tags, dependent: :destroy
+  
   enum level: { '初心者レベル': 0, '初級会話レベル': 1, '日常会話レベル': 2, 'ビジネスレベル': 3 }
 
 # フォロー機能

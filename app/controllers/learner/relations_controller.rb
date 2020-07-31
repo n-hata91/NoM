@@ -1,4 +1,5 @@
 class Learner::RelationsController < ApplicationController
+  before_action :authenticate_learner_user!
 
   def create
     user = User.find(params[:followed_id])

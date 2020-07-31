@@ -1,4 +1,5 @@
 class Learner::FavoritesController < ApplicationController
+  before_action :authenticate_learner_user!
 
   def create
     @article = Article.find(params[:format])

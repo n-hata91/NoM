@@ -11,6 +11,8 @@
  * It is generally better to create a new file per style scope.
  *
  *= require_tree .
+ *= require jquery.tagit
+ *= require tagit.ui-zendesk
  *= require_self
  */
 // Custom bootstrap variables must be set or imported *before* bootstrap.
@@ -24,6 +26,11 @@ $other-yellow: #edac26;
 
 * {
   font-family: "Montserrat", "游ゴシック", 'Lato', YuGothic, 'Noto Sans JP', "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+}
+
+//  jQuery UIの'No search results.'を非表示 
+.ui-helper-hidden-accessible {
+  display: none;
 }
 
 img .attachment {
