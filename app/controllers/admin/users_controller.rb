@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  before_action :authenticate_admin_user!
   
   def top
     @users = User.all

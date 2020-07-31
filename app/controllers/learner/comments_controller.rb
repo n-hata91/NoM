@@ -1,4 +1,5 @@
 class Learner::CommentsController < ApplicationController
+  before_action :authenticate_learner_user!
 
   def create
     comment = current_learner_user.comments.new(comment_params) 

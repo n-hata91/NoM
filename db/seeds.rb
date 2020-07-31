@@ -29,6 +29,12 @@ User.create!(
 end
 
 # 映画
+Movie.create!(
+  id: 1,
+  title: 'tipcorn',
+  overview: 'for tipcorn'
+)
+
 require 'net/http'
 require 'uri'
 require 'json'
@@ -45,10 +51,10 @@ require 'json'
   end
 
 # 記事
-2.times do |n|
-  users = User.all[1..15]
-  users.each do |user|
-    movie_id = rand(1..5)
+15.times do |n|
+  2.times do |m|
+    user = User.find(rand(1..15))
+    movie_id = rand(2..6)
     title = "【#{user.language}】#{Movie.find(movie_id).title}は勉強になります。"
     content = "【#{user.language}】内容も良くて楽しみながら勉強できます。#{user.name}"
     rate1 = rand(1..5)
@@ -69,10 +75,20 @@ require 'json'
       accent: rate5
     )
   end
+  user = User.find(rand(1..15))
+    movie_id = 1
+    title = "【tipcorn】こんな勉強しています。"
+    content = "【#{user.language}】よかったら皆さんも試してみてください。#{user.name}"
+    user.articles.create!(
+      movie_id: movie_id,
+      title: title,
+      content: content,
+      image: open("./app/assets/images/pop#{rand(1..4)}.jpg")
+    )
 end
 
 # コメント
-2.times do |n|
+3.times do |n|
   users = User.all[1..15]
   users.each do |user|
     content = "#{user.name}コメントしました。"
@@ -82,8 +98,9 @@ end
     )
   end
 end
-# 返信コメント
-2.times do |n|
+
+# コメント
+3.times do |n|
   users = User.all[1..15]
   users.each do |user|
   content = "#{n}への返信コメント"
@@ -97,7 +114,13 @@ end
   end
 end
 
-
+# タグ
+Tag.create!(
+  [
+    { name: 'movie'},
+    { name: 'tipcorn'},
+  ]
+)
 
 # 言語（確定）
 Language.create!(

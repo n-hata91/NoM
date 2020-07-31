@@ -2,6 +2,7 @@ class Learner::MoviesController < ApplicationController
   require 'net/http'
   require 'uri'
   require 'json'
+  before_action :authenticate_learner_user!, only: [:new]
 
   def search
   end
