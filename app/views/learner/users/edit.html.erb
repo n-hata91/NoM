@@ -31,7 +31,6 @@
     <div class="col-md-7 mb-3">
       <div class="field">
         <%= f.label :level, "学習レベルを登録" %>
-        <%#= f.select :level, User.levels.keys.to_a, {}, class: "custom-select mr-sm-2" %><br>
         <%= f.select :level, User.levels.keys.map {|k| [k, k]},{}, class: "custom-select mr-sm-2" %>
       </div>
     </div>

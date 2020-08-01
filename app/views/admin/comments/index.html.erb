@@ -1,2 +1,28 @@
 <h1>Admin::Comments#index</h1>
 <p>Find me in app/views/admin/comments/index.html.erb</p>
+<div class="card">
+  <div class="card-header" id="head">
+    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+      <i class="fas fa-search">検索</i>
+    </button>
+    <% if !@p.blank? %>
+      <% for i in 0..items.length do %>
+        <% unless @p.values[i].blank? %>
+          <i class="fas fa-search mr-1"><%= @p.values[i] %></i>
+        <% end %>
+      <% end %>
+      <%= link_to "検索をキャンセル", admin_comments_path, class: "btn btn-outline-danger" %>
+    <% end %>
+  </div>
+  <div class="card-body">
+    <%= search_form_for @q, url: admin_comments_path do |f| %>
+      <%= f.label :title, "キーワード" %>
+      <%= f.search_field :content_cont_all, class: "form-control mr-sm-2" %>
+      <%= f.submit "検索", class: "btn btn-outline-success" %>
+    <% end %>
+  </div>
+
+</div>
+<% @comments.each do |comment| %>
+  <%= comment.content %>
+<% end %>

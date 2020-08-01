@@ -5,6 +5,14 @@ class Learner::MoviesController < ApplicationController
   before_action :authenticate_learner_user!, only: [:new]
 
   def search
+
+    # unless params[:search_word].nil?
+    #   @movies = getMovies(params[:search_word])
+    #   @movies.each do |movie|
+    #     moveieDate = Movie.new(title: movie["title"], overview: movie["overview"], image_id: "https://image.tmdb.org/t/p/w500#{movie["poster_path"]}")
+    #     @movies.push(moveieDate)
+    #   end
+    # end
   end
   
   def create

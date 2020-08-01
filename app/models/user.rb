@@ -9,7 +9,6 @@ class User < ApplicationRecord
           :omniauthable, omniauth_providers: %i[facebook google_oauth2]
   has_many :sns_credentials, dependent: :destroy
   has_many :articles, dependent: :destroy
-
   has_many :follow_to, class_name:  "Relation",
                                   foreign_key: "follower_id",
                                   dependent:  :destroy
@@ -22,7 +21,6 @@ class User < ApplicationRecord
   has_many :favorites, dependent:  :destroy
   has_many :favorite_articles, through: :favorites, source: :article
   has_many :article_tags, dependent: :destroy
-  
   enum level: { '初心者レベル': 0, '初級会話レベル': 1, '日常会話レベル': 2, 'ビジネスレベル': 3 }
 
 # フォロー機能

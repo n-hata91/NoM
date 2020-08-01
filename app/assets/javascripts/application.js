@@ -24,10 +24,10 @@
 
 
 // サイドバーメニュー
-$(document).on('click','.drower-toggle',function(e) {
+$(document).on('click','.drawer-toggle',function(e) {
   e.preventDefault();
-  $("html").toggleClass("open-drower");
-  $(".drower-toggle").toggleClass("active");
+  $("html").toggleClass("open-drawer");
+  $(".drawer-toggle").toggleClass("active");
 });
 
 // 画像プレビュー
