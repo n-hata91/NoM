@@ -55,7 +55,7 @@
   <%# フォローボタン %>
   <%= render 'follow_form', user: @user %>
 
-  <%# フォロワー %>
+  <%# タブ %>
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
       <a class="nav-link active" id="post-tag" data-toggle="tab" href="#post" role="tab" aria-controls="post" aria-selected="false">投稿記事 <%= @user.articles.count %>件</a>
@@ -80,18 +80,10 @@
       <%= render 'article_index', articles: @articles %>
     </div>
     <div class="tab-pane fade" id="follow" role="tabpanel" aria-labelledby="follow-tab">
-      <% @follows.each do |follow| %>
-        <%= link_to learner_user_path(follow) do %>
-          <%= follow.name %><br>
-        <% end %>
-      <% end %>
+      <%= render 'relation_list', relations: @follows %>
     </div>
     <div class="tab-pane fade" id="follower" role="tabpanel" aria-labelledby="follower-tab">
-      <% @followers.each do |follower| %>
-        <%= link_to learner_user_path(follower) do %>
-          <%= follower.name %><br>
-        <% end %>
-      <% end %>
+      <%= render 'relation_list', relations: @followers %>
     </div>
   </div>
 </div>
