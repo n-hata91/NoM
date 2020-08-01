@@ -3,7 +3,11 @@ class Learner::ArticlesController < ApplicationController
   before_action :posted_user!, only: [:edit, :update, :destroy]
 
   def index
-    @articles = Article.page(params[:page]).reverse_order
+    # @articles = Article.page(params[:page]).reverse_order
+    @p = params[:q]
+    @q = Article.ransack(@p)
+    @articles = @q.result(distinct: true).page(params[:page]).reverse_order
+    @languages = Language.all
   end
 
   def show

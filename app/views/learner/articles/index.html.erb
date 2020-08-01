@@ -1,5 +1,48 @@
 <div class="container">
   <h1>記事一覧</h1>
+
+  <div class="accordion" id="accordionExample">
+    <div class="card">
+      <div class="card-header" id="head">
+          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+            <i class="fas fa-search">検索</i>
+          </button>
+            <% items = ["", "タグ", "評価", "言語", "レベル"] %>
+              <% if !@p.blank? %>
+                <% for i in 0..items.length do %>
+                  <% unless @p.values[i].blank? %>
+                    <i class="fas fa-search mr-1"><%= "#{items[i]}:#{@p.values[i]}" %></i>
+                  <% end %>
+                <% end %>
+            <%= link_to "検索をキャンセル", learner_articles_path, class: "btn btn-outline-danger" %>
+              <% end %>
+      </div>
+      <div id="collapse" class="collapse" aria-labelledby="head" data-parent="#accordionExample">
+        <div class="card-body">
+          <%= search_form_for @q, url: learner_articles_path do |f| %>
+            <%= f.label :title, "キーワード" %>
+            <%= f.search_field :title_or_content_cont_all, class: "form-control mr-sm-2" %>
+
+            <%= f.label :title, "タグ" %>
+            <%= f.search_field :tags_name_eq, class: "form-control mr-sm-2" %>
+            
+            <%= f.label :rate, " 総合評価" %>
+            <%= f.number_field :rate_gteq_all, min:1, max:5, class: "form-control mr-sm-2" %>以上
+
+            <%= f.label :language, "学習言語を登録" %>
+            <%= f.collection_select :user_language_eq_all, @languages, :language, :language, {prompt: "選択してください"}, class: "custom-select mr-sm-2" %><br>
+
+            <%= f.label :level, "学習レベルを登録" %>
+            <%= f.select :user_level_eq, User.levels.keys.map {|k| [k, k]},{ include_blank: '選択してください' }, class: "custom-select mr-sm-2" %>
+
+            <%= f.submit "検索", class: "btn btn-outline-success" %>
+            
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <% @articles.each do |article| %>
   <% if article.movie_id != 1 %>
     <div class="card mb-3 faa-float animated-hover">
@@ -15,7 +58,7 @@
             <h5 class="card-title"><%= article.title %></h5>
             <p class="card-text"><%= article.content %></p>
             <% article.tags.each do |tag| %>
-              <%= link_to "#" do %>
+              <%= link_to learner_articles_path q: {tags_name_eq: tag.name} do %>
                 <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
               <% end %>
             <% end %>
@@ -53,7 +96,7 @@
             <% end %>
             <p class="card-text"><%= article.content %></p>
             <% article.tags.each do |tag| %>
-              <%= link_to "#" do %>
+              <%= link_to  q: {tags_name_eq: tag.name} do %>
                 <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
               <% end %>
             <% end %>
@@ -81,3 +124,5 @@
   <% end %>
   <%= paginate @articles %>
 </div>
+
+
