@@ -1,2 +1,32 @@
 <h1>Admin::Users#index</h1>
 <p>Find me in app/views/admin/users/index.html.erb</p>
+<div class="card">
+  <div class="card-header" id="head">
+    <div class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+      <i class="fas fa-search">検索</i>
+    </div>
+    <% items = ["", "言語", "レベル"] %>
+    <% if !@p.blank? %>
+      <% for i in 0..items.length do %>
+        <% unless @p.values[i].blank? %>
+          <i class="fas fa-search mr-1"><%= "#{items[i]}:#{@p.values[i]}" %></i>
+        <% end %>
+      <% end %>
+      <%= link_to "検索をキャンセル", admin_users_path, class: "btn btn-outline-danger" %>
+    <% end %>
+  </div>
+  <div class="card-body">
+    <%= search_form_for @q, url: admin_users_path do |f| %>
+      <%= f.label :title, "キーワード" %>
+      <%= f.search_field :name_or_introduction_cont_all, class: "form-control mr-sm-2" %>
+      <%= f.label :language, "学習言語を登録" %>
+      <%= f.collection_select :language_eq_all, @languages, :language, :language, {prompt: "選択してください"}, class: "custom-select mr-sm-2" %><br>
+      <%= f.label :level, "学習レベルを登録" %>
+      <%= f.select :level_eq, User.levels.map {|k| [k, k]},{ include_blank: '選択してください' }, class: "custom-select mr-sm-2" %>
+      <%= f.submit "検索", class: "btn btn-outline-success" %>
+    <% end %>
+  </div>
+</div>
+<% @users.each do |user| %>
+  <%= user.name %>
+<% end %>

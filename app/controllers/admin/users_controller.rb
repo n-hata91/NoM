@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :authenticate_admin_user!
+  before_action :authenticate_admin_admin!
   
   def top
     @users = User.all
@@ -13,6 +13,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def index
+    @p = params[:q]
+    @q = User.ransack(@p)
+    @users = @q.result(distinct: true).page(params[:page]).reverse_order
+    @languages = Languages.all
   end
 
   def show

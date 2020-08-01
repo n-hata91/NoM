@@ -29,12 +29,10 @@ ActiveRecord::Schema.define(version: 2020_07_21_075937) do
     t.integer "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["article_id"], name: "index_article_tags_on_article_id"
-    t.index ["tag_id"], name: "index_article_tags_on_tag_id"
   end
 
   create_table "articles", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.integer "movie_id"
     t.string "title", null: false
     t.text "content", null: false
@@ -47,19 +45,15 @@ ActiveRecord::Schema.define(version: 2020_07_21_075937) do
     t.integer "accent", default: 3
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["movie_id"], name: "index_articles_on_movie_id"
-    t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "article_id", null: false
+    t.integer "user_id"
+    t.integer "article_id"
     t.text "content", null: false
     t.integer "reply_to"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["article_id"], name: "index_comments_on_article_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -67,8 +61,6 @@ ActiveRecord::Schema.define(version: 2020_07_21_075937) do
     t.integer "article_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["article_id"], name: "index_favorites_on_article_id"
-    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "languages", force: :cascade do |t|
@@ -98,7 +90,6 @@ ActiveRecord::Schema.define(version: 2020_07_21_075937) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_sns_credentials_on_user_id"
   end
 
   create_table "tags", force: :cascade do |t|

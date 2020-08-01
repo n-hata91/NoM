@@ -16,7 +16,6 @@
     <%= f.label :language, "学習言語を登録" %>
     <%= f.collection_select :language, @languages, :language, :language, {prompt: "選択してください"}, class: "custom-select mr-sm-2" %><br>
     <%= f.label :level, "学習レベルを登録" %>
-    <%#= f.select :level, User.levels.keys.to_a, {}, class: "custom-select mr-sm-2" %><br>
     <%= f.select :level, User.levels.keys.map {|k| [k, k]},{}, class: "custom-select mr-sm-2" %>
     <%= f.label :introduction, "自己紹介" %>
     <%= f.text_area :introduction, class: "form-control", rows: "3" %>

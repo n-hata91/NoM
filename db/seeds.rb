@@ -4,17 +4,20 @@ User.create!(
   email: 'hh@hh',
   image: open("./app/assets/images/no_image.jpg"),
   introduction: "#{ForgeryJa(:date).month}生まれ、#{ForgeryJa(:address).full_address}在住です。",
-  level: 4,
+  level: 3,
   language: '英語',
   password: 'hhhhhh'
 )
-
+Admin.create!(
+  email: 'hh@hh',
+  password: 'hhhhhh'
+)
 # ユーザ情報
 15.times do |n|
   name = ForgeryJa(:name).full_name
   email = ForgeryJa('email').address
   introduction = "#{ForgeryJa(:date).month}生まれ、#{ForgeryJa(:address).full_address}在住です。"
-  level = rand(1..5)
+  level = rand(0..3)
   language = ['英語','スペイン語','フランス語','中国語']
   password = 'password'
   User.create!(
