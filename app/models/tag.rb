@@ -1,5 +1,5 @@
 class Tag < ApplicationRecord
-  validates :name, presence: true, uniqueness: { case_sensitive: false }, length: {maximum: 15}
-  has_many :article_tags, dependent: :destroy
+  validates :name, presence: true, uniqueness: { case_sensitive: false }, length: {maximum: 20}
   has_many :articles, dependent: :destroy
+  has_many :article_tags, dependent: :destroy
 end

@@ -2,11 +2,12 @@ class Learner::MoviesController < ApplicationController
   require 'net/http'
   require 'uri'
   require 'json'
-  before_action :authenticate_learner_user!, only: [:new]
+  before_action :authenticate_learner_user!, only: [:create]
 
   def search
-
-    # unless params[:search_word].nil?
+    @images = Movie.where.not(image_id: nil).shuffle.take(20)
+    # インクリメンタルサーチ
+    # unless params[:search_word].nil? 
     #   @movies = getMovies(params[:search_word])
     #   @movies.each do |movie|
     #     moveieDate = Movie.new(title: movie["title"], overview: movie["overview"], image_id: "https://image.tmdb.org/t/p/w500#{movie["poster_path"]}")

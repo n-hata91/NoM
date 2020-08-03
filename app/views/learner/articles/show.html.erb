@@ -29,8 +29,8 @@
                 <li class="card-text">スピード：<%= @article.speed %></li>
                 <li class="card-text">発音のクセ：<%= @article.accent %></li>
                 <li class="card-text"><small class="text-muted"><%= l @article.created_at %><%= @article.user.name %></small></li>
-                <%= link_to "編集", edit_learner_movie_article_path(@article) if @article.user_id == current_learner_user.id %>
-                <%= link_to "削除", learner_movie_article_path(@article), method: :delete if @article.user_id == current_learner_user.id %>
+                <%= link_to "編集", edit_learner_movie_article_path(@article.movie_id,@article.id) if @article.user_id == current_learner_user.id %>
+                <%= link_to "削除", learner_movie_article_path(@article.movie_id,@article.id), method: :delete if @article.user_id == current_learner_user.id %>
               </ul>
             </div>
           </div>
@@ -53,8 +53,8 @@
                 <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
               <% end %>
             <% end %>
-            <%= link_to "編集", edit_learner_movie_article_path(@article) if @article.user_id == current_learner_user.id %>
-            <%= link_to "削除", learner_movie_article_path(@article), method: :delete if @article.user_id == current_learner_user.id %>
+            <%= link_to "編集", edit_learner_movie_article_path(@article.movie_id,@article.id) if @article.user_id == current_learner_user.id %>
+            <%= link_to "削除", learner_movie_article_path(@article.movie_id,@article.id), method: :delete if @article.user_id == current_learner_user.id %>
           </div>
         </div>
       </div>
@@ -81,10 +81,6 @@
   <input type="hidden" id="accent" value="<%= @article.accent %>">
 </div>
 
-
-
-<%# 　chart.js CDN　 %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
 <%# レンジバーの描写 %>
 <script>
     var ctx = document.getElementById("myRaderChart");
@@ -103,9 +99,9 @@
           datasets: [{
             label: movie_title.textContent,
                 data: data,
-                backgroundColor: 'RGBA(225,95,150, 0.5)',
-                pointBackgroundColor: 'RGB(46,106,177)',
-                borderColor: 'RGBA(225,95,150, 1)',
+                backgroundColor: 'RGBA(45, 117, 255, 0.5)',
+                pointBackgroundColor: 'RGB(237,172,38)',
+                borderColor: 'RGBA(45, 117, 255, 1)',
                 borderWidth: 2
             }]
         },

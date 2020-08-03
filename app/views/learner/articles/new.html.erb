@@ -4,7 +4,7 @@
   <div class="card mb-3" style="max-width: 1200px;">
     <div class="row no-gutters">
       <div class="col-md-3">
-        <%= image_tag @movie.image_id, size: '200x300' %>
+        <%= image_tag @movie.image_id, size: '200x300', fallback: "no_image.jpg" %>
       </div>
       <div class="col-md-8">
         <div class="card-body">
@@ -68,9 +68,9 @@
                     <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable"><span class="tagit-label"></span><a class="tagit-close"><span class="text-icon">movie</span><span class="ui-icon ui-icon-close"></span></a></li>
                   </ul>
                 </div>
-              </div>    
               <%= f.submit "送信", class: "btn btn-outline-info" %>
             <% end %>
+            </div> 
           </div>
         </div>
       </div>
@@ -78,12 +78,10 @@
   </div>
 </div>
 
-<%# 　chart.js CDN　 %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
 <%# レンジバーの描写 %>
 
 <script>
-(function() {
+$(function() {
   var params = document.getElementsByClassName('rate-range'); // の増減
   var rate = function (params, stars) {
     return function(evt) {
@@ -105,9 +103,9 @@
             datasets: [{
               label: movie_title.textContent,
                   data: data,
-                  backgroundColor: 'RGBA(225,95,150, 0.5)',
-                  pointBackgroundColor: 'RGB(46,106,177)',
-                  borderColor: 'RGBA(225,95,150, 1)',
+                  backgroundColor: 'RGBA(45, 117, 255, 0.5)',
+                  pointBackgroundColor: 'RGB(237,172,38)',
+                  borderColor: 'RGBA(45, 117, 255, 1)',
                   borderWidth: 2
               }]
           },
@@ -135,5 +133,5 @@
     stars = params[i].getElementsByTagName('span')[0];
     range_bar.addEventListener('input', rate(range_bar , stars));
   }
-}());
+});
   </script>

@@ -361,3 +361,57 @@ input#menu[type="checkbox"] {
 #change_image {
   display: none;
 }
+
+.movie-search {
+  
+}
+
+
+.loop_wrap {
+  display: flex;
+  width: 100vw;
+  height: 750px;
+  overflow: hidden;
+  position: relative;
+  img {
+    width: auto;
+    height: 100%;
+  }
+  .movie-search-field {
+    position: absolute;
+    top: 360px;
+    left: 30%;
+    z-index: 2;
+  }
+  .movie-search-btn {
+    position: absolute;
+    top: 360px;
+    left: 45%;
+    z-index: 2;
+  }
+}
+@keyframes loop {
+  0% {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes loop2 {
+  0% {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-200%);
+  }
+}
+
+.loop_wrap img:first-child {
+  animation: loop 30s -25s linear infinite;
+}
+
+.loop_wrap img:last-child {
+  animation: loop2 30s linear infinite;
+}
+
