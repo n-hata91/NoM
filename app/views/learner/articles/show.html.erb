@@ -29,8 +29,8 @@
                 <li class="card-text">スピード：<%= @article.speed %></li>
                 <li class="card-text">発音のクセ：<%= @article.accent %></li>
                 <li class="card-text"><small class="text-muted"><%= l @article.created_at %><%= @article.user.name %></small></li>
-                <%= link_to "編集", edit_learner_movie_article_path(@article) if @article.user_id == current_learner_user.id %>
-                <%= link_to "削除", learner_movie_article_path(@article), method: :delete if @article.user_id == current_learner_user.id %>
+                <%= link_to "編集", edit_learner_movie_article_path(@article.movie_id,@article.id) if @article.user_id == current_learner_user.id %>
+                <%= link_to "削除", learner_movie_article_path(@article.movie_id,@article.id), method: :delete if @article.user_id == current_learner_user.id %>
               </ul>
             </div>
           </div>
@@ -53,8 +53,8 @@
                 <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
               <% end %>
             <% end %>
-            <%= link_to "編集", edit_learner_movie_article_path(@article) if @article.user_id == current_learner_user.id %>
-            <%= link_to "削除", learner_movie_article_path(@article), method: :delete if @article.user_id == current_learner_user.id %>
+            <%= link_to "編集", edit_learner_movie_article_path(@article.movie_id,@article.id) if @article.user_id == current_learner_user.id %>
+            <%= link_to "削除", learner_movie_article_path(@article.movie_id,@article.id), method: :delete if @article.user_id == current_learner_user.id %>
           </div>
         </div>
       </div>

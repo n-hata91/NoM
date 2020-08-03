@@ -1,32 +1,23 @@
 <div class="container">
   <h1>映画検索</h1>
   <p>インクリメンタルサーチ、非同期でスムーズにAPI結果を表示</p>
-  <div class="jumbotron jumbotron-fluid m-0 search d-flex justify-content-center align-items-center">
+  <div class="loop_wrap">
     <%= form_with model: @movie, url:learner_movies_path do |f| %>
-      <%= f.text_field :search_word, id: "movie-search-field" %>
-      <%= f.submit "検索", id: "search_btn", class: "btn btn-success" %>
+      <%= f.text_field :search_word, id: "movie-search-field", class: "form-control-lg movie-search-field" %>
+      <%= f.submit "検索", id: "search_btn", class: "btn btn-success btn-lg movie-search-btn" %>
     <% end %>
-  </div>
-  <div id="movie_list" class="row"></div>
+  <table>
+    <tr>
+    <% @images.each do |image| %>
+      <td><%= image_tag image.image_id %></td>
+    <% end %>
+    </tr>
+    <tr>
+    <% @images.each do |image| %>
+      <td><%= image_tag image.image_id %></td>
+    <% end %>
+    </tr>
+  </table>
 </div>
-
-<%
-=begin  %>
-<script>
-$('#movie-search-field').on('keyup', function(e){
-  var input = $("#movie-search-field").val();
-        $.ajax({
-          type: 'GET',                // HTTPメソッドはGETで
-            url:  'search',
-            data: {search_word: input}             
-        })
-          $("#movie_list").html("");
-          $("#movie_list").html("<%= j(render 'listup', {movies: @movies}) %>");
-        .fail(function() {
-          alert('ユーザー検索に失敗しました');
-        });
-    });
-</script>
-ep
-<%
-=end  %>
+</div>
+<div id="movie_list" class="row"></div>

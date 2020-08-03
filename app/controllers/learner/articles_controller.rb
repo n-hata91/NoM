@@ -26,7 +26,7 @@ class Learner::ArticlesController < ApplicationController
 
   def create
     @article = current_learner_user.articles.new(article_params)
-    tags = params[:tags].split(",")
+    tags = params[:tags].split(",") unless params[:tags] == nil
     if @article.save
       @article.save_tags(tags)
       flash[:success] = "Articel successfully created"
@@ -38,6 +38,8 @@ class Learner::ArticlesController < ApplicationController
         redirect_to learner_movie_article_path(@article.movie_id, @article)
       end
     else
+      @movie = Movie.find(params[:movie_id])
+      @article = Article.new
       flash[:error] = "Something went wrong"
       render 'new'
     end
@@ -51,12 +53,14 @@ class Learner::ArticlesController < ApplicationController
   
   def update
     @article = Article.find(params[:id])
-    tags = params[:tags].split(",")
+    tags = params[:tags].split(",") unless params[:tags] == nil
       if @article.update(article_params)
         @article.save_tags(tags)
         flash[:success] = "Article was successfully updated"
         redirect_to learner_movie_article_path(@article.movie_id, @article)
       else
+        @article = Article.find(params[:id])
+        @movie = Movie.find(@article.movie_id)
         flash[:error] = "Something went wrong"
         render 'edit'
       end

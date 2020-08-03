@@ -1,208 +1,104 @@
 require 'rails_helper'
 RSpec.describe 'Articles', type: :system do
-  
-
-  # 　　　　　　　　　　　　　　ログイんしていないと閲覧できない　　　　　　　　　　　　　　　　
-  describe 'ユーザー権限のテスト'  do
-    let!(:user) { create(:user) }
-    let!(:book) { create(:book, user: user) }
-    describe 'ログインしていない場合' do
-      context '投稿関連のURLにアクセス' do
-        it '一覧画面に遷移できない' do
-          visit books_path
-          expect(current_path).to eq('/users/sign_in')
-        end
-        it '編集画面に遷移できない' do
-          visit edit_book_path(book.id)
-          expect(current_path).to eq('/users/sign_in')
-        end
-        it '詳細画面に遷移できない' do
-          visit book_path(book.id)
-          expect(current_path).to eq('/users/sign_in')
-        end
+  describe '閲覧テスト'  do
+    let(:user) { create(:user) }
+    let(:movie) { create(:movie_article) }
+    let!(:article) { create(:article, user_id: user.id, movie_id: movie.id) }
+    context 'ログインしていない場合のアクセス' do
+      it '一覧画面に遷移できない' do
+        visit learner_articles_path
+        expect(current_path).to eq(new_learner_user_session_path)
       end
-    end
-    describe 'ログインしていない場合にユーザー関連のURLにアクセス' do
-      context 'ユーザー関連のURLにアクセス' do
-        it '一覧画面に遷移できない' do
-          visit users_path
-          expect(current_path).to eq('/users/sign_in')
-        end
-        it '編集画面に遷移できない' do
-          visit edit_user_path(user.id)
-          expect(current_path).to eq('/users/sign_in')
-        end
-        it '詳細画面に遷移でない' do
-          visit user_path(user.id)
-          expect(current_path).to eq('/users/sign_in')
-        end
+      it '詳細画面に遷移できない' do
+        visit learner_movie_article_path(movie.id, user.id)
+        expect(current_path).to eq(new_learner_user_session_path)
+      end
+      it '新規投稿画面に遷移できない' do
+        visit new_learner_movie_article_path(movie.id)
+        expect(current_path).to eq(new_learner_user_session_path)
+      end
+      it '編集画面に遷移できない' do
+        visit edit_learner_movie_article_path(movie.id, user.id)
+        expect(current_path).to eq(new_learner_user_session_path)
+      end
+      it 'tipcorn投稿画面に遷移でない' do
+        visit learner_tipcorn_path
+        expect(current_path).to eq(new_learner_user_session_path)
       end
     end
   end
-
-  # 　　　　　　　　　　　　　　ユーザーじゃないと編集・削除できない　　　　　　　　　　　　　　　　
 
   describe '投稿のテスト' do
-    let(:user) { create(:user) }
-    let!(:user2) { create(:user) }
-    let!(:book) { create(:book, user: user) }
-    let!(:book2) { create(:book, user: user2) }
+    let(:correct_user) { create(:user) }
+    let(:other_user) { create(:user) }
+    let(:movie) { create(:movie_article) }
+    let(:tag) { create(:tag) }
+    let!(:my_article) { create(:article, user_id: correct_user.id, movie_id: movie.id) }
+    let!(:others_article) { create(:article, user_id: other_user.id, movie_id: movie.id) }
+    let!(:new_article) { build(:article, user_id: correct_user.id, movie_id: movie.id) }
     before do
-      visit new_user_session_path
-      fill_in 'user[name]', with: user.name
-      fill_in 'user[password]', with: user.password
-      click_button 'Log in'
+      visit new_learner_user_session_path
+      fill_in 'learner_user[email]', with: correct_user.email
+      fill_in 'learner_user[password]', with: correct_user.password
+      click_button 'ログイン'
     end
-    describe 'サイドバーのテスト' do
-      context '表示の確認' do
-        it 'New bookと表示される' do
-          expect(page).to have_content 'New book'
-        end
-        it 'titleフォームが表示される' do
-          expect(page).to have_field 'book[title]'
-        end
-        it 'opinionフォームが表示される' do
-          expect(page).to have_field 'book[body]'
-        end
-        it 'Create Bookボタンが表示される' do
-          expect(page).to have_button 'Create Book'
-        end
-        it '投稿に成功する' do
-          fill_in 'book[title]', with: Faker::Lorem.characters(number:5)
-          fill_in 'book[body]', with: Faker::Lorem.characters(number:20)
-          click_button 'Create Book'
-          expect(page).to have_content 'successfully'
-        end
-        it '投稿に失敗する' do
-          click_button 'Create Book'
-          expect(page).to have_content 'error'
-          expect(current_path).to eq('/books')
-        end
+    context '投稿の確認' do
+      it '投稿に成功する' do
+        visit new_learner_movie_article_path(movie.id)
+        fill_in 'article_title', with: Faker::Lorem.characters(number:20)
+        fill_in 'article_content', with: Faker::Lorem.characters(number:20)
+        click_on '送信'
+        expect(page).to have_content movie.title
+        expect(current_path).to eq('/learner/movies/' + movie.id.to_s + '/articles/' + Article.last.id.to_s)
+      end
+      it '投稿に失敗する' do
+        visit new_learner_movie_article_path(movie.id)
+        fill_in 'article_title', with: ''
+        fill_in 'article_content', with: ''
+        click_on '送信'
+        expect(page).to have_content '新規投稿'
       end
     end
-  
-    describe '編集のテスト' do
-      context '自分の投稿の編集画面への遷移' do
-        it '遷移できる' do
-          visit edit_book_path(book)
-          expect(current_path).to eq('/books/' + book.id.to_s + '/edit')
-        end
-      end
-      context '他人の投稿の編集画面への遷移' do
-        it '遷移できない' do
-          visit edit_book_path(book2)
-          expect(current_path).to eq('/books')
-        end
-      end
-      context '表示の確認' do
-        before do
-          visit edit_book_path(book)
-        end
-        it 'Editing Bookと表示される' do
-          expect(page).to have_content('Editing Book')
-        end
-        it 'title編集フォームが表示される' do
-          expect(page).to have_field 'book[title]', with: book.title
-        end
-        it 'opinion編集フォームが表示される' do
-          expect(page).to have_field 'book[body]', with: book.body
-        end
-        it 'Showリンクが表示される' do
-          expect(page).to have_link 'Show', href: book_path(book)
-        end
-        it 'Backリンクが表示される' do
-          expect(page).to have_link 'Back', href: books_path
-        end
-      end
-      context 'フォームの確認' do
-        it '編集に成功する' do
-          visit edit_book_path(book)
-          click_button 'Update Book'
-          expect(page).to have_content 'successfully'
-          expect(current_path).to eq '/books/' + book.id.to_s
-        end
-        it '編集に失敗する' do
-          visit edit_book_path(book)
-          fill_in 'book[title]', with: ''
-          click_button 'Update Book'
-          expect(page).to have_content 'error'
-          expect(current_path).to eq '/books/' + book.id.to_s
-        end
+    context '自分の投稿詳細画面の表示を確認' do
+      it '投稿の編集/削除が表示される' do
+        visit learner_movie_article_path(movie.id, my_article.id)
+        expect(page).to have_link '編集' , href: edit_learner_movie_article_path(my_article.movie_id, my_article.id)
+        expect(page).to have_link '削除' , href: learner_movie_article_path(my_article.movie_id, my_article.id)
       end
     end
-  
-    describe '一覧画面のテスト' do
-      before do
-        visit books_path
-      end
-      context '表示の確認' do
-        it 'Booksと表示される' do
-          expect(page).to have_content 'Books'
-        end
-        it '自分と他人の画像のリンク先が正しい' do
-          expect(page).to have_link '', href: user_path(book.user)
-          expect(page).to have_link '', href: user_path(book2.user)
-        end
-        it '自分と他人のタイトルのリンク先が正しい' do
-          expect(page).to have_link book.title, href: book_path(book)
-          expect(page).to have_link book2.title, href: book_path(book2)
-        end
-        it '自分と他人のオピニオンが表示される' do
-          expect(page).to have_content book.body
-          expect(page).to have_content book2.body
-        end
+    context '他人の投稿詳細画面の表示を確認' do
+      it '投稿の編集リンクが表示されない' do
+        visit learner_movie_article_path(movie.id, others_article.id)
+        expect(page).to have_no_link '編集' , href: edit_learner_movie_article_path(movie.id, others_article.id)
+        expect(page).to have_no_link '削除' , href: learner_movie_article_path(movie.id, others_article.id)
       end
     end
-  
-    describe '詳細画面のテスト' do
-      context '自分・他人共通の投稿詳細画面の表示を確認' do
-        it 'Book detailと表示される' do
-          visit book_path(book)
-          expect(page).to have_content 'Book detail'
-        end
-        it 'ユーザー画像・名前のリンク先が正しい' do
-          visit book_path(book)
-          expect(page).to have_link book.user.name, href: user_path(book.user)
-        end
-        it '投稿のtitleが表示される' do
-          visit book_path(book)
-          expect(page).to have_content book.title
-        end
-        it '投稿のopinionが表示される' do
-          visit book_path(book)
-          expect(page).to have_content book.body
-        end
+    context '自分の編集画面への遷移' do
+      it '遷移できる' do
+        visit edit_learner_movie_article_path(movie.id, my_article.id)
+        expect(current_path).to eq('/learner/movies/' + movie.id.to_s + '/articles/' + my_article.id.to_s + '/edit')
       end
-      context '自分の投稿詳細画面の表示を確認' do
-        it '投稿の編集リンクが表示される' do
-          visit book_path book
-          expect(page).to have_link 'Edit', href: edit_book_path(book)
-        end
-        it '投稿の削除リンクが表示される' do
-          visit book_path book
-          expect(page).to have_link 'Destroy', href: book_path(book)
-        end
+    end
+    context '他人の編集画面への遷移' do
+      it '遷移できない' do
+        visit edit_learner_movie_article_path(movie.id, others_article.id)
+        expect(current_path).to eq('/')
       end
-      context '他人の投稿詳細画面の表示を確認' do
-        it '投稿の編集リンクが表示されない' do
-          visit book_path(book2)
-          expect(page).to have_no_link 'Edit', href: edit_book_path(book2)
-        end
-        it '投稿の削除リンクが表示されない' do
-          visit book_path(book2)
-          expect(page).to have_no_link 'Destroy', href: book_path(book2)
-        end
-      end
+    end
+    it '編集に成功する' do
+      visit edit_learner_movie_article_path(movie.id, my_article.id)
+      fill_in 'article_title', with: Faker::Lorem.characters(number:20)
+      fill_in 'article_content', with: Faker::Lorem.characters(number:20)
+      click_on '送信'
+      expect(page).to have_content movie.title
+      expect(current_path).to eq('/learner/movies/' + movie.id.to_s + '/articles/' + my_article.id.to_s)
+    end
+    it '編集に失敗する' do
+      visit edit_learner_movie_article_path(movie.id, my_article.id)
+      fill_in 'article_title', with: ''
+      fill_in 'article_content', with: ''
+      click_on '送信'
+      expect(page).to have_content '編集'
     end
   end
-
-
-
-
-
-
-
-
-
-
 end

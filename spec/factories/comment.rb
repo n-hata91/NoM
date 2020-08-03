@@ -1,13 +1,13 @@
 FactoryBot.define do
 
   factory :comment do
-    content { Faker::Lorem.characters(number:140) }
+    content { 'コメントテストテストテストテストテストテストテストテスト' }
     user
     article
   end
 
   factory :reply, class: Comment do
-    content { Faker::Lorem.characters(number:140) }
+    content { 'リプライテストテストテストテストテストテストテスト' }
     user
     comment
   end

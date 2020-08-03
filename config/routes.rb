@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     resources :favorites, only: [:create, :destroy]
     resources :movies do
       resources :articles do
-        resources :comments, only: [:index, :create, :destroy]
+        resources :comments, only: [:create, :destroy]
       end
     end
   end
