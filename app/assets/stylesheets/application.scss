@@ -28,6 +28,10 @@ $other-yellow: #edac26;
   font-family: "Montserrat", "游ゴシック", 'Lato', YuGothic, 'Noto Sans JP', "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
 }
 
+.admin-detail{
+  position: fixed;
+}
+
 //  jQuery UIの'No search results.'を非表示 
 .ui-helper-hidden-accessible {
   display: none;
@@ -356,17 +360,12 @@ input#menu[type="checkbox"] {
     display: none;
   }
 
-
 // edit btn
 #change_image {
   display: none;
 }
 
-.movie-search {
-  
-}
-
-
+// searchページスクロール
 .loop_wrap {
   display: flex;
   width: 100vw;
@@ -393,7 +392,7 @@ input#menu[type="checkbox"] {
 @keyframes loop {
   0% {
     transform: translateX(100%);
-  }
+}
   to {
     transform: translateX(-100%);
   }
@@ -406,12 +405,14 @@ input#menu[type="checkbox"] {
     transform: translateX(-200%);
   }
 }
-
-.loop_wrap img:first-child {
-  animation: loop 30s -25s linear infinite;
-}
-
-.loop_wrap img:last-child {
-  animation: loop2 30s linear infinite;
+.loop_wrap {
+  
+  img:first-child {
+    animation: loop 30s -25s linear infinite;
+  }
+  
+  img:last-child {
+    animation: loop2 30s linear infinite;
+  }
 }
 

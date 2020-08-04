@@ -1,35 +1,102 @@
 <h1>Admin::Articles#index</h1>
-<div class="card">
-  <div class="card-header" id="head">
-    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
-      <i class="fas fa-search">検索</i>
-    </button>
-    <% items = ["", "タグ", "評価", "言語", "レベル"] %>
-    <% if !@p.blank? %>
-      <% for i in 0..items.length do %>
-        <% unless @p.values[i].blank? %>
-          <i class="fas fa-search mr-1"><%= "#{items[i]}:#{@p.values[i]}" %></i>
+<div class="row">
+  <% if @data %>
+    <div class="admin-detail col-md-3 text-center">
+      <%= attachment_image_tag @data.user, :image, size: "100x100", fallback: "no_image.jpg", style: "border-radius: 18px;" %>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">ユーザー名：<%= @data.user.name %></li>
+        <li class="list-group-item">日時：<%= l @data.created_at %></li>
+        <li class="list-group-item">タイトル：<%= @data.title %></li>
+        <li class="list-group-item">内容：<%= @data.content %></li>
+        <li class="list-group-item">映画タイトル：<%= @data.movie.title %></li>
+        <li class="list-group-item">総合評価：<%= "" * @data.rate %></li>
+        <li class="list-group-item">難易度：<%= "" * @data.difficulty %></li>
+        <li class="list-group-item">長さ：<%= "" * @data.length %></li>
+        <li class="list-group-item">実用性：<%= "" * @data.practicality %></li>
+        <li class="list-group-item">早さ：<%= "" * @data.speed %></li>
+        <li class="list-group-item">クセ：<%= "" * @data.accent %></li>
+        <li class="list-group-item">
+          <% @data.tags.each do |tag| %>
+              <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  <% else %>
+    <div class="admin-detail col-md-3"></div>
+  <% end %>
+  <div class="col-md-3"></div>
+  <div class="card col-md-9">
+    <div class="card-header" id="head">
+      <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+        <i class="fas fa-search">検索</i>
+      </button>
+      <% items = ["", "タグ", "評価", "言語", "レベル"] %>
+      <% if !@p.blank? %>
+        <% for i in 0..items.length do %>
+          <% unless @p.values[i].blank? %>
+            <i class="fas fa-search mr-1"><%= "#{items[i]}:#{@p.values[i]}" %></i>
+          <% end %>
         <% end %>
+        <%= link_to "検索をキャンセル", admin_articles_path, class: "btn btn-outline-danger" %>
       <% end %>
-      <%= link_to "検索をキャンセル", admin_articles_pat, class: "btn btn-outline-danger" %>
-    <% end %>
-  </div>
-  <div class="card-body">
-    <%= search_form_for @q, url: admin_articles_path do |f| %>
-      <%= f.label :title, "キーワード" %>
-      <%= f.search_field :title_or_content_cont_all, class: "form-control mr-sm-2" %>
-      <%= f.label :title, "タグ" %>
-      <%= f.search_field :tags_name_eq, class: "form-control mr-sm-2" %>
-      <%= f.label :rate, " 総合評価" %>
-      <%= f.number_field :rate_lteq_all, min:1, max:5, class: "form-control mr-sm-2" %>以下
-      <%= f.label :language, "学習言語を登録" %>
-      <%= f.collection_select :user_language_eq_all, @languages, :language, :language, {prompt: "選択してください"}, class: "custom-select mr-sm-2" %><br>
-      <%= f.label :level, "学習レベルを登録" %>
-      <%= f.select :user_level_eq, User.levels.map {|k| [k, k]},{ include_blank: '選択してください' }, class: "custom-select mr-sm-2" %>
-      <%= f.submit "検索", class: "btn btn-outline-success" %>
-    <% end %>
+    </div>
+    <div class="card-body">
+      <%= search_form_for @q, url: admin_articles_path do |f| %>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <%= f.label :title, "キーワード" %>
+            <%= f.search_field :title_or_content_cont_all, class: "form-control mr-sm-2" %>
+          </div>
+          <div class="form-group col-md-6">
+            <%= f.label :title, "タグ" %>
+            <%= f.search_field :tags_name_eq, class: "form-control mr-sm-2" %>
+          </div>
+          <div class="form-group col-md-2">
+            <%= f.label :rate, "総合評価(~以下)" %>
+            <%= f.number_field :rate_lteq_all, min:1, max:5, class: "form-control mr-sm-2" %>
+          </div>
+          <div class="form-group col-md-5">
+            <%= f.label :language, "学習言語" %>
+            <%= f.collection_select :user_language_eq_all, @languages, :language, :language, {prompt: "選択してください"}, class: "custom-select mr-sm-2" %><br>
+          </div>
+          <div class="form-group col-md-5">
+            <%= f.label :level, "学習レベル" %>
+            <%= f.select :user_level_eq, User.levels.keys.map {|k| [k, k]},{ include_blank: '選択してください' }, class: "custom-select mr-sm-2" %>
+          </div>
+        </div>
+        <%= f.submit "検索", class: "btn btn-outline-success" %>
+        <span>表示 <%= @articles.count %> 件</span>
+      <% end %>
+    </div>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">title</th>
+            <th scope="col">movie</th>
+            <th scope="col">rate</th>
+            <th scope="col">User</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @articles.each do |article| %>
+            <tr>
+              <th scope="row"></th>
+                <td>
+                  <%= link_to admin_articles_path(data: article.id) do %>
+                    <%= article.title %>
+                  <% end %>
+                </td>
+              <td><%= article.movie.title %></td>
+              <td><%= "" * article.rate %></td>
+              <td><%= article.user.name %></td>
+            </tr>
+          <% end %>      
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
-<% @articles.each do |article| %>
-  <%= article.title %>
-<% end %>
+
+

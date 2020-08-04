@@ -5,5 +5,8 @@ class Admin::CommentsController < ApplicationController
     @p = params[:q]
     @q = Comment.ransack(@p)
     @comments = @q.result(distinct: true).page(params[:page]).reverse_order
+    if params[:data]
+      @data = Comment.find(params[:data])
+    end
   end
 end

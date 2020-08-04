@@ -1,216 +1,241 @@
-<h1>管理者　top</h1>
-
-<h3 class="text-right mx-4">
-  <%= l Time.zone.now %>現在
-</h3>
-
-
-<div class="accordion" id="accordionExample">
-  <div class="card">
-    <div class="card-header" id="headingOne">
-      <h2 class="mb-0">
-        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          <i class="fas fa-user-friends">ユーザー</i>
-        </button>
-      </h2>
-    </div>
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-      <div class="card-body">
-        <%# 登録者数 %>
-        <table class="table">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col" colspan="4">利用者数</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row" colspan="2">累計</th>
-              <td><%= @users.count %></td>
-              <td>Otto</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>本日登録者数</td>
-              <td><%= @users_today.nil? ? 0 : @users_today.count %></td>
-              <td>@fat</td>
-            </tr>
-          </tbody>
-        </table>
+<div class="container">
+  <h1>管理者　top</h1>
+  <p>1週間で集計し直すバッチ処理？（今週のイチオシ）</p>
+  <h3 class="text-right mx-4">
+    <%= l Time.zone.now %>現在
+  </h3>
+  <div class="accordion" id="accordionExample">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <i class="fas fa-user-friends">ユーザー</i>
+          </button>
+        </h2>
+      </div>
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body pb-1">
+          <%# 登録者数 %>
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                  <th scope="col" colspan="3">
+                    <%= link_to '利用者数', admin_users_path %>
+                  </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" colspan="2">累計</th>
+                <td><%= @users.count %></td>
+              </tr>
+              <tr>
+                <th scope="row"></th>
+                <td>本日登録者数</td>
+                <td><%= @users_today.nil? ? 0 : @users_today.count %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header" id="headingTwo">
-      <h2 class="mb-0">
-        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          <i class="fas fa-edit">投稿</i>
-        </button>
-      </h2>
-    </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-      <div class="card-body">
-        <%# 投稿数 %>
-        <table class="table">
-          <thead class="thead-light">
-            <tr>
-              <th scope="col" colspan="4">投稿記事</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row" colspan="2">累計</th>
-              <td><%= @articles.count %></td>
-              <td>Otto</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>投稿数（本日）</td>
-              <td><%= @articles_today.nil? ? 0 : @articles_today.count %></td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>映画記事</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>tipcorn</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table>
+    
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <i class="fas fa-edit">投稿</i>
+          </button>
+        </h2>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+        <div class="card-body pb-1">
+          <%# 投稿数 %>
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                  <th scope="col" colspan="3">
+                    <%= link_to '投稿記事', admin_articles_path %>
+                  </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" colspan="2">累計</th>
+                <td><%= @articles.count %></td>
+              </tr>
+              <tr>
+                <th scope="row"></th>
+                <td>投稿数（本日）</td>
+                <td><%= @articles_today.nil? ? 0 : @articles_today.count %></td>
+              </tr>
+              <tr>
+                <th scope="row"></th>
+                <td>映画記事</td>
+                <td>@movie_articles</td>
+              </tr>
+              <tr>
+                <th scope="row"></th>
+                <td>tipcorn</td>
+                <td>@tipcorns</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-header" id="headingThree">
-      <h2 class="mb-0">
-        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          <i class="far fa-comments">コメント</i>
-        </button>
-      </h2>
-    </div>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-      <div class="card-body">
-        <%# コメント %>
-        <table class="table">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col" colspan="4">コメント</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row" colspan="2">累計</th>
-              <td><%= @comments.count %></td>
-              <td>Otto</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>コメント数（本日）</td>
-              <td><%= @comments_today.nil? ? 0 : @comments_today.count %></td>
-              <td>@fat</td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <i class="far fa-comments">コメント</i>
+          </button>
+        </h2>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+        <div class="card-body pb-1">
+          <%# コメント %>
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col" colspan="4">
+                  <%= link_to 'コメント', admin_comments_path %>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" colspan="2">累計</th>
+                <td><%= @comments.count %></td>
+              </tr>
+              <tr>
+                <th scope="row"></th>
+                <td>コメント数（本日）</td>
+                <td><%= @comments_today.nil? ? 0 : @comments_today.count %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-header" id="headingFour">
-      <h2 class="mb-0">
-        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-          <i class="fas fa-tags">タグ</i>
-        </button>
-      </h2>
-    </div>
-    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-      <div class="card-body">
-        <%# タグ %>
-        <table class="table">
-          <thead class="thead-light">
-            <tr>
-              <th scope="col" colspan="4">タグ</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row" colspan="2">累計</th>
-              <td><%= @tags.count %></td>
-              <td>Otto</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>投稿数（本日）</td>
-              <td><%= @tags_today.nil? ? 0 : @tags_today.count %></td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>映画記事</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>tipcorn</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="card">
+      <div class="card-header" id="headingFour">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            <i class="fas fa-tags">タグ</i>
+          </button>
+        </h2>
+      </div>
+      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+        <div class="card-body pb-1">
+          <%# タグ %>
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" colspan="4">
+                  <%= link_to 'タグ', admin_tags_path %>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" colspan="3">累計</th>
+                <td><%= @tags.count %></td>
+              </tr>
+              <tr>
+                <th scope="row"></th>
+                <td>投稿数（本日）</td>
+                <td colspan="3"><%= @tags_today.nil? ? 0 : @tags_today.count %></td>
+              </tr>
+              <tr>
+                <th scope="row"></th>
+                <td>タグランキング</td>
+                <td>@article.taged.name</td>
+                <td>@article.taged.count</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-header" id="headingFive">
-      <h2 class="mb-0">
-        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-          <i class="fas fa-trophy">ランキング</i>
-        </button>
-      </h2>
-    </div>
-    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-      <div class="card-body">
-        <%# 予備 %>
-        <table class="table">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col" colspan="4">人気</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">累計</th>
-              <td>累計投稿記事数</td>
-              <td>Otto</td>
-              <td>Otto</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>投稿数（本日）</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>映画記事</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>tipcorn</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="card">
+      <div class="card-header" id="headingFive">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+            <i class="fas fa-trophy">ランキング</i>
+          </button>
+        </h2>
+      </div>
+      <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+        <div class="card-body pb-1">
+          <%# 予備 %>
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col" colspan="4">人気1</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row"></th>
+                <td>投稿記事タイトル</td>
+                <td>ユーザー</td>
+                <td>閲覧数</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>@article.title</td>
+                <td>@article.user</td>
+                <td>@pv.count</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>@article.title</td>
+                <td>@article.user</td>
+                <td>@pv.count</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>@article.title</td>
+                <td>@article.user</td>
+                <td>@pv.count</td>
+              </tr>
+            </tbody>
+          </table>              
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col" colspan="4">人気2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row"></th>
+                <td>人気言語</td>
+                <td>登録者数</td>
+                <td>投稿数</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>@language.language</td>
+                <td>@language.user.count</td>
+                <td>@language.articles.count</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>@language.language</td>
+                <td>@language.user.count</td>
+                <td>@language.articles.count</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>@language.language</td>
+                <td>@language.user.count</td>
+                <td>@language.articles.count</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
