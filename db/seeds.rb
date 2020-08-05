@@ -81,6 +81,7 @@ Tag.create!(
     rate4 = rand(1..5)
     rate5 = rand(1..5)
     rate = ((rate1 + rate2+ rate3 + rate4 + rate5)/5).round
+    counter = rand(0..21)
     date = Faker::Time.between(from: '2020-07-01', to: '2020-08-01')
     user.articles.create!(
       movie_id: movie_id,
@@ -92,7 +93,8 @@ Tag.create!(
       practicality: rate3,
       speed: rate4,
       accent: rate5,
-      created_at: date,
+      pv_counter: counter,
+      created_at: date
     )
     Article.last.article_tags.create!(
       tag_id: 1
@@ -105,10 +107,12 @@ Tag.create!(
     movie_id = 1
     title = "【tipcorn】こんな勉強しています。"
     content = "【#{user.language}】よかったら皆さんも試してみてください。#{user.name}"
+    counter = rand(0..20)
     user.articles.create!(
       movie_id: movie_id,
       title: title,
       content: content,
+      pv_counter: counter,
       image: open("./app/assets/images/pop#{rand(1..4)}.jpg")
     )
     Article.last.article_tags.create!(

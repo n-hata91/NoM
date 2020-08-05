@@ -13,6 +13,7 @@ class Learner::ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @new_comment = Comment.new
     @comments = @article.comments.order(created_at: "desc")
+    impressionist(@article, nil, unique: [:impressionable_id, :ip_address])
   end
 
   def new

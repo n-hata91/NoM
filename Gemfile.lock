@@ -143,6 +143,8 @@ GEM
     i18n (1.8.4)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
+    impressionist (1.6.1)
+      nokogiri (~> 1)
     io-like (0.3.1)
     jaro_winkler (1.5.4)
     jbuilder (2.10.0)
@@ -437,6 +439,7 @@ DEPENDENCIES
   forgery
   forgery_ja
   gon
+  impressionist (~> 1.6.1)
   jbuilder (~> 2.5)
   jquery-rails
   jquery-ui-rails
