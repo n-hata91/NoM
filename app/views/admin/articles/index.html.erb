@@ -21,11 +21,12 @@
           <% end %>
         </li>
       </ul>
+        <%= link_to '削除', admin_article_path(@data), class: "btn btn-outline-danger", method: :delete, data: { confirm: '削除しますか？' } %>
     </div>
   <% else %>
     <div class="admin-detail col-md-3"></div>
   <% end %>
-  <div class="col-md-3"></div>
+  <div class="col-md-3" style="z-index: -1;"></div>
   <div class="card col-md-9">
     <div class="card-header" id="head">
       <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">

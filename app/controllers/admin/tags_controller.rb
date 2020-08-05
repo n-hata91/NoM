@@ -4,6 +4,22 @@ class Admin::TagsController < ApplicationController
   def index
     @p = params[:q]
     @q = Tag.ransack(@p)
-    @tags = @q.result(distinct: true).page(params[:page]).reverse_order
+    if params[:q]
+      @tags = @q.result(distinct: true).all
+    else
+      @tags = Tag.find(ArticleTag.group(:tag_id).order('count(tag_id) desc').all.pluck(:tag_id))
+    end
+    @data = Tag.find(params[:data]) if params[:data].present?
   end
+
+  def destroy
+    tag = Tag.find(params[:id])
+    if tag.destroy
+      redirect_to admin_tags_url
+    else
+      flash[:error] = 'Something went wrong'
+      redirect_to admin_tags_url
+    end
+  end
+  
 end

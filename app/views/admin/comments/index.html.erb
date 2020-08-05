@@ -13,11 +13,12 @@
         <li class="list-group-item">記事内容：<%= @data.article.content %></li>
         <li class="list-group-item">総合評価：<%= "" * @data.article.rate %></li>
       </ul>
+      <%= link_to '削除', admin_comment_path(@data), class: "btn btn-outline-danger", method: :delete, data: { confirm: '削除しますか？' } %>
     </div>
   <% else %>
     <div class="admin-detail col-md-3"></div>
   <% end %>
-  <div class="col-md-3"></div>
+  <div class="col-md-3" style="z-index: -1;"></div>
   <div class="card col-md-9">
     <div class="card-header" id="head">
       <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
@@ -42,30 +43,29 @@
         <span>表示 <%= @comments.count %> 件</span>
       <% end %>
     </div>
-      <table class="table">
-        <thead class="thead-dark">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Content</th>
+          <th scope="col">Article</th>
+          <th scope="col">User</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @comments.each do |comment| %>
           <tr>
-            <th scope="col"></th>
-            <th scope="col">Content</th>
-            <th scope="col">Article</th>
-            <th scope="col">User</th>
+            <th scope="row"></th>
+              <td>
+                <%= link_to admin_comments_path(data: comment.id) do %>
+                  <%= comment.content %>
+                <% end %>
+              </td>
+            <td><%= comment.article.title %></td>
+            <td><%= comment.user.name %></td>
           </tr>
-        </thead>
-        <tbody>
-          <% @comments.each do |comment| %>
-            <tr>
-              <th scope="row"></th>
-                <td>
-                  <%= link_to admin_comments_path(data: comment.id) do %>
-                    <%= comment.content %>
-                  <% end %>
-                </td>
-              <td><%= comment.article.title %></td>
-              <td><%= comment.user.name %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>

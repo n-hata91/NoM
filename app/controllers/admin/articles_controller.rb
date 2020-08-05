@@ -11,6 +11,14 @@ class Admin::ArticlesController < ApplicationController
     end
   end
 
-  def show
+  def destroy
+    @article = Article.find(params[:id])
+    if @article.destroy
+      redirect_to admin_articles_url
+    else
+      flash[:error] = 'Something went wrong'
+      redirect_to admin_articles_url
+    end
   end
+  
 end

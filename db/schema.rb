@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(version: 2020_07_21_075937) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.datetime "current_sign_in_at"
     t.string "name", null: false
     t.integer "level", default: 1
     t.datetime "created_at", null: false

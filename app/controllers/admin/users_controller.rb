@@ -16,7 +16,7 @@ class Admin::UsersController < ApplicationController
   def index
     @p = params[:q]
     @q = User.ransack(@p)
-    @users = @q.result(distinct: true).page(params[:page]).reverse_order
+    @users = @q.result(distinct: true).all.reverse_order
     @languages = Language.all
     @data = User.find(params[:data]) if params[:data].present?
   end

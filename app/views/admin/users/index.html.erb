@@ -3,14 +3,17 @@
 <div class="row">
   <% if @data %>
     <div class="admin-detail col-md-3 text-center">
-      <%= attachment_image_tag @data, :image, size: "100x100", fallback: "no_image.jpg", style: "border-radius: 18px;" %>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">ユーザー名：<%= @data。name %></li>
+        <li class="list-group-item">
+          <%= attachment_image_tag @data, :image, size: "100x100", fallback: "no_image.jpg", style: "border-radius: 18px;" %>
+        </li>
+        <li class="list-group-item">ユーザー名：<%= @data.name %></li>
         <li class="list-group-item">メール：<%= @data.email %></li>
         <li class="list-group-item">自己紹介：<%= @data.introduction %></li>
         <li class="list-group-item">学習言語：<%= @data.language %></li>
         <li class="list-group-item">レベル：<%= @data.level %></li>
         <li class="list-group-item">登録日：<%= l @data.created_at %></li>
+        <li class="list-group-item">最終ログイン：<%= l @data.current_sign_in_at %></li>
         <li class="list-group-item">投稿数：<%= @data.articles.count %></li>
         <li class="list-group-item">最終投稿日：<%= l @data.articles.last.created_at if @data.articles.present? %></li>
         <li class="list-group-item">コメント数：<%= @data.comments.count %></li>
@@ -22,7 +25,7 @@
   <% else %>
     <div class="admin-detail col-md-3"></div>
   <% end %>
-  <div class="col-md-3"></div>
+  <div class="col-md-3" style="z-index: -1;"></div>
   <div class="card col-md-9">
     <div class="card-header" id="head">
       <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
