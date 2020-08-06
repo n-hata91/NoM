@@ -1,4 +1,4 @@
-  <% comments.each do |comment| %>
+  <% comments.eager_load([:user]).each do |comment| %>
   <%# replyカラムがnull（空）の場合（返信ではない場合） %>
   <% if comment.reply_to.blank? %>
   <%# ユーザーアイコン, 名前 %>

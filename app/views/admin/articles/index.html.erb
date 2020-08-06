@@ -16,7 +16,7 @@
         <li class="list-group-item">早さ：<%= "" * @data.speed %></li>
         <li class="list-group-item">クセ：<%= "" * @data.accent %></li>
         <li class="list-group-item">
-          <% @data.tags.each do |tag| %>
+          <% @data.tags.preload([:user]).each do |tag| %>
               <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
           <% end %>
         </li>
@@ -81,7 +81,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @articles.each do |article| %>
+          <% @articles.preload([:movie]).preload([:user]).each do |article| %>
             <tr>
               <th scope="row"></th>
                 <td>
@@ -99,5 +99,3 @@
     </div>
   </div>
 </div>
-
-

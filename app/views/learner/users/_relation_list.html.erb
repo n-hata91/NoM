@@ -1,5 +1,5 @@
 <table class="table table-hover">
-  <% relations.each do |relation| %>
+  <% relations.eager_load([:articles]).each do |relation| %>
     <tbody>
       <tr>
         <th scope="row">
