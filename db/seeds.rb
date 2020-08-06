@@ -93,7 +93,7 @@ Tag.create!(
       practicality: rate3,
       speed: rate4,
       accent: rate5,
-      pv_counter: counter,
+      impressions_count: counter,
       created_at: date
     )
     Article.last.article_tags.create!(
@@ -112,7 +112,7 @@ Tag.create!(
       movie_id: movie_id,
       title: title,
       content: content,
-      pv_counter: counter,
+      impressions_count: counter,
       image: open("./app/assets/images/pop#{rand(1..4)}.jpg")
     )
     Article.last.article_tags.create!(

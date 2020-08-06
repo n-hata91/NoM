@@ -172,7 +172,7 @@
           <table class="table">
             <thead class="thead-dark">
               <tr>
-                <th scope="col" colspan="4">人気1</th>
+                <th scope="col" colspan="5">閲覧数ランキング</th>
               </tr>
             </thead>
             <tbody>
@@ -181,58 +181,43 @@
                 <td>投稿記事タイトル</td>
                 <td>ユーザー</td>
                 <td>閲覧数</td>
+                <td>投稿日時</td>
               </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>@article.title</td>
-                <td>@article.user</td>
-                <td>@pv.count</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>@article.title</td>
-                <td>@article.user</td>
-                <td>@pv.count</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>@article.title</td>
-                <td>@article.user</td>
-                <td>@pv.count</td>
+              <% @pv_ranking.each.with_index(1) do |article, i| %>
+                <tr>
+                  <th scope="row"><%= i %></th>
+                  <td><%= article.title %></td>
+                  <td><%= article.user.name %></td>
+                  <td><%= article.impressions_count %></td>
+                  <td><%= l article.created_at %></td>
+                </tr>
+              <% end %>
               </tr>
             </tbody>
           </table>              
           <table class="table">
             <thead class="thead-dark">
               <tr>
-                <th scope="col" colspan="4">人気2</th>
+                <th scope="col" colspan="5">投稿数ランキング</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th scope="row"></th>
-                <td>人気言語</td>
-                <td>登録者数</td>
+                <td>ユーザー名</td>
                 <td>投稿数</td>
+                <td>登録日</td>
+                <td>学習言語</td>
               </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>@language.language</td>
-                <td>@language.user.count</td>
-                <td>@language.articles.count</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>@language.language</td>
-                <td>@language.user.count</td>
-                <td>@language.articles.count</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>@language.language</td>
-                <td>@language.user.count</td>
-                <td>@language.articles.count</td>
-              </tr>
+              <% @user_ranking.each.with_index(1) do |user, i| %>
+                <tr>
+                  <th scope="row"><%= i %></th>
+                  <td><%= user.name %></td>
+                  <td><%= user.articles.size %></td>
+                  <td><%= l user.created_at %></td>
+                  <td><%= user.language %></td>
+                </tr>
+              <% end %>
             </tbody>
           </table>
         </div>

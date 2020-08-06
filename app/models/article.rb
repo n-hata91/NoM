@@ -35,5 +35,11 @@ class Article < ApplicationRecord
       end
     end
   end
+
+  # ランキング
+  def self.ranking(num)
+    group(:impressions_count).order('count(impressions_count) desc').limit(3)
+  end
+  
   
 end
