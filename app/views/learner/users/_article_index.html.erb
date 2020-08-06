@@ -1,5 +1,5 @@
 <% if articles %>
-  <% articles.each do |article| %>
+  <% articles.eager_load([:movie]).each do |article| %>
   <% if article.movie_id != 1 %>
     <div class="card mb-3 faa-float animated-hover">
       <div class="row no-gutters">

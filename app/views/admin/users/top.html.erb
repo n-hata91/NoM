@@ -183,7 +183,7 @@
                 <td>閲覧数</td>
                 <td>投稿日時</td>
               </tr>
-              <% @pv_ranking.each.with_index(1) do |article, i| %>
+              <% @pv_ranking.eager_load([:user]).each.with_index(1) do |article, i| %>
                 <tr>
                   <th scope="row"><%= i %></th>
                   <td><%= article.title %></td>

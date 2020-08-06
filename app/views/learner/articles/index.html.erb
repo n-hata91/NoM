@@ -37,7 +37,7 @@
     </div>
   </div>
 
-  <% @articles.each do |article| %>
+  <% @articles.preload([:user]).preload([:movie]).each do |article| %>
   <% if article.movie_id != 1 %>
     <div class="card mb-3 faa-float animated-hover">
       <div class="row no-gutters">
@@ -51,7 +51,7 @@
             <% end %>
             <h5 class="card-title"><%= article.title %></h5>
             <p class="card-text"><%= article.content %></p>
-            <% article.tags.each do |tag| %>
+            <% article.tags.preload([:article_tags]).each do |tag| %>
               <%= link_to learner_articles_path q: {tags_name_eq: tag.name} do %>
                 <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
               <% end %>
@@ -77,7 +77,7 @@
         </div>
       </div>
     </div>
-    <% else %>
+  <% else %>
     <div class="card mb-3 faa-float animated-hover">
       <div class="row no-gutters">
         <div class="col-md-4">
@@ -89,7 +89,7 @@
               <h5 class="card-title"><%= article.title %></h5>
             <% end %>
             <p class="card-text"><%= article.content %></p>
-            <% article.tags.each do |tag| %>
+            <% article.tags.preload([:article_tags]).each do |tag| %>
               <%= link_to  q: {tags_name_eq: tag.name} do %>
                 <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
               <% end %>
