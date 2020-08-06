@@ -23,25 +23,27 @@
 
 
 // サイドバーメニュー
-$(document).on('click','.drawer-toggle',function(e) {
-  e.preventDefault();
-  $("html").toggleClass("open-drawer");
-  $(".drawer-toggle").toggleClass("active");
+$(function () {
+  $(document).on('click','.drawer-toggle',function(e) {
+    e.preventDefault();
+    $("html").toggleClass("open-drawer");
+    $(".drawer-toggle").toggleClass("active");
+  });
 });
 
 // 画像プレビュー
 $(function(){
-  $('#change_image').on('change', function (e) {
-  var new_image = new FileReader();
-  new_image.onload = function (e) {
+  $(document).on('change','#change_image' , function (e) {
+    var new_image = new FileReader();
+    new_image.onload = function (e) {
       $("#prev_image").attr('src', e.target.result);
-  }
-  new_image.readAsDataURL(e.target.files[0]);
-});
+    }
+    new_image.readAsDataURL(e.target.files[0]);
+  });
 });
 
 // コメント機能
-(function() {
+$(function () {
   // 返信フォーム表示
   $(document).on("click", ".reply-btn", function() {
     var form_id = $(this).attr('id');
@@ -56,4 +58,11 @@ $(function(){
     var list_id = $(this).attr('id');
     $("#show-" + list_id).slideToggle();
   });
-}());
+});
+
+// learner top スプラッシュ
+$(function () {
+  $(document).on("click", ".splash-container", function () {
+    $(this).fadeOut("slow");
+  });
+});

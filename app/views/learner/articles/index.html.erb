@@ -29,7 +29,7 @@
             <%= f.label :language, "学習言語を登録" %>
             <%= f.collection_select :user_language_eq_all, @languages, :language, :language, {prompt: "選択してください"}, class: "custom-select mr-sm-2" %><br>
             <%= f.label :level, "学習レベルを登録" %>
-            <%= f.select :user_level_eq, User.levels.map {|k| [k, k]},{ include_blank: '選択してください' }, class: "custom-select mr-sm-2" %>
+            <%= f.select :user_level_eq, User.levels.keys.map {|k| [k, k]},{ include_blank: '選択してください' }, class: "custom-select mr-sm-2" %>
             <%= f.submit "検索", class: "btn btn-outline-success" %>
           <% end %>
         </div>

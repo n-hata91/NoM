@@ -1,7 +1,14 @@
 <div class="top-movie">
   <%= video_tag("/assets/videos/video.mp4", autoplay: true, loop: true, muted: true ) %>
-  <%= link_to "サインイン", new_learner_user_registration_path, class: "btn btn-primary btn-lg sign-up-top" %>
-  <%= link_to "ログイン", new_learner_user_session_path, class: "btn btn-success btn-lg sign-in-top" %>
+  <div class="top-btn-bg text-center">
+    <h4 class="text-dark my-4">ようこそNoMへ、</h4>
+    <%= link_to "サインイン", new_learner_user_registration_path, class: "btn btn-outline-primary btn-lg col-7 sign-up-top mb-3" %>
+    <%= link_to "ログイン", new_learner_user_session_path, class: "btn btn-outline-success btn-lg col-7 sign-in-top" %>
+    <h5 class="text-dark my-4">
+      <i class="far fa-arrow-alt-circle-down fa-2x text-dark"></i>
+      使い方は下へスクロール
+    </h5>
+  </div>
 </div>
 
 <div class="splash-container">
@@ -72,9 +79,3 @@
     <%= link_to "ログイン", new_learner_user_session_path, class: "btn btn-success btn-lg sign-in-bottom" %>
   </div>
 </div>
-
-<script>
-$(".splash-container").click(function () {
-  $(this).fadeOut("slow");
-});
-</script>

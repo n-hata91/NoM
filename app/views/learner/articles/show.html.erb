@@ -15,7 +15,7 @@
               <h5 class="card-title"><%= @article.title %></h5>
                 <p class="card-text"><%= @article.content %></p>
                 <% @article.tags.each do |tag| %>
-                  <%= link_to "#" do %>
+                  <%= link_to learner_articles_path q: {tags_name_eq: tag.name} do %>
                     <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
                   <% end %>
                 <% end %>

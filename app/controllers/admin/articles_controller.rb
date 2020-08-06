@@ -4,10 +4,21 @@ class Admin::ArticlesController < ApplicationController
   def index
     @p = params[:q]
     @q = Article.ransack(@p)
-    @articles = @q.result(distinct: true).page(params[:page]).reverse_order
+    @articles = @q.result(distinct: true).all.reverse_order
     @languages = Language.all
+    if params[:data]
+      @data = Article.find(params[:data])
+    end
   end
 
-  def show
+  def destroy
+    @article = Article.find(params[:id])
+    if @article.destroy
+      redirect_to admin_articles_url
+    else
+      flash[:error] = 'Something went wrong'
+      redirect_to admin_articles_url
+    end
   end
+  
 end

@@ -10,6 +10,8 @@ class Article < ApplicationRecord
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags, source: :tag
   attachment :image
+  # impressionist
+  is_impressionable counter_cache: true
 
   # お気に入り真偽
   def favorited?(user)
@@ -33,5 +35,11 @@ class Article < ApplicationRecord
       end
     end
   end
+
+  # ランキング
+  def self.ranking(num)
+    group(:impressions_count).order('count(impressions_count) desc').limit(3)
+  end
+  
   
 end
