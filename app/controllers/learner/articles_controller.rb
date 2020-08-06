@@ -1,6 +1,7 @@
 class Learner::ArticlesController < ApplicationController
   before_action :authenticate_learner_user!
   before_action :posted_user!, only: [:edit, :update, :destroy]
+  impressionist :actions=>[:show]
 
   def index
     @p = params[:q]
@@ -11,9 +12,9 @@ class Learner::ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    # impressionist(@article, nil, unique: [:session_hash])
     @new_comment = Comment.new
     @comments = @article.comments.order(created_at: "desc")
-    impressionist(@article, nil, unique: [:session_hash])
   end
 
   def new
