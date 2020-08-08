@@ -1,39 +1,54 @@
-
 <div class="container">
-  <h1>tipcorn</h1>
-  <%# 投稿映画情報 %>
-  <h4>記事入力</h4>
+  <div class="card my-3">
+    <div class="card-header">
+      <h1>tipcorn</h1>
+    </div>
+    <div class="card-body">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    </div>
+  </div> 
   <div class="card mb-3">
-    <%= form_with model: @article, url: learner_movie_articles_path(1, @article.id) do |f| %>
-      <div class="row no-gutters">
-        <div class="col-md-5">
-          <div class="item-image">
-            <%= attachment_image_tag @article, :image, id: "prev_image", fallback: "pop1.jpg", size:"450x310", style: "border-radius: 6px;", onClick: "$('#change_image').click()" %>
-            <%= f.attachment_field :image, id: "change_image" %><br>
-            <i class="fas fa-sync-alt fa-2x fa-fw" onClick="$('#change_image').click()" ></i>
-            <%= f.label :language, "画像を追加" %>
-          </div>
-        </div>
-        <div class="col-md-7">
-          <div class="card-body">
-            <div class="form-group">
-              <%= f.label :title, "タイトル" %>
-              <%= f.text_field :title, class: "form-control" %><br>
-              <%= f.label :content, "内容" %>
-              <%= f.text_area :content, class: "form-control" %>
-              <%= f.hidden_field :movie_id, value: 1 %>
-                <div class="article-tags-field">
-                  <%= f.label "タグ" %>
-                  <ul id="article-tags">
-                    <%# デフォルトタグの設定: tipcorn %>
-                    <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable"><span class="tagit-label"></span><a class="tagit-close"><span class="text-icon">tipcorn</span><span class="ui-icon ui-icon-close"></span></a></li>
-                  </ul>
-                </div>
-              <%= f.submit "送信", class: "btn btn-outline-info my-2" %>    
-            </div>
-          </div>
+    <div class="row no-gutters">
+      <div class="col-md-5">
+        <div class="item-image">
+          <%= attachment_image_tag @article, :image, id: "prev_image", fallback: "pop1.jpg", size:"450x310", style: "border-radius: 6px;", onClick: "$('#change_image').click()" %><br>
+          <i class="fas fa-sync-alt fa-2x fa-fw" onClick="$('#change_image').click()" ></i>画像を選択
         </div>
       </div>
-    <% end %>
+      <div class="col-md-7">
+        <div class="card-body">
+          <%= form_with model: @article, url: learner_movie_articles_path(1, @article.id) do |f| %>
+            <%= f.attachment_field :image, id: "change_image" %><br>
+            <div class="col-md-9 mb-3 mx-auto">
+              <%= f.label :title, "タイトル" %>
+              <%= f.text_field :title, class: "form-control" %><br>
+            </div>
+            <div class="col-md-9 mb-3 mx-auto">
+              <%= f.label :content, "内容" %>
+              <%= f.text_area :content, class: "form-control", rows: "5" %>
+              <%= f.hidden_field :movie_id, value: 1 %>
+            </div>
+            <div class="col-md-9 mb-3 mx-auto">
+              <div class="article-tags-field">
+                <%= f.label "タグ" %>
+                <ul id="article-tags">
+                  <%# デフォルトタグの設定: tipcorn %>
+                  <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable">
+                    <span class="tagit-label"></span>
+                    <a class="tagit-close">
+                      <span class="text-icon">tipcorn</span><span class="ui-icon ui-icon-close"></span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-9 mb-3 mx-auto text-center">
+              <button class="main-btn my-3">投稿</button>  
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

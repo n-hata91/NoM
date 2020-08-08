@@ -20,8 +20,6 @@
 //= require popper
 //= require bootstrap
 
-
-
 // サイドバーメニュー
 $(function () {
   $(document).on('click','.drawer-toggle',function(e) {

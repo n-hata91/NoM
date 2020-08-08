@@ -62,9 +62,9 @@ Rails.application.configure do
   # n+1問題(bullet)
   config.after_initialize do
     Bullet.enable = true #gemの有効化
-    Bullet.alert = true #ブラウザにjsアラート
-    Bullet.bullet_logger = true #Bulletログを記録
-    Bullet.console = true #ブラウザのコンソールに警告を表示
-    Bullet.rails_logger = true #警告を直接Railsログに追加
+    Bullet.alert = false #ブラウザにjsアラート
+    Bullet.bullet_logger = false #Bulletログを記録
+    Bullet.console = false #ブラウザのコンソールに警告を表示
+    Bullet.rails_logger = false #警告を直接Railsログに追加
   end
 end

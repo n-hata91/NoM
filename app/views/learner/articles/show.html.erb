@@ -11,7 +11,7 @@
             <div class="card-body">
               <h5 id="MovieTitle" class="card-title"><%= @article.movie.title %></h5>
               <p class="card-text"><%= @article.movie.overview %></p>
-              <i id="favorite-<%= @article.id %>"><%= render 'favorite', article: @article %></i>
+              <strong id="favorite-<%= @article.id %>"><%= render 'favorite', article: @article %></strong>
               <h5 class="card-title"><%= @article.title %></h5>
                 <p class="card-text"><%= @article.content %></p>
                 <% @article.tags.each do |tag| %>
@@ -22,12 +22,12 @@
             <div class="row">
               <canvas id="myRaderChart" class="col-md-8"></canvas>
               <ul class="col-md-4 ml-auto">
-                <li class="card-text">総合評価：<%= @article.rate %></li>
-                <li class="card-text">難易度：<%= @article.difficulty %></li>
-                <li class="card-text">映画の長さ：<%= @article.length %></li>
-                <li class="card-text">実用性：<%= @article.practicality %></li>
-                <li class="card-text">スピード：<%= @article.speed %></li>
-                <li class="card-text">発音のクセ：<%= @article.accent %></li>
+                <li class="card-text">総合評価：★<%= @article.rate %></li>
+                <li class="card-text">難易度：★<%= @article.difficulty %></li>
+                <li class="card-text">映画の長さ：★<%= @article.length %></li>
+                <li class="card-text">実用性：★<%= @article.practicality %></li>
+                <li class="card-text">スピード：★<%= @article.speed %></li>
+                <li class="card-text">発音のクセ：★<%= @article.accent %></li>
                 <li class="card-text"><small class="text-muted"><%= l @article.created_at %><%= @article.user.name %></small></li>
                 <%= link_to "編集", edit_learner_movie_article_path(@article.movie_id,@article.id) if @article.user_id == current_learner_user.id %>
                 <%= link_to "削除", learner_movie_article_path(@article.movie_id,@article.id), method: :delete if @article.user_id == current_learner_user.id %>
@@ -45,11 +45,11 @@
         </div>
         <div class="col-md-6">
           <div class="card-body">
-            <i id="favorite-<%= @article.id %>"><%= render 'favorite', article: @article %></i>
+            <strong id="favorite-<%= @article.id %>"><%= render 'favorite', article: @article %></strong>
             <h5 class="card-title"><%= @article.title %></h5>
             <p class="card-text"><%= @article.content %></p>
             <% @article.tags.each do |tag| %>
-              <%= link_to "#" do %>
+              <%= link_to  q: {tags_name_eq: tag.name} do %>
                 <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
               <% end %>
             <% end %>
@@ -62,9 +62,9 @@
   <% end %>
 
   <%# コメントフォーム %>
-  <div class="form-group">
+  <div class="form-group container">
     <%= form_with model: @new_comment, url: learner_movie_article_comments_path(@article.movie.id, @article.id), method: :post, class: "row" do |f| %>
-      <%= f.text_field :content, class: "form-control" %>
+      <%= f.text_field :content, placeholder: "コメントを入力", class: "form-control" %>
       <%= f.hidden_field :article_id, value: @article.id %>
       <%= f.submit "コメント", class: "btn btn-outline-dark ml-auto" %>
     <% end %>

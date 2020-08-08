@@ -2,3 +2,8 @@ ja:
   time:
     formats:
       default: "%Y/%m/%d %H:%M"
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'test'
+        # エラーメッセージテスト

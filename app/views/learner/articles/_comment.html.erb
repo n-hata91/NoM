@@ -49,7 +49,7 @@
       <%# コメントフォーム %>
       <div class="form-group">
         <%= form_with model: new_comment, url: learner_movie_article_comments_path(article.movie.id, article.id), method: :post, id: "show-form#{comment.id}", class: "reply-form row" do |f| %>
-          <%= f.text_field :content, placeholder: "Add a public reply...", id: "reply-text", class: "form-control" %>
+          <%= f.text_field :content, placeholder: "返信を入力", id: "reply-text", class: "form-control" %>
           <%= f.hidden_field :reply_to, value: comment.id %>
           <div class="row">
             <div class="reply_cansel_btn ml-auto"><i class="fas fa-window-close fa-2x fa-fw"></i></div>

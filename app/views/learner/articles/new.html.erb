@@ -28,31 +28,31 @@
                   <li class="rate-range">
                     <%= f.label :difficulty, "難易度" %> <br>
                     <%= f.range_field :difficulty, in: 1..5, id:"difficulty" %>
-                    <span id="value"></span>
+                    <span id="value">★★★</span>
                   </li>
                   <li class="rate-range">
                     <%= f.label :length, "映画の長さ" %> <br>
                     <%= f.range_field :length, in: 1..5, id:"length" %>
-                    <span id="value"></span>
+                    <span id="value">★★★</span>
                   </li>
                   <li class="rate-range">
                     <%= f.label :practicality, "実用性" %> <br>
                     <%= f.range_field :practicality, in: 1..5, id:"practicality" %>
-                    <span id="value"></span>
+                    <span id="value">★★★</span>
                   <li class="rate-range">
                     <%= f.label :speed, "スピード" %> <br>
                     <%= f.range_field :speed, in: 1..5, id:"speed" %>
-                    <span id="value"></span>
+                    <span id="value">★★★</span>
                   </li>
                   <li class="rate-range">
                     <%= f.label :accent, "発音のクセ" %> <br>
                     <%= f.range_field :accent, in: 1..5, id:"accent" %>
-                    <span id="value"></span>
+                    <span id="value">★★★</span>
                   </li>
                   <li class="rate-range">
                     <%= f.label :rate, "総合評価" %> <br>
                     <%= f.range_field :rate, in: 1..5 %>
-                    <span id="value"></span>
+                    <span id="value">★★★</span>
                   </li>
                 </ul>
               </div>
@@ -82,10 +82,10 @@
 
 <script>
 $(function() {
-  var params = document.getElementsByClassName('rate-range'); // の増減
+  var params = document.getElementsByClassName('rate-range'); // ★の増減
   var rate = function (params, stars) {
     return function(evt) {
-      apple = ""
+      apple = "★"
       stars.innerHTML = apple.repeat( params.value );
       var ctx = document.getElementById("myRaderChart");
       var movie_title = document.getElementById("MovieTitle");

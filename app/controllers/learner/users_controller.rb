@@ -26,11 +26,12 @@ class Learner::UsersController < ApplicationController
   end
 
   def update
-    @user = current_learner_user
+    @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:notice] = "User info was successfully updated"
       redirect_to learner_articles_path
     else
+      @languages = Language.all
+      flash.now[:warning] = '入力内容が正しくありません'
       render :edit
     end
   end
@@ -38,7 +39,7 @@ class Learner::UsersController < ApplicationController
 private
 
   def user_params
-    params.require(:user).permit(:name, :image, :language, :level, :introduction)
+    params.require(:user).permit(:name, :email, :image, :language, :level, :introduction)
   end
 
   def correct_user!
