@@ -1,76 +1,81 @@
-<div class="container">
-  <h1>新規投稿</h1>
-  <%# 投稿映画情報 %>
-  <div class="card mb-3" style="max-width: 1200px;">
-    <div class="row no-gutters">
-      <div class="col-md-3">
-        <%= image_tag @movie.image_id, size: '200x300', fallback: "no_image.jpg" %>
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 id="MovieTitle" class="card-title"><%= @movie.title %></h5>
-          <p class="card-text"><%= @movie.overview %></p>
+<div class="article-show-bg col-md-12 p-0">
+  <%= image_tag @movie.image_id, class: "bg-img-show", fallback: "no_image.jpg" %>
+  <div class="show-bg">
+    <div class="card container mt-5" style="background: rgba(255,255,255,0.7);">
+      <h1>投稿ページ</h1>
+      <%# 投稿映画情報 %>
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-3">
+            <%= image_tag @movie.image_id, size: '200x300', fallback: "no_image.jpg" %>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 id="MovieTitle" class="card-title"><%= @movie.title %></h5>
+              <p class="card-text"><%= @movie.overview %></p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <%# 投稿フォーム %>
-  <div class="card mb-3" style="max-width: 1200px;">
-    <div class="row no-gutters">
-      <div class="col-md-12">
-        <div class="card-body">
-          <h4 class="card-title">記事入力</h4>
-          <div class="form-group">
-            <%= form_with model: @article, url: learner_movie_articles_path do |f| %>
-              <div class="row">
-                <canvas id="myRaderChart" class="col-md-7"></canvas>
-                <ul class="col-md-5 ml-auto">
-                  <li class="rate-range">
-                    <%= f.label :difficulty, "難易度" %> <br>
-                    <%= f.range_field :difficulty, in: 1..5, id:"difficulty" %>
-                    <span id="value">★★★</span>
-                  </li>
-                  <li class="rate-range">
-                    <%= f.label :length, "映画の長さ" %> <br>
-                    <%= f.range_field :length, in: 1..5, id:"length" %>
-                    <span id="value">★★★</span>
-                  </li>
-                  <li class="rate-range">
-                    <%= f.label :practicality, "実用性" %> <br>
-                    <%= f.range_field :practicality, in: 1..5, id:"practicality" %>
-                    <span id="value">★★★</span>
-                  <li class="rate-range">
-                    <%= f.label :speed, "スピード" %> <br>
-                    <%= f.range_field :speed, in: 1..5, id:"speed" %>
-                    <span id="value">★★★</span>
-                  </li>
-                  <li class="rate-range">
-                    <%= f.label :accent, "発音のクセ" %> <br>
-                    <%= f.range_field :accent, in: 1..5, id:"accent" %>
-                    <span id="value">★★★</span>
-                  </li>
-                  <li class="rate-range">
-                    <%= f.label :rate, "総合評価" %> <br>
-                    <%= f.range_field :rate, in: 1..5 %>
-                    <span id="value">★★★</span>
-                  </li>
-                </ul>
+      <%# 投稿フォーム %>
+      <div class="card mb-3" style="max-width: 1200px;">
+        <div class="row no-gutters">
+          <div class="col-md-12">
+            <div class="card-body">
+              <h4 class="card-title">記事入力</h4>
+              <div class="form-group">
+                <%= form_with model: @article, url: learner_movie_articles_path do |f| %>
+                  <div class="row">
+                    <canvas id="myRaderChart" class="col-md-7"></canvas>
+                    <ul class="col-md-5 ml-auto">
+                      <li class="rate-range">
+                        <%= f.label :difficulty, "難易度" %> <br>
+                        <%= f.range_field :difficulty, in: 1..5, id:"difficulty" %>
+                        <span id="value">★★★</span>
+                      </li>
+                      <li class="rate-range">
+                        <%= f.label :length, "映画の長さ" %> <br>
+                        <%= f.range_field :length, in: 1..5, id:"length" %>
+                        <span id="value">★★★</span>
+                      </li>
+                      <li class="rate-range">
+                        <%= f.label :practicality, "実用性" %> <br>
+                        <%= f.range_field :practicality, in: 1..5, id:"practicality" %>
+                        <span id="value">★★★</span>
+                      <li class="rate-range">
+                        <%= f.label :speed, "スピード" %> <br>
+                        <%= f.range_field :speed, in: 1..5, id:"speed" %>
+                        <span id="value">★★★</span>
+                      </li>
+                      <li class="rate-range">
+                        <%= f.label :accent, "発音のクセ" %> <br>
+                        <%= f.range_field :accent, in: 1..5, id:"accent" %>
+                        <span id="value">★★★</span>
+                      </li>
+                      <li class="rate-range">
+                        <%= f.label :rate, "総合評価" %> <br>
+                        <%= f.range_field :rate, in: 1..5 %>
+                        <span id="value">★★★</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <%= f.label :title, "タイトル" %>
+                  <%= f.text_field :title, class: "form-control" %><br>
+                  <%= f.label :content, "内容" %>
+                  <%= f.text_area :content, class: "form-control" %>
+                  <%= f.hidden_field :movie_id, value: @movie.id %>
+                    <div class="article-tags-field">
+                      <%= f.label "タグ" %>
+                      <ul id="article-tags">
+                        <%# デフォルトタグの設定: movie %>
+                        <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable"><span class="tagit-label"></span><a class="tagit-close"><span class="text-icon">movie</span><span class="ui-icon ui-icon-close"></span></a></li>
+                      </ul>
+                    </div>
+                  <button class="main-btn d-block ml-auto mt-4">投稿</button>
+                <% end %>
+                </div> 
               </div>
-              <%= f.label :title, "タイトル" %>
-              <%= f.text_field :title, class: "form-control" %><br>
-              <%= f.label :content, "内容" %>
-              <%= f.text_area :content, class: "form-control" %>
-              <%= f.hidden_field :movie_id, value: @movie.id %>
-                <div class="article-tags-field">
-                  <%= f.label "タグ" %>
-                  <ul id="article-tags">
-                    <%# デフォルトタグの設定: movie %>
-                    <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable"><span class="tagit-label"></span><a class="tagit-close"><span class="text-icon">movie</span><span class="ui-icon ui-icon-close"></span></a></li>
-                  </ul>
-                </div>
-              <%= f.submit "送信", class: "btn btn-outline-info" %>
-            <% end %>
-            </div> 
+            </div>
           </div>
         </div>
       </div>
@@ -78,8 +83,10 @@
   </div>
 </div>
 
-<%# レンジバーの描写 %>
 
+
+
+<%# レンジバーの描写 %>
 <script>
 $(function() {
   var params = document.getElementsByClassName('rate-range'); // ★の増減

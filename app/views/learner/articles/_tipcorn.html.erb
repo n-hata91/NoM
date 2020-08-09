@@ -1,19 +1,18 @@
 <div class="card mb-3 faa-float animated-hover">
   <div class="row no-gutters">
     <div class="col-md-4">
-      <%= image_tag article.movie.image_id, size: "237x336" %>
+      <%= attachment_image_tag article, :image, size: "369x336" %>
     </div>
     <div class="col-md-8">
       <div class="card-body">
         <%= link_to learner_movie_article_path(article.movie_id, article) do %>
           <h5 class="card-title">
-            <%= article.movie.title %>
+            <%= article.title %>
           </h5>
         <% end %>
-        <h5 class="card-title"><%= article.title %></h5>
         <p class="card-text"><%= truncate(article.content, length: 40) %></p>
         <% article.tags.preload([:article_tags]).each do |tag| %>
-          <%= link_to learner_articles_path q: {tags_name_eq: tag.name} do %>
+          <%= link_to  q: {tags_name_eq: tag.name} do %>
             <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
           <% end %>
         <% end %>
@@ -24,7 +23,7 @@
             <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
           </svg>
           <%= article.comments.count %>
-          ★<%= article.rate %>
+
         </p>
         <p class="card-text">
           <small class="text-muted">

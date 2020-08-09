@@ -1,4 +1,8 @@
-<div class="container">
+<div class="article-show-bg col-md-12 p-0">
+  <%= image_tag 'bg-popcorn', class: "bg-img-show", fallback: "no_image.jpg" %>
+  <div class="show-bg">
+    <div class="card container mt-5" style="background: rgba(255,255,255,0.7);">
+
   <div class="card my-3">
     <div class="card-header">
       <h1>tipcorn</h1>
@@ -10,7 +14,7 @@
   </div> 
   <div class="card mb-3">
     <div class="row no-gutters">
-      <div class="col-md-5">
+      <div class="col-md-5 my-auto text-center">
         <div class="item-image">
           <%= attachment_image_tag @article, :image, id: "prev_image", fallback: "pop1.jpg", size:"450x310", style: "border-radius: 6px;", onClick: "$('#change_image').click()" %><br>
           <i class="fas fa-sync-alt fa-2x fa-fw" onClick="$('#change_image').click()" ></i>画像を選択
@@ -18,7 +22,7 @@
       </div>
       <div class="col-md-7">
         <div class="card-body">
-          <%= form_with model: @article, url: learner_movie_articles_path(1, @article.id) do |f| %>
+          <%= form_with model: @article, url: learner_movie_articles_path(1, @article.id), local: 'true' do |f| %>
             <%= f.attachment_field :image, id: "change_image" %><br>
             <div class="col-md-9 mb-3 mx-auto">
               <%= f.label :title, "タイトル" %>
@@ -49,6 +53,11 @@
           <% end %>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+
     </div>
   </div>
 </div>

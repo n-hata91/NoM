@@ -37,9 +37,9 @@
   </div>
   <% @articles.preload([:user]).preload([:movie]).each do |article| %>
   <% if article.movie_id != 1 %>
-   <%= render 'tipcorn', article: article %>
-  <% else %>
    <%= render 'article', article: article %>
+  <% else %>
+   <%= render 'tipcorn', article: article %>
     <% end %>
   <% end %>
   <div class="pagination-wrap mx-auto">

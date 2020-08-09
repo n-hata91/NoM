@@ -30,10 +30,23 @@ $google: #DB4437;
   font-family: "Montserrat", "游ゴシック", 'Lato', YuGothic, 'Noto Sans JP', "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
 }
 
+// フッター固定
 .page-container {
   min-height: 100vh;
 }
 
+// top フェードイン
+.fade_in {
+    opacity: 0;
+    transform: translate(0, 50px);
+    transition: all 0.8s;
+}
+.fade_in.afterscroll {
+    opacity : 1;
+    transform : translate(0, 0);
+}
+
+// 登録フォーム背景
 .bg-img {
   width: 100vw;
   height: 100vh;
@@ -66,9 +79,9 @@ $google: #DB4437;
   }
 }
 
-.show-header {
+@mixin dynamicBachground($height, $opacity) {
   display: flex;
-  height: 40vh;
+  height: $height;
   overflow: hidden;
   position: relative;
   .bg-img-show {
@@ -79,21 +92,31 @@ $google: #DB4437;
   position: absolute;
   top: 0%;
   left: 0%;
-  background-color:rgba(255, 255, 255, 0.7);
+  background-color:rgba(255, 255, 255, $opacity);
   width: 100vw;
   height: 100%;
   z-index: 1;
   }
+}
+
+// ユーザー詳細ページヘッダー
+.show-header {
+ @include dynamicBachground(40vh, 0.7)
 }
 .show-info-left, .show-info-right {
   z-index: 2;
   padding: 60px;
 }
 
+// 投稿編集ページ背景
+.article-show-bg {
+  @include dynamicBachground(1300px, 0.5)
+ }
+
 // ボタンデザイン
-@mixin buttonDesign($color) {
-  width: 180px;
-  height:50px;
+@mixin buttonDesign($color, $width, $height) {
+  width: $width;
+  height:$height;
   color: #FFF;
   text-align: center;
   line-height: 46px;
@@ -132,9 +155,8 @@ $google: #DB4437;
   }
 }
 
-
 .main-btn {
-  @include buttonDesign($main-blue)
+  @include buttonDesign($main-blue, 180px, 50px)
   &.facebook-btn {
     background-color: $facebook;
     border: $facebook;
@@ -155,7 +177,7 @@ $google: #DB4437;
 }
 
 .sub-btn {
-  @include buttonDesign($other-yellow)
+  @include buttonDesign($other-yellow, 180px, 50px)
 }
 
 // 管理者ページ左側固定
@@ -458,15 +480,53 @@ input#menu[type="checkbox"] {
     clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0 100%);
     background-attachment: scroll;
     position: relative;
-    .sign-up-bottom {
-      position: absolute;
-      bottom: 285px;
-      left: 35%;
-    }
-    .sign-in-bottom {
-      position: absolute;
-      bottom: 285px;
-      left: 52%;
+    .top-entrance-btn {
+      position: relative;
+      top: 20vh;
+      left: 40vw;
+      margin: auto;
+      width: 320px;
+      height: 180px;
+      color: #FFF;
+      text-align: center;
+      line-height: 170px;
+      text-decoration: none;
+      font-size: 26px;
+      font-weight: bold;
+      background-color: $main-blue;
+      border: 2px solid $main-blue;
+      display: inline-block;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      &:after{
+        width: 100%;
+        height: 0;
+        content:"";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        background : #FFF;
+        opacity: 0;
+        transform: translateX(-50%) translateY(-50%) rotate(90deg);
+        transition: .2s;
+        z-index: -1;
+      }
+      &:hover {
+      color: $main-blue;
+      content:"<div>irasshai</div>";
+      text-decoration: none;
+      transition: 2s;
+        &:after {
+          height: 200px;
+          opacity: 1;
+        transition:4s;
+        }
+      }
+      &:active:after {
+        height: 4000%;
+        opacity: 1;
+      }
     }
   }
   .search {
@@ -483,6 +543,9 @@ input#menu[type="checkbox"] {
   // コメント
   .reply-form {
     display: none;
+  }
+  .fa-window-close {
+    color: $google;
   }
 
 // edit btn

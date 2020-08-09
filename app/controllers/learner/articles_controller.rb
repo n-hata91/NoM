@@ -11,6 +11,7 @@ class Learner::ArticlesController < ApplicationController
   end
 
   def show
+    byebug
     @article = Article.find(params[:id])
     # impressionist(@article, nil, unique: [:session_hash])
     @new_comment = Comment.new
@@ -28,7 +29,6 @@ class Learner::ArticlesController < ApplicationController
 
   def create
     @article = current_learner_user.articles.new(article_params)
-    byebug
     unless params[:tags] == nil
       tags = params[:tags].split(",")
     end
@@ -45,7 +45,11 @@ class Learner::ArticlesController < ApplicationController
       @movie = Movie.find(params[:movie_id])
       @article = Article.new
       flash[:error] = "Something went wrong"
-      render 'new'
+      if @article.movie_id == 1
+        render :tipcorn
+      else
+        render :new
+      end
     end
   end
 

@@ -12,7 +12,7 @@
         <li class="list-group-item">学習言語：<%= @data.language %></li>
         <li class="list-group-item">レベル：<%= @data.level %></li>
         <li class="list-group-item">登録日：<%= l @data.created_at %></li>
-        <li class="list-group-item">最終ログイン：<%= l @data.current_sign_in_at %></li>
+        <li class="list-group-item">最終ログイン：<%= @data.current_sign_in_at %></li>
         <li class="list-group-item">投稿数：<%= @data.articles.count %></li>
         <li class="list-group-item">最終投稿日：<%= l @data.articles.last.created_at if @data.articles.present? %></li>
         <li class="list-group-item">コメント数：<%= @data.comments.count %></li>

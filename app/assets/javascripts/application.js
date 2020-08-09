@@ -20,8 +20,21 @@
 //= require popper
 //= require bootstrap
 
+$(function() {
+  $(window).scroll(function() {
+    $('.fade_in').each(function() {
+      var offsetTop = $(this).offset().top;
+      var scrollTop = $(window).scrollTop();
+      var windowHeight = $(window).height();
+      if (scrollTop > offsetTop - windowHeight + 400){
+        $(this).addClass('afterscroll');
+      }
+    });
+  });
+});
+
 // サイドバーメニュー
-$(function () {
+$(function() {
   $(document).on('click','.drawer-toggle',function(e) {
     e.preventDefault();
     $("html").toggleClass("open-drawer");
@@ -30,10 +43,10 @@ $(function () {
 });
 
 // 画像プレビュー
-$(function(){
-  $(document).on('change','#change_image' , function (e) {
+$(function() {
+  $(document).on('change','#change_image' , function(e) {
     var new_image = new FileReader();
-    new_image.onload = function (e) {
+    new_image.onload = function(e) {
       $("#prev_image").attr('src', e.target.result);
     }
     new_image.readAsDataURL(e.target.files[0]);
@@ -41,7 +54,7 @@ $(function(){
 });
 
 // コメント機能
-$(function () {
+$(function() {
   // 返信フォーム表示
   $(document).on("click", ".reply-btn", function() {
     var form_id = $(this).attr('id');
@@ -59,7 +72,7 @@ $(function () {
 });
 
 // learner top スプラッシュ
-$(function () {
+$(function() {
   $(document).on("click", ".splash-container", function () {
     $(this).fadeOut("slow");
   });
