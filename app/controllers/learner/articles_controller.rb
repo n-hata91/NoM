@@ -11,6 +11,7 @@ class Learner::ArticlesController < ApplicationController
   end
 
   def show
+    byebug
     @article = Article.find(params[:id])
     # impressionist(@article, nil, unique: [:session_hash])
     @new_comment = Comment.new
@@ -28,10 +29,11 @@ class Learner::ArticlesController < ApplicationController
 
   def create
     @article = current_learner_user.articles.new(article_params)
-    tags = params[:tags].split(",") unless params[:tags] == nil
+    unless params[:tags] == nil
+      tags = params[:tags].split(",")
+    end
     if @article.save
       @article.save_tags(tags)
-      flash[:success] = "Articel successfully created"
       @new_comment = Comment.new
       @comments = @article.comments.order(created_at: "desc")
       if @article.movie_id == 1
@@ -43,7 +45,11 @@ class Learner::ArticlesController < ApplicationController
       @movie = Movie.find(params[:movie_id])
       @article = Article.new
       flash[:error] = "Something went wrong"
-      render 'new'
+      if @article.movie_id == 1
+        render :tipcorn
+      else
+        render :new
+      end
     end
   end
 
@@ -55,23 +61,24 @@ class Learner::ArticlesController < ApplicationController
   
   def update
     @article = Article.find(params[:id])
-    tags = params[:tags].split(",") unless params[:tags] == nil
-      if @article.update(article_params)
-        @article.save_tags(tags)
-        flash[:success] = "Article was successfully updated"
-        redirect_to learner_movie_article_path(@article.movie_id, @article)
-      else
-        @article = Article.find(params[:id])
-        @movie = Movie.find(@article.movie_id)
-        flash[:error] = "Something went wrong"
-        render 'edit'
-      end
+    unless params[:tags] == nil
+      tags = params[:tags].split(",")
+    end
+    if @article.update(article_params)
+      @article.save_tags(tags)
+      redirect_to learner_movie_article_path(@article.movie_id, @article)
+    else
+      @article = Article.find(params[:id])
+      @movie = Movie.find(@article.movie_id)
+      @tags = @article.tags.pluck(:name).join(",")
+      flash[:warning] = '入力が正しくありません'
+      render :edit
+    end
   end
 
   def destroy
     @article = Article.find(params[:id])
     if @article.destroy
-      flash[:success] = 'Article was successfully deleted.'
       redirect_to learner_movie_articles_path
     else
       flash[:error] = 'Something went wrong'
@@ -80,8 +87,6 @@ class Learner::ArticlesController < ApplicationController
   end
   
   
-  
-
   private
 
   def article_params

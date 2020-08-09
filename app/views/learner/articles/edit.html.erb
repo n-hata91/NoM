@@ -1,126 +1,138 @@
-<div class="container">
-  <h1>記事 編集画面</h1>
+<div class="article-show-bg col-md-12 p-0">
   <% if @article.movie_id != 1 %>
-  <div class="card mb-3" style="max-width: 1200px;">
-    <div class="row no-gutters">
-      <div class="col-md-3">
-        <%= image_tag @movie.image_id, size: '200x300', fallback: "no_image.jpg" %>
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 id="MovieTitle" class="card-title"><%= @movie.title %></h5>
-          <p class="card-text"><%= @movie.overview %></p>
-        </div>
-      </div>
-    </div>
-  </div>
-<div class="card mb-3">
-    <div class="row no-gutters">
-      <div class="col-md-12">
-        <div class="card-body">
-          <h4 class="card-title">記事入力</h4>
-          <div class="form-group">
-            <%= form_with model: @article, url: learner_movie_article_path(@article.movie_id, @article) do |f| %>
-              <div class="row">
-                <canvas id="myRaderChart" class="col-md-7"></canvas>
-                <ul class="col-md-5 ml-auto">
-                  <li class="rate-range">
-                    <%= f.label :difficulty, "難易度" %> <br>
-                    <%= f.range_field :difficulty, in: 1..5, id:"difficulty" %>
-                    <span id="value"> <%= '' * @article.difficulty %> </span>
-                  </li>
-                  <li class="rate-range">
-                    <%= f.label :length, "映画の長さ" %> <br>
-                    <%= f.range_field :length, in: 1..5, id:"length" %>
-                    <span id="value"> <%= '' * @article.length %> </span>
-                  </li>
-                  <li class="rate-range">
-                    <%= f.label :practicality, "実用性" %> <br>
-                    <%= f.range_field :practicality, in: 1..5, id:"practicality" %>
-                    <span id="value"> <%= '' * @article.practicality %> </span>
-                  <li class="rate-range">
-                    <%= f.label :speed, "スピード" %> <br>
-                    <%= f.range_field :speed, in: 1..5, id:"speed" %>
-                    <span id="value"> <%= '' * @article.speed %> </span>
-                  </li>
-                  <li class="rate-range">
-                    <%= f.label :accent, "発音のクセ" %> <br>
-                    <%= f.range_field :accent, in: 1..5, id:"accent" %>
-                    <span id="value"> <%= '' * @article.accent %> </span>
-                  </li>
-                  <li class="rate-range">
-                    <%= f.label :rate, "総合評価" %> <br>
-                    <%= f.range_field :rate, in: 1..5 %>
-                    <span id="value"> <%= '' * @article.rate %> </span>
-                  </li>
-                </ul>
-              </div>
-              <%= f.label :title, "タイトル" %>
-              <%= f.text_field :title, class: "form-control" %><br>
-              <%= f.label :content, "内容" %>
-              <%= f.text_area :content, class: "form-control" %>
-              <%= f.hidden_field :movie_id, value: @movie.id %>
-                <div class="article-tags-field">
-                  <%= f.label "タグ" %>
-                  <ul id="article-tags">
-                    <% @article.tags.each do |tag| %>
-                      <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable"><span class="tagit-label"></span><a class="tagit-close"><span class="text-icon"><%= tag.name %></span><span class="ui-icon ui-icon-close"></span></a></li>
-                    <% end %>
-                  </ul>
-                </div>
-              <%= f.submit "送信", class: "btn btn-outline-info" %>
-              </div>    
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <%= image_tag @movie.image_id, class: "bg-img-show", fallback: "no_image.jpg" %>
   <% else %>
-  <div class="card mb-3">
-    <%= form_with model: @article, url: learner_movie_article_path(1, @article) do |f| %>
-      <div class="row no-gutters">
-        <div class="col-md-5">
-          <div class="item-image">
-            <%= attachment_image_tag @article, :image, id: "prev_image", fallback: "no_image.jpg", size:"450x310", style: "border-radius: 6px;", onClick: "$('#change_image').click()" %>
-            <%= f.attachment_field :image, id: "change_image" %><br>
-            <i class="fas fa-sync-alt fa-2x fa-fw" onClick="$('#change_image').click()" ></i>
-            <%= f.label :language, "画像を追加" %>
-          </div>
-        </div>
-        <div class="col-md-7">
-          <div class="card-body">
-            <div class="form-group">
-              <%= f.label :title, "タイトル" %>
-              <%= f.text_field :title, class: "form-control" %><br>
-              <%= f.label :content, "内容" %>
-              <%= f.text_area :content, class: "form-control" %>
-              <%= f.hidden_field :movie_id, value: 1 %>
-                <div class="article-tags-field">
-                  <%= f.label "タグ" %>
-                  <ul id="article-tags">
-                    <%# デフォルトタグの設定: tipcorn %>
-                    <% @article.tags.each do |tag| %>
-                      <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable"><span class="tagit-label"></span><a class="tagit-close"><span class="text-icon"><%= tag.name %></span><span class="ui-icon ui-icon-close"></span></a></li>
-                    <% end %>
-                  </ul>
-              <%= f.submit "送信", class: "btn btn-outline-info my-2" %>    
-                </div>
+    <%= attachment_image_tag @article, :image, class: "bg-img-show", fallback: "no_image.jpg" %>
+  <% end %>
+  <div class="show-bg">
+    <div class="card container mt-5" style="background: rgba(255,255,255,0.7);">
+      <h1>編集ページ</h1>
+      <% if @article.movie_id != 1 %>
+      <%# article %>
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-3">
+              <%= image_tag @movie.image_id, size: '200x300', fallback: "no_image.jpg" %>
+            </div>
+            <div class="col-md-9">
+              <div class="card-body">
+                <h5 id="MovieTitle" class="card-title"><%= @movie.title %></h5>
+                <p class="card-text"><%= @movie.overview %></p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    <% end %>
+        <% if flash[:warning] %>
+          <div class="alert alert-warning"><%= flash[:warning] %></div>
+        <% end %>
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-12">
+              <div class="card-body">
+                <h4 class="card-title">記事入力</h4>
+                <div class="form-group">
+                  <%= form_with model: @article, url: learner_movie_article_path(@article.movie_id, @article), local: true do |f| %>
+                    <div class="row">
+                      <canvas id="myRaderChart" class="col-md-7"></canvas>
+                      <ul class="col-md-5 ml-auto">
+                        <li class="rate-range">
+                          <%= f.label :difficulty, "難易度" %> <br>
+                          <%= f.range_field :difficulty, in: 1..5, id:"difficulty" %>
+                          <span id="value"> <%= '★' * @article.difficulty %> </span>
+                        </li>
+                        <li class="rate-range">
+                          <%= f.label :length, "映画の長さ" %> <br>
+                          <%= f.range_field :length, in: 1..5, id:"length" %>
+                          <span id="value"> <%= '★' * @article.length %> </span>
+                        </li>
+                        <li class="rate-range">
+                          <%= f.label :practicality, "実用性" %> <br>
+                          <%= f.range_field :practicality, in: 1..5, id:"practicality" %>
+                          <span id="value"> <%= '★' * @article.practicality %> </span>
+                        <li class="rate-range">
+                          <%= f.label :speed, "スピード" %> <br>
+                          <%= f.range_field :speed, in: 1..5, id:"speed" %>
+                          <span id="value"> <%= '★' * @article.speed %> </span>
+                        </li>
+                        <li class="rate-range">
+                          <%= f.label :accent, "発音のクセ" %> <br>
+                          <%= f.range_field :accent, in: 1..5, id:"accent" %>
+                          <span id="value"> <%= '★' * @article.accent %> </span>
+                        </li>
+                        <li class="rate-range">
+                          <%= f.label :rate, "総合評価" %> <br>
+                          <%= f.range_field :rate, in: 1..5 %>
+                          <span id="value"> <%= '★' * @article.rate %> </span>
+                        </li>
+                      </ul>
+                    </div>
+                    <%= f.label :title, "タイトル" %>
+                    <%= f.text_field :title, class: "form-control" %><br>
+                    <%= f.label :content, "内容" %>
+                    <%= f.text_area :content, class: "form-control" %>
+                    <%= f.hidden_field :movie_id, value: @movie.id %>
+                      <div class="article-tags-field">
+                        <%= f.label "タグ" %>
+                        <ul id="article-tags">
+                          <% @article.tags.each do |tag| %>
+                            <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable"><span class="tagit-label"></span><a class="tagit-close"><span class="text-icon"><%= tag.name %></span><span class="ui-icon ui-icon-close"></span></a></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                      <button class="main-btn d-block ml-auto mt-3">送信</button>
+                    </div>    
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% else %>
+      <%# tipconr %>
+        <div class="card mb-3">
+          <%= form_with model: @article, url: learner_movie_article_path(1, @article), local: true do |f| %>
+              <div class="col-md-10 mx-auto">
+                <div class="item-image text-center">
+                  <%= attachment_image_tag @article, :image, id: "prev_image", fallback: "no_image.jpg", size:"450x310", style: "border-radius: 6px;", onClick: "$('#change_image').click()" %>
+                  <%= f.attachment_field :image, id: "change_image" %><br>
+                  <i class="fas fa-sync-alt fa-2x fa-fw" onClick="$('#change_image').click()" ></i>
+                  <%= f.label :language, "画像を変更" %>
+                </div>
+              </div>
+              <div class="col-md-10 mx-auto">
+                <div class="card-body">
+                  <div class="form-group">
+                    <%= f.label :title, "タイトル" %>
+                    <%= f.text_field :title, class: "form-control" %><br>
+                    <%= f.label :content, "内容" %>
+                    <%= f.text_area :content, class: "form-control" %>
+                    <%= f.hidden_field :movie_id, value: 1 %>
+                    <div class="article-tags-field">
+                      <%= f.label "タグ" %>
+                      <ul id="article-tags">
+                        <%# デフォルトタグの設定: tipcorn %>
+                        <% @article.tags.each do |tag| %>
+                          <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable"><span class="tagit-label"></span><a class="tagit-close"><span class="text-icon"><%= tag.name %></span><span class="ui-icon ui-icon-close"></span></a></li>
+                        <% end %>
+                      </ul>    
+                      <button class="main-btn d-block ml-auto mt-3">送信</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <% end %>
 </div>
 
 <script>
 $(function() {
-  var params = document.getElementsByClassName('rate-range'); // の増減
+  var params = document.getElementsByClassName('rate-range'); // ★の増減
   var rate = function (params, stars) {
     return function(evt) {
-      apple = ""
+      apple = "★"
       stars.innerHTML = apple.repeat( params.value );
       var ctx = document.getElementById("myRaderChart");
       var movie_title = document.getElementById("MovieTitle");

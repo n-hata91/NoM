@@ -3,4 +3,10 @@ class Tag < ApplicationRecord
   has_many :articles, dependent: :destroy
   has_many :article_tags, dependent: :destroy
   has_many :articles, through: :article_tags, source: :article
+
+
+  def self.article_count(tag_name)
+    find_by(name: tag_name).articles.size
+  end
+
 end

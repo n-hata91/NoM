@@ -6,11 +6,11 @@ User.create!(
   introduction: "#{ForgeryJa(:date).month}生まれ、#{ForgeryJa(:address).full_address}在住です。",
   level: 3,
   language: '英語',
-  password: 'hhhhhh'
+  password: 'hhhhhhhh'
 )
 Admin.create!(
   email: 'hh@hh',
-  password: 'hhhhhh'
+  password: 'hhhhhhhh'
 )
 # ユーザ情報
 20.times do |n|

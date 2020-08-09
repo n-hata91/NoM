@@ -6,12 +6,12 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item">ユーザー名：<%= @data.user.name %></li>
         <li class="list-group-item">日時：<%= l @data.created_at %></li>
-        <li class="list-group-item">コメント：<%= @data.content %></li>
+        <li class="list-group-item">コメント：<%= truncate(@data.content, length: 30) %></li>
         <i class="fas fa-arrow-down fa-3x py-3"></i>
         <li class="list-group-item">コメント相手：<%= @data.article.user.name %></li>
         <li class="list-group-item">記事：<%= @data.article.title %></li>
         <li class="list-group-item">記事内容：<%= @data.article.content %></li>
-        <li class="list-group-item">総合評価：<%= "" * @data.article.rate %></li>
+        <li class="list-group-item">総合評価：<%= "★" * @data.article.rate %></li>
       </ul>
       <%= link_to '削除', admin_comment_path(@data), class: "btn btn-outline-danger", method: :delete, data: { confirm: '削除しますか？' } %>
     </div>

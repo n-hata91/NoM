@@ -41,5 +41,4 @@ class Article < ApplicationRecord
     group(:impressions_count).order('count(impressions_count) desc').limit(3)
   end
   
-  
 end

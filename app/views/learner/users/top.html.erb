@@ -2,15 +2,14 @@
   <%= video_tag("/assets/videos/video.mp4", autoplay: true, loop: true, muted: true ) %>
   <div class="top-btn-bg text-center">
     <h4 class="text-dark my-4">ようこそNoMへ、</h4>
-    <%= link_to "サインイン", new_learner_user_registration_path, class: "btn btn-outline-primary btn-lg col-7 sign-up-top mb-3" %>
-    <%= link_to "ログイン", new_learner_user_session_path, class: "btn btn-outline-success btn-lg col-7 sign-in-top" %>
+    <%= link_to "サインアップ", new_learner_user_registration_path, class: "main-btn col-7 sign-up-top" %>
+    <%= link_to "ログイン", new_learner_user_session_path, class: "sub-btn col-7 sign-in-top" %>
     <h5 class="text-dark my-4">
       <i class="far fa-arrow-alt-circle-down fa-2x text-dark"></i>
       使い方は下へスクロール
     </h5>
   </div>
 </div>
-
 <div class="splash-container">
   <div class="content">
     <p class="splash-1">"The wisest are the most annoyed at the loss of time."<br>
@@ -19,63 +18,50 @@
     <%= image_tag 'NoM-logo.png', class: "splash-2" %>
   </div>
 </div>
-
-<h1>利用者top</h1>
-<p>Find me in app/views/learner/users/top.html.erb</p>
-<%# jumbotron %>
 <div class="jumbotron jumbotron-fluid first-image">
-  <div class="mx-5">
-    <h2 class="display-2 text-light">About</h2>
-    <p class="lead text-light">This is a modified jumbotron that occupies</p><br>
-			<p class="lead text-light">This is a modified jumbotron that occupies <br>
-		the entire horizontal space of its parent.</p>
-    <p class="lead text-light">This is a modified jumbotron that occupies <br>
-		the entire horizontal space of its parent.</p>
-    <p class="lead text-light">This is a modified jumbotron that occupies <br>
-		the entire horizontal space of its parent.</p>
+  <div class="col-md-4 ml-auto m-5 fade_in text-left">
+    <h2 class="display-2 text-secondary">About</h2><br>
+    <p class="lead text-secondary">映画を観ながら言語を学習...</p><br>
+		<p class="lead text-secondary">そんな学習者さんも少なくないと思います。</p>
+		<p class="lead text-secondary">しかし、教材を選ぶのに時間がかかってしまう、</p>
+		<p class="lead text-secondary">時間をかけて選んだ映画がしっくりこない、</p>
+		<p class="lead text-secondary">そもそもマイナー言語の映画情報なんて全くない。</p>
+    <p class="lead text-secondary">NoMはそんな悩みを解消するために作ったアプリです。</p>
   </div>
 </div>
 
 <div class="jumbotron jumbotron-fluid second-image">
-  <div class="mx-5 text-right">
-    <h2 class="display-2 text-light">Study</h2>
-    <p class="lead text-light">This is a modified jumbotron that occupies <br>
-			<p class="lead text-light">This is a modified jumbotron that occupies <br>
-		the entire horizontal space of its parent.</p>
-    <p class="lead text-light">This is a modified jumbotron that occupies <br>
-		the entire horizontal space of its parent.</p>
-    <p class="lead text-light">This is a modified jumbotron that occupies <br>
-		the entire horizontal space of its parent.</p>
+  <div class="col-md-5 m-5 fade_in text-left">
+    <h1 class=" text-secondary">学習にあった映画を検索/シェア</h1><br>
+    <p class="lead text-secondary">タイトル、キーワード、学習者の評価から映画を検索することができます。<br>
+		<p class="lead text-secondary">評価基準は、</p>
+		<p class="lead text-secondary">　"内容の難易度","映画の長さ","実用性","会話の早さ","発音のクセ"
+		<p class="lead text-secondary">　そして"総合評価"です。</p>
+    <p class="lead text-secondary">自ら映画の評価を投稿することも可能です。</p>
+    <p class="lead text-secondary">ぜひ、映画を検索して評価記事をシェアしてみてください。</p>
   </div>
 </div>
 
 <div class="jumbotron jumbotron-fluid third-image">
-  <div class="mx-5">
-    <h2 class="display-2 text-light">Fun</h2>
-    <p class="lead text-light">This is a modified jumbotron that occupies <br>
-		the entire horizontal space of its parent.</p>
-    <p class="lead text-light">This is a modified jumbotron that occupies <br>
-		the entire horizontal space of its parent.</p>
-    <p class="lead text-light">This is a modified jumbotron that occupies <br>
-		the entire horizontal space of its parent.</p>
+  <div class="col-md-4 ml-auto m-5 fade_in text-left">
+    <h2 class="display-3 text-secondary">Tipcorn</h2><br>
+    <p class="lead text-secondary">みなさんの近況、悩み、言語あるあるなど</p>
+    <p class="lead text-secondary">学習に関することを画像付きで、投稿できます。</p>
+    <p class="lead text-secondary">マイナー言語の学習者さんにこそ重宝するはずです。</p>
+    <p class="lead text-secondary">なんでもシェアしてみましょう。</p>
   </div>
 </div>
 
 <div class="jumbotron jumbotron-fluid fourth-image">
-  <div class="mx-5 text-right">
-    <h2 class="display-2 text-light">Joy</h2>
-    <p class="lead text-light">This is a modified jumbotron that occupies <br>
-		the entire horizontal space of its parent.</p>
-    <p class="lead text-light">This is a modified jumbotron that occupies <br>
-		the entire horizontal space of its parent.</p>
-    <p class="lead text-light">This is a modified jumbotron that occupies <br>
-		the entire horizontal space of its parent.</p>
+  <div class="col-md-5 m-5 fade_in text-left">
+    <h2 class="display-4 text-secondary">さっそくはじめましょう</h2><br>
+    <p class="lead text-secondary">こんなところで無駄にする時間はありません</p>
+    <p class="lead text-secondary">下のボタンからNoMにサインアップしてみませんか？<br></p>
+    <p class="lead text-secondary">NoMであなたにあった映画を見つかり、</p>
+    <p class="lead text-secondary">学びの助けになることをお約束します。</p>
   </div>
 </div>
 
 <div class="jumbotron jumbotron-fluid fifth-image">
-  <div class="mx-5">
-    <%= link_to "サインイン", new_learner_user_registration_path, class: "btn btn-primary btn-lg sign-up-bottom" %>
-    <%= link_to "ログイン", new_learner_user_session_path, class: "btn btn-success btn-lg sign-in-bottom" %>
-  </div>
+  <%= link_to "サインアップ", new_learner_user_registration_path, class: "align-middle text-center top-entrance-btn fade_in" %>
 </div>

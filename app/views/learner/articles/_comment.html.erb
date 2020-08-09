@@ -46,19 +46,12 @@
   <% if learner_user_signed_in? && comment.reply_to.blank? %>
 
     <div class="comment_reply_form">
-      <%# コメントフォーム %>
-      <div class="form-group">
-        <%= form_with model: new_comment, url: learner_movie_article_comments_path(article.movie.id, article.id), method: :post, id: "show-form#{comment.id}", class: "reply-form row" do |f| %>
-          <%= f.text_field :content, placeholder: "Add a public reply...", id: "reply-text", class: "form-control" %>
-          <%= f.hidden_field :reply_to, value: comment.id %>
-          <div class="row">
-            <div class="reply_cansel_btn ml-auto"><i class="fas fa-window-close fa-2x fa-fw"></i></div>
-            <div class="comment_reply_bottom_btn">
-              <%= f.submit "返信", class: 'btn btn-outline-dark' %>
-            </div>
-          </div>
-        <% end %>
-      </div>
+    <%# コメントフォーム %>
+      <%= form_with model: new_comment, url: learner_movie_article_comments_path(article.movie.id, article.id), method: :post, id: "show-form#{comment.id}", class: "reply-form " do |f| %>
+        <%= f.text_field :content, placeholder: "返信を入力", id: "reply-text", class: "form-control" %>
+        <%= f.hidden_field :reply_to, value: comment.id %>
+        <i class="fas fa-window-close fa-2x fa-fw reply_cansel_btn"></i>
+      <% end %>
     </div>
 
 <% end %>

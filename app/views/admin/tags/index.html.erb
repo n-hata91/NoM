@@ -44,12 +44,11 @@
                   <%= tag.name %>
                 <% end %>
               </td>
-
-            <td>
-              <%= link_to admin_articles_path(q: {tags_name_eq: tag.name}) do %>
-                <%= tag.articles.count %>
-              <% end %>
-            </td>
+              <td>
+                <%= link_to admin_articles_path(q: {tags_name_eq: tag.name}) do %>
+                  <%= tag.articles.count %>
+                <% end %>
+              </td>
             <td><%= l tag.created_at %></td>
             <td><%= link_to '削除', admin_tag_path(tag), class: "btn btn-outline-danger", method: :delete, data: { confirm: '削除しますか？' } %></td>
           </tr>

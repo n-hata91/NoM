@@ -1,11 +1,11 @@
-<div class="container">
-  <h1>映画検索</h1>
-  <p>インクリメンタルサーチ、非同期でスムーズにAPI結果を表示</p>
-  <div class="loop_wrap">
+<div class="loop_wrap">
+  <div class="search-form-bg text-center">
+    <h1 class="my-4">映画検索</h1>
     <%= form_with model: @movie, url:learner_movies_path do |f| %>
-      <%= f.text_field :search_word, id: "movie-search-field", class: "form-control-lg movie-search-field" %>
-      <%= f.submit "検索", id: "search_btn", class: "btn btn-success btn-lg movie-search-btn" %>
+      <%= f.text_field :search_word, placeholder: "タイトルを入力", id: "movie-search-field", class: "form-control-lg movie-search-field my-3" %>
+      <button class="main-btn movie-search-btn">検索</button>
     <% end %>
+  </div>
   <table>
     <tr>
     <% @images.each do |image| %>
@@ -19,5 +19,6 @@
     </tr>
   </table>
 </div>
-</div>
-<div id="movie_list" class="row"></div>
+<div id="movie_list" class="container"></div>
+
+

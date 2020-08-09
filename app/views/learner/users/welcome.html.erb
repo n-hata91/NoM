@@ -1,25 +1,38 @@
-<h2>ようこそ  <%= current_learner_user.name %>さん</h2>
-
-<h3>詳細登録</h3>
-<p>null ok のユーザー情報を追加登録</p>
-<p>後から変更できます的な</p>
-
-
-<%= form_with model: @user, url: learner_user_path(@user), local: true do |f| %>
-<div class="form-row align-items-center">
-  <div class="col-auto my-1">
-    <div class="item-image">
-      <%= attachment_image_tag current_learner_user, :image, id: "prev_image", fallback: "no_image.jpg", size:"100x100", style: "border-radius: 18px;", onClick: "$('#change_image').click()" %>      <%= f.attachment_field :image, id: "change_image" %><br>
-      <i class="fas fa-sync-alt fa-2x fa-fw" onClick="$('#change_image').click()" ></i>
-      <%= f.label :language, "プロフィール画像を登録" %>
+<div class="bg-img bg-welcome">
+  <div class="blur_filter d-flex">
+    <div class="card col-md-6 m-auto" style="background: rgba(255,255,255,0.7);">
+      <div class="card-body">
+        <h2 class="text-center">ようこそ  <%= current_learner_user.name %>さん</h2>
+        <p class="text-center">プロフィールの登録ができます。 <br> スキップして後で登録することも可能です。</p>
+        <%= form_with model: @user, url: learner_user_path(@user), local: true do |f| %>
+        <div class="form-row align-items-center">
+          <div class="col-md-9 mb-3 mx-auto">
+            <div class="item-image text-center">
+              <%= attachment_image_tag current_learner_user, :image, id: "prev_image", fallback: "no_image.jpg", size:"100x100", style: "border-radius: 18px;", onClick: "$('#change_image').click()" %>
+              <%= f.attachment_field :image, id: "change_image" %>
+              <i class="fas fa-sync-alt fa-2x fa-fw" onClick="$('#change_image').click()" ></i>
+              <%= f.label :language, "プロフィール画像を登録" %>
+            </div>
+          </div>          
+          <div class="col-md-9 mb-3 mx-auto">
+            <%= f.label :language, "学習言語を登録" %>
+            <%= f.collection_select :language, @languages, :language, :language, {prompt: "選択してください"}, class: "custom-select mr-sm-2" %><br>
+          </div>
+          <div class="col-md-9 mb-3 mx-auto">
+            <%= f.label :level, "学習レベルを登録" %>
+            <%= f.select :level, User.levels.keys.map {|k| [k, k]},{}, class: "custom-select mr-sm-2" %>
+          </div>
+          <div class="col-md-9 mb-3 mx-auto">
+            <%= f.label :introduction, "自己紹介" %>
+            <%= f.text_area :introduction, class: "form-control", rows: "3" %>
+          </div>
+          <div class="col-md-9 mb-3 mx-auto text-center">
+            <button class="main-btn mx-2">登録</button>
+            <%= link_to "スキップ", learner_articles_path, class: "sub-btn align-top mx-2" %>
+          </div>
+        </div>
+        <% end %>
+      </div>
     </div>
-    <%= f.label :language, "学習言語を登録" %>
-    <%= f.collection_select :language, @languages, :language, :language, {prompt: "選択してください"}, class: "custom-select mr-sm-2" %><br>
-    <%= f.label :level, "学習レベルを登録" %>
-    <%= f.select :level, User.levels.keys.map {|k| [k, k]},{}, class: "custom-select mr-sm-2" %>
-    <%= f.label :introduction, "自己紹介" %>
-    <%= f.text_area :introduction, class: "form-control", rows: "3" %>
-    <%= f.submit "登録", class:'btn btn-success' %>
   </div>
 </div>
-<% end %>

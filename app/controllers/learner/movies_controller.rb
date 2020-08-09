@@ -6,6 +6,7 @@ class Learner::MoviesController < ApplicationController
 
   def search
     @images = Movie.where.not(image_id: nil).shuffle.take(20)
+    @movies = Movie.find(Article.group(:movie_id).order('count(movie_id) desc').limit(10).pluck(:movie_id))
     # インクリメンタルサーチ
     # unless params[:search_word].nil? 
     #   @movies = getMovies(params[:search_word])

@@ -19,11 +19,11 @@ class Learner::Users::SessionsController < Devise::SessionsController
   # end
 
   def after_sign_in_path_for(resource)
-    if resource.language.blank?
-      learner_welcome_path
-    else
-      learner_articles_path
-    end
+    user = current_learner_user
+    user.current_sign_in_at = Time.current
+    user.save
+    byebug
+    learner_articles_path
   end
 
   def after_sign_out_path_for(resource)

@@ -1,13 +1,13 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  validates :name, presence: true, length: { in: 1..30}
-  validates :introduction, length: { maximum: 140 }
-
-  attachment :image
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable,
           :omniauthable, omniauth_providers: %i[facebook google_oauth2]
+  validates :name, presence: true, length: { in: 1..30}
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :introduction, length: { maximum: 140 }
+  attachment :image
   has_many :sns_credentials, dependent: :destroy
   has_many :articles, dependent: :destroy
   has_many :follow_to, class_name:  "Relation",
@@ -28,11 +28,9 @@ class User < ApplicationRecord
   def follow(other_user)
     following << other_user
   end
-
   def unfollow(other_user)
     self.follow_to.find_by(followed_id: other_user.id).destroy
   end
-
   def following?(other_user)
     following.include?(other_user)
   end
@@ -89,4 +87,5 @@ class User < ApplicationRecord
   def self.ranking(num)
     find(Article.group(:user_id).order('count(user_id) desc').limit(num).pluck(:user_id))
   end
+
 end
