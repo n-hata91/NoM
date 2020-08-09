@@ -6,6 +6,8 @@ class Admin::UsersController < ApplicationController
     @users = User.all
     @users_today = today(@users)
     @articles = Article.all
+    @movie_articles = Tag.article_count('movie')
+    @tipcorn_articles = Tag.article_count('tipcorn')
     @users_today = today(@usearticlesrs)
     @comments = Comment.all
     @users_today = today(@comments)

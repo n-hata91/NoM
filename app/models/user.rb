@@ -87,4 +87,5 @@ class User < ApplicationRecord
   def self.ranking(num)
     find(Article.group(:user_id).order('count(user_id) desc').limit(num).pluck(:user_id))
   end
+
 end

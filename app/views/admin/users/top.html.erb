@@ -1,6 +1,5 @@
 <div class="container">
-  <h1>管理者　top</h1>
-  <p>1週間で集計し直すバッチ処理？（今週のイチオシ）</p>
+  <h1>Top</h1>
   <h3 class="text-right mx-4">
     <%= l Time.zone.now %>現在
   </h3>
@@ -27,12 +26,12 @@
             <tbody>
               <tr>
                 <th scope="row" colspan="2">累計</th>
-                <td><%= @users.count %></td>
+                <td><%= @users.count %>名</td>
               </tr>
               <tr>
                 <th scope="row"></th>
                 <td>本日登録者数</td>
-                <td><%= @users_today.nil? ? 0 : @users_today.count %></td>
+                <td><%= @users_today.nil? ? 0 : @users_today.count %>名</td>
               </tr>
             </tbody>
           </table>
@@ -62,22 +61,22 @@
             <tbody>
               <tr>
                 <th scope="row" colspan="2">累計</th>
-                <td><%= @articles.count %></td>
+                <td><%= @articles.count %>件</td>
               </tr>
               <tr>
                 <th scope="row"></th>
                 <td>投稿数（本日）</td>
-                <td><%= @articles_today.nil? ? 0 : @articles_today.count %></td>
+                <td><%= @articles_today.nil? ? 0 : @articles_today.count %>件</td>
               </tr>
               <tr>
                 <th scope="row"></th>
                 <td>映画記事</td>
-                <td>@movie_articles</td>
+                <td><%= @movie_articles %></td>
               </tr>
               <tr>
                 <th scope="row"></th>
                 <td>tipcorn</td>
-                <td>@tipcorns</td>
+                <td><%= @tipcorn_articles %></td>
               </tr>
             </tbody>
           </table>

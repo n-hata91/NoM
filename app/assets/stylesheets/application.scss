@@ -77,6 +77,15 @@ $google: #DB4437;
       height: 100vh;
     }
   }
+  &.bg-admin{
+    background-color: darkgray;
+    background-position: 50% 50%;
+    .blur_filter {
+      backdrop-filter: blur(10px);
+      width: 100vw;
+      height: 100vh;
+    }
+  }
 }
 
 @mixin dynamicBachground($height, $opacity) {
