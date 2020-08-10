@@ -13,7 +13,7 @@ class Admin::CommentsController < ApplicationController
     if @comment.destroy
       redirect_to admin_comments_url
     else
-      flash[:error] = 'Something went wrong'
+      flash.now[:warning] = '削除に失敗しました'
       redirect_to admin_comments_url
     end
   end

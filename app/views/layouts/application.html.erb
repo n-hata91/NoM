@@ -5,7 +5,6 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= favicon_link_tag 'nom.ico' %>
-
     <script src="https://kit.fontawesome.com/<%=ENV['FONT_AWESOME']%>.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -13,105 +12,41 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
   </head>
   <body>
+
+<nav class="mobileMenu">
+  <ul>
+    <li><%= link_to "TOP", root_path %></li>
+    <li><%= link_to "投稿記事", learner_articles_path %></li>
+    <li><%= link_to "映画検索 / 投稿", learner_search_path %></li>
+    <li><%= link_to "TIPCORN", learner_tipcorn_path %></li>
+    <li><%= link_to "マイページ", learner_user_path(current_learner_user) %></li>
+    <li><%= link_to "ログアウト", destroy_learner_user_session_path, method: :delete %></li>
+  </ul>
+</nav>
+<!-- 三 --> 
+<div class="Toggle-bar">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+
+
   <div class="page-container">
-  <%# ドロワー %>
-  <% if learner_user_signed_in? %>
-    <%= render "learner/drawer" %>
-  <% elsif admin_admin_signed_in? %>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <%= link_to "管理ページ", admin_root_path, class: "navbar-brand mr-auto" %><span class="icon"><i>©</i></span>
-          <ul class="navbar-nav">
-            <li class="nav-item"><%= link_to "トップ", admin_root_path, class: "btn btn-outline-light text-light" %><span class="icon"><i>©</i></span></li>
-            <li class="nav-item"><%= link_to "利用者一覧", admin_users_path, class: "btn btn-outline-light text-light" %><span class="icon"><i>©</i></span></li>
-            <li class="nav-item"><%= link_to "記事一覧", admin_articles_path, class: "btn btn-outline-light text-light" %><span class="icon"><i>©</i></span></li>
-            <li class="nav-item"><%= link_to "コメント一覧", admin_comments_path, class: "btn btn-outline-light text-light" %><span class="icon"><i>©</i></span></li>
-            <li class="nav-item"><%= link_to "タグ一覧", admin_tags_path, class: "btn btn-outline-light text-light" %><span class="icon"><i>©</i></span></li>
-            <li class="nav-item"><%= link_to "ログイン", new_admin_admin_session_path, class: "btn btn-outline-danger text-light" %><span class="icon"><i>©</i></span></li>
-            <li class="nav-item"><%= link_to "ログアウト", destroy_admin_admin_session_path, class: "btn btn-outline-danger text-light", method: :delete %><span class="icon"><i>©</i></span></li>
-          </ul>
-      </nav>
+<% if learner_user_signed_in? %>
+  <%= render "learner/drawer" %>
+<% elsif admin_admin_signed_in? %>
+  <%= render "admin/header" %>
+<% else %>
+<% end %>
     </header>
-    <%= render "admin/drawer" %>
-  <% else %>
-  <% end %>
-  <%= yield %>
-  <% unless admin_admin_signed_in? %>
+    <%= yield %>
   </div>
+  <% unless admin_admin_signed_in? %>
     <footer class="footer mt-auto py-3">
-      <div class="container">
-        <div class="row">
-          <ul class="list-group list-group-flush col-md-3 mx-auto">
-            <li class="list-group-item">
-              <%= image_tag 'logo-s.png', size: '42x30' %>
-              <strong>NoM</strong>
-            </li>
-            <li class="list-group-item">
-              <span class="icon"><i class="fab fa-github-square"></i></span>
-              <%= link_to "GitHub", "https://github.com/n-hata91/NoM" %>
-            </li>
-            <li class="list-group-item">
-              <span class="icon"><i class="fab fa-twitter-square"></i></i></span>
-              <%= link_to "Twitter", "https://twitter.com/n_hata91" %>
-            </li>
-            <li class="list-group-item">
-            <a data-toggle="modal" data-target="#exampleModal">お問い合わせ</a>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">お問い合わせフォーム</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <form>
-                      <div class="form-group">
-                        <label for="exampleFormControlInput1">Email</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1">
-                        <label for="exampleFormControlTextarea1">件名</label>
-                        <input type="text" class="form-control" id="exampleFormControlTextarea1">
-                        <label for="exampleFormControlTextarea2">内容</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea2" rows="3"></textarea>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="main-btn">お問合せ</button>
-                    <button type="button" class="sub-btn" data-dismiss="modal">閉じる</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </li>
-          </ul>
-          <ul class="list-group list-group-flush col-md-3 mx-auto">
-            <li class="list-group-item"><span class="icon"><i class="fas fa-home"></i></span>
-              <%= link_to "top", root_path, class: "" %>
-            </li>
-            <li class="list-group-item"><span class="icon"><i class="fas fa-pencil-alt"></i></i></span>
-              <%= link_to "記事一覧", learner_articles_path, class: "" %>
-            </li>
-            <li class="list-group-item"><span class="icon"><i class="fas fa-film"></i></span>
-              <%= link_to "映画検索", learner_search_path, class: "" %>
-            </li>
-            <li class="list-group-item"><span class="icon"><i class="far fa-sun"></i></span>
-              <%= link_to "tipcorn", learner_tipcorn_path, class: "" %>
-            </li>
-          </ul>
-          <ul class="list-group list-group-flush col-md-3 mx-auto">
-            <li class="list-group-item"><strong>API</strong></li>
-            <li class="list-group-item">
-              <%= link_to "https://www.themoviedb.org/" do %>
-            <h6>TMDb</h6>
-                <%= image_tag 'api-logo.svg', size: "130x94" %>
-              <% end %>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <%= render "layouts/footer" %>
     </footer>
-    <% end %>
+  <% end %>
   </body>
 </html>

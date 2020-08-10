@@ -1,9 +1,9 @@
 <div class="card mb-3 faa-float animated-hover">
   <div class="row no-gutters">
-    <div class="col-md-4">
-      <%= attachment_image_tag article, :image, size: "369x336" %>
+    <div class="col-lg-4 text-center">
+      <%= attachment_image_tag article, :image, fallback: "pop1.jpg", fallback: "pop1.jpg", size: "369x336" %>
     </div>
-    <div class="col-md-8">
+    <div class="col-lg-8">
       <div class="card-body">
         <%= link_to learner_movie_article_path(article.movie_id, article) do %>
           <h5 class="card-title">

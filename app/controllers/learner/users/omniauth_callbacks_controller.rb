@@ -41,12 +41,11 @@ class Learner::Users::OmniauthCallbacksController < Devise::OmniauthCallbacksCon
     @omniauth = request.env['omniauth.auth']
     info = User.find_oauth(@omniauth)
     @user = info[:user]
-
-    p 'TEST'
-    p @user.persisted?
   # 既存の場合
     if @user.persisted? 
       sign_in @user
+      @user.current_sign_in_at = Time.current
+      @user.save
       if @user.language.blank?
         redirect_to learner_welcome_path
       else
@@ -65,6 +64,8 @@ class Learner::Users::OmniauthCallbacksController < Devise::OmniauthCallbacksCon
       sns.user_id = register.id
       sns.save
       sign_in register
+      register.current_sign_in_at = Time.current
+      register.save
       redirect_to learner_welcome_path
     end
   end

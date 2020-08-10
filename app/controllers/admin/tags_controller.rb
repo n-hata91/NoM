@@ -17,7 +17,7 @@ class Admin::TagsController < ApplicationController
     if tag.destroy
       redirect_to admin_tags_url
     else
-      flash[:error] = 'Something went wrong'
+      flash.now[:warning] = '削除に失敗しました'
       redirect_to admin_tags_url
     end
   end

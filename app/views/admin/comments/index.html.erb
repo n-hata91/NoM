@@ -1,71 +1,72 @@
-<h1>Admin::Comments#index</h1>
-<div class="row">
-  <% if @data %>
-    <div class="admin-detail col-md-3 text-center">
-      <%= attachment_image_tag @data.user, :image, size: "100x100", fallback: "no_image.jpg", style: "border-radius: 18px;" %>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">ユーザー名：<%= @data.user.name %></li>
-        <li class="list-group-item">日時：<%= l @data.created_at %></li>
-        <li class="list-group-item">コメント：<%= truncate(@data.content, length: 30) %></li>
-        <i class="fas fa-arrow-down fa-3x py-3"></i>
-        <li class="list-group-item">コメント相手：<%= @data.article.user.name %></li>
-        <li class="list-group-item">記事：<%= @data.article.title %></li>
-        <li class="list-group-item">記事内容：<%= @data.article.content %></li>
-        <li class="list-group-item">総合評価：<%= "★" * @data.article.rate %></li>
-      </ul>
-      <%= link_to '削除', admin_comment_path(@data), class: "btn btn-outline-danger", method: :delete, data: { confirm: '削除しますか？' } %>
-    </div>
-  <% else %>
-    <div class="admin-detail col-md-3"></div>
-  <% end %>
-  <div class="col-md-3" style="z-index: -1;"></div>
-  <div class="card col-md-9">
-    <div class="card-header" id="head">
-      <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
-        <i class="fas fa-search">検索</i>
-      </button>
-      <% if !@p.blank? %>
-        <% unless @p.values.blank? %>
-          <i class="fas fa-search mr-1"><%= @p["content_cont_all"] %></i>
+<div class="admin-bg">
+  <h1>コメント管理</h1>
+  <div class="row">
+    <% if @data %>
+      <div class="admin-detail col-lg-3 text-center">
+        <%= attachment_image_tag @data.user, :image, size: "100x100", fallback: "no_image.jpg", style: "border-radius: 18px;" %>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">ユーザー名：<%= @data.user.name %></li>
+          <li class="list-group-item">日時：<%= l @data.created_at %></li>
+          <li class="list-group-item">コメント：<%= truncate(@data.content, length: 30) %></li>
+          <i class="fas fa-arrow-down fa-3x py-3"></i>
+          <li class="list-group-item">
+            <%= attachment_image_tag @data.article.user, :image, size: "100x100", fallback: "no_image.jpg", style: "border-radius: 18px;" %><br>
+            コメント相手：<%= @data.article.user.name %></li>
+          <li class="list-group-item">記事：<%= @data.article.title %></li>
+          <li class="list-group-item">記事内容：<%= @data.article.content %></li>
+          <li class="list-group-item">総合評価：<%= "★" * @data.article.rate %></li>
+          <%= link_to '削除', admin_comment_path(@data), class: "btn btn-outline-danger", method: :delete, data: { confirm: '削除しますか？' } %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="card col-lg-9 ml-auto">
+      <div class="card-header" id="head">
+        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+          <i class="fas fa-search">検索</i>
+        </button>
+        <% if !@p.blank? %>
+          <% unless @p.values.blank? %>
+            <i class="fas fa-search mr-1"><%= @p["content_cont_all"] %></i>
+          <% end %>
+          <%= link_to "検索をキャンセル", admin_comments_path, class: "btn btn-outline-danger" %>
         <% end %>
-        <%= link_to "検索をキャンセル", admin_comments_path, class: "btn btn-outline-danger" %>
-      <% end %>
-    </div>
-    <div class="card-body">
-      <%= search_form_for @q, url: admin_comments_path do |f| %>
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <%= f.label :title, "キーワード" %>
-            <%= f.search_field :content_cont_all, class: "form-control mr-sm-2" %>
+      </div>
+      <div class="card-body">
+        <%= search_form_for @q, url: admin_comments_path do |f| %>
+          <div class="form-row">
+            <div class="form-group col-lg-12">
+              <%= f.label :title, "キーワード" %>
+              <%= f.search_field :content_cont_all, class: "form-control mr-sm-2" %>
+            </div>
           </div>
-        </div>
-        <%= f.submit "検索", class: "btn btn-outline-success" %>
-        <span>表示 <%= @comments.count %> 件</span>
-      <% end %>
-    </div>
-    <table class="table">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col"></th>
-          <th scope="col">Content</th>
-          <th scope="col">Article</th>
-          <th scope="col">User</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @comments.preload([:user]).preload([:article]).each do |comment| %>
-          <tr>
-            <th scope="row"></th>
-              <td>
-                <%= link_to admin_comments_path(data: comment.id) do %>
-                  <%= comment.content %>
-                <% end %>
-              </td>
-            <td><%= comment.article.title %></td>
-            <td><%= comment.user.name %></td>
-          </tr>
+          <%= f.submit "検索", class: "btn btn-outline-success" %>
+          <span>表示 <%= @comments.count %> 件</span>
         <% end %>
-      </tbody>
-    </table>
+      </div>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Content</th>
+            <th scope="col">Article</th>
+            <th scope="col">User</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @comments.preload([:user]).preload([:article]).each do |comment| %>
+            <tr>
+              <th scope="row"></th>
+                <td>
+                  <%= link_to admin_comments_path(data: comment.id) do %>
+                    <%= truncate(comment.content, length: 20) %>
+                  <% end %>
+                </td>
+              <td><%= truncate(comment.article.title, length: 20) %></td>
+              <td><%= comment.user.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

@@ -16,7 +16,7 @@ class Admin::ArticlesController < ApplicationController
     if @article.destroy
       redirect_to admin_articles_url
     else
-      flash[:error] = 'Something went wrong'
+      flash.now[:warning] = '入力をご確認ください'
       redirect_to admin_articles_url
     end
   end

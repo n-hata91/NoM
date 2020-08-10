@@ -18,7 +18,7 @@ Admin.create!(
   email = ForgeryJa('email').address
   introduction = "#{ForgeryJa(:date).month}生まれ、#{ForgeryJa(:address).full_address}在住です。"
   level = rand(0..3)
-  language = ['英語','スペイン語','フランス語','中国語']
+  language = ['英語','スペイン語','フランス語','繁体中国語']
   password = 'password'
   date1 = Faker::Time.between(from: '2015-05-01', to: '2020-05-01')
   date2 = Faker::Time.between(from: '2020-08-02', to: '2020-08-15')
@@ -74,7 +74,7 @@ Tag.create!(
     user = User.find(rand(1..20))
     movie_id = rand(2..6)
     title = "【#{user.language}】#{Movie.find(movie_id).title}は勉強になります。"
-    content = "【#{user.language}】内容も良くて楽しみながら勉強できます。#{user.name}"
+    content = "【#{user.language}】内容も良くて楽しみながら勉強できます。#{user.name}" + Faker::Lorem.characters(number:50)
     rate1 = rand(1..5)
     rate2 = rand(1..5)
     rate3 = rand(1..5)
@@ -106,7 +106,7 @@ Tag.create!(
   user = User.find(rand(1..20))
     movie_id = 1
     title = "【tipcorn】こんな勉強しています。"
-    content = "【#{user.language}】よかったら皆さんも試してみてください。#{user.name}"
+    content = "【#{user.language}】よかったら皆さんも試してみてください。#{user.name}" + Faker::Lorem.characters(number:50)
     counter = rand(0..20)
     user.articles.create!(
       movie_id: movie_id,
