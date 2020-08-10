@@ -1,5 +1,4 @@
 require 'csv'
-
 CSV.generate do |csv|
   header = %w(id ユーザー名 メールアドレス 登録日 学習言語 レベル)
   csv << header

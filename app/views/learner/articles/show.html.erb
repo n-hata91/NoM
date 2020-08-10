@@ -1,8 +1,8 @@
-<div class="article-show-bg col-md-12 p-0">
+<div class="article-show-bg col-lg-12 p-0">
   <% if @article.movie_id != 1 %>
-    <%= image_tag @article.movie.image_id, class: "bg-img-show", fallback: "no_image.jpg" %>
+    <%= image_tag @article.movie.image_id, class: "bg-img-show", fallback: "sign-up.jpg" %>
   <% else %>
-    <%= attachment_image_tag @article, :image, class: "bg-img-show", fallback: "no_image.jpg" %>
+    <%= attachment_image_tag @article, :image, class: "bg-img-show", fallback: "bg-popcorn.jpg" %>
   <% end %>
   <div class="show-bg">
     <div class="card container mt-5" style="background: rgba(255,255,255,0.7);">
@@ -11,10 +11,10 @@
       <% if @article.movie_id != 1 %>
         <div class="card mb-3">
           <div class="row no-gutters">
-            <div class="col-md-4">
+            <div class="col-lg-4 text-center">
               <%= image_tag @article.movie.image_id, size: "350x495" %>
             </div>
-              <div class="col-md-8">
+              <div class="col-lg-8">
                 <div class="card-body">
                   <h5 id="MovieTitle" class="card-title"><%= @article.movie.title %></h5>
                   <p class="card-text"><%= @article.movie.overview %></p>
@@ -27,8 +27,8 @@
                       <% end %>
                     <% end %>
                 <div class="row">
-                  <canvas id="myRaderChart" class="col-md-8"></canvas>
-                  <ul class="col-md-4 ml-auto">
+                  <canvas id="myRaderChart" class="col-lg-8"></canvas>
+                  <ul class="col-lg-4 ml-auto">
                     <li class="card-text">総合評価：★<%= @article.rate %></li>
                     <li class="card-text">難易度：★<%= @article.difficulty %></li>
                     <li class="card-text">映画の長さ：★<%= @article.length %></li>
@@ -54,17 +54,17 @@
         </div>
       <% else %>
         <div class="card mb-3">
-          <div class="col-md-10 mx-auto">
-            <div class="col-md-12 text-center">
-              <%= attachment_image_tag @article, :image, size: "450x336" %>
+          <div class="col-lg-10 mx-auto">
+            <div class="col-lg-12 text-center">
+              <%= attachment_image_tag @article, :image, fallback: "pop1.jpg", size: "450x336" %>
             </div>
-            <div class="col-md-12">
+            <div class="col-lg-12">
               <div class="card-body">
                 <strong id="favorite-<%= @article.id %>"><%= render 'favorite', article: @article %></strong>
                 <h5 class="card-title"><%= @article.title %></h5>
                 <p class="card-text"><%= @article.content %></p>
                 <% @article.tags.each do |tag| %>
-                  <%= link_to  q: {tags_name_eq: tag.name} do %>
+                  <%= link_to learner_articles_path q: {tags_name_eq: tag.name} do %>
                     <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
                   <% end %>
                 <% end %>
@@ -87,7 +87,7 @@
       <%# コメントフォーム %>
       <div class="form-group container">
         <%= form_with model: @new_comment, url: learner_movie_article_comments_path(@article.movie.id, @article.id), method: :post, class: "row" do |f| %>
-          <%= f.text_field :content, placeholder: "コメントを入力", class: "form-control" %>
+          <%= f.text_field :content, placeholder: "コメントを入力(140文字以内)", class: "form-control" %>
           <%= f.hidden_field :article_id, value: @article.id %>
           <button class="main-btn d-block ml-auto mt-1">コメント</button>
         <% end %>

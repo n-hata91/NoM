@@ -1,4 +1,4 @@
-<div class="article-show-bg col-md-12 p-0">
+<div class="article-show-bg col-lg-12 p-0">
   <% if @article.movie_id != 1 %>
     <%= image_tag @movie.image_id, class: "bg-img-show", fallback: "no_image.jpg" %>
   <% else %>
@@ -11,10 +11,10 @@
       <%# article %>
         <div class="card mb-3">
           <div class="row no-gutters">
-            <div class="col-md-3">
+            <div class="col-lg-3">
               <%= image_tag @movie.image_id, size: '200x300', fallback: "no_image.jpg" %>
             </div>
-            <div class="col-md-9">
+            <div class="col-lg-9">
               <div class="card-body">
                 <h5 id="MovieTitle" class="card-title"><%= @movie.title %></h5>
                 <p class="card-text"><%= @movie.overview %></p>
@@ -27,14 +27,14 @@
         <% end %>
         <div class="card mb-3">
           <div class="row no-gutters">
-            <div class="col-md-12">
+            <div class="col-lg-12">
               <div class="card-body">
                 <h4 class="card-title">記事入力</h4>
                 <div class="form-group">
                   <%= form_with model: @article, url: learner_movie_article_path(@article.movie_id, @article), local: true do |f| %>
                     <div class="row">
-                      <canvas id="myRaderChart" class="col-md-7"></canvas>
-                      <ul class="col-md-5 ml-auto">
+                      <canvas id="myRaderChart" class="col-lg-7"></canvas>
+                      <ul class="col-lg-5 ml-auto">
                         <li class="rate-range">
                           <%= f.label :difficulty, "難易度" %> <br>
                           <%= f.range_field :difficulty, in: 1..5, id:"difficulty" %>
@@ -66,9 +66,9 @@
                         </li>
                       </ul>
                     </div>
-                    <%= f.label :title, "タイトル" %>
+                    <%= f.label :title, "タイトル(50文字以内)" %>
                     <%= f.text_field :title, class: "form-control" %><br>
-                    <%= f.label :content, "内容" %>
+                    <%= f.label :content, "内容(400文字以内)" %>
                     <%= f.text_area :content, class: "form-control" %>
                     <%= f.hidden_field :movie_id, value: @movie.id %>
                       <div class="article-tags-field">
@@ -91,7 +91,7 @@
       <%# tipconr %>
         <div class="card mb-3">
           <%= form_with model: @article, url: learner_movie_article_path(1, @article), local: true do |f| %>
-              <div class="col-md-10 mx-auto">
+              <div class="col-lg-10 mx-auto">
                 <div class="item-image text-center">
                   <%= attachment_image_tag @article, :image, id: "prev_image", fallback: "no_image.jpg", size:"450x310", style: "border-radius: 6px;", onClick: "$('#change_image').click()" %>
                   <%= f.attachment_field :image, id: "change_image" %><br>
@@ -99,12 +99,12 @@
                   <%= f.label :language, "画像を変更" %>
                 </div>
               </div>
-              <div class="col-md-10 mx-auto">
+              <div class="col-lg-10 mx-auto">
                 <div class="card-body">
                   <div class="form-group">
-                    <%= f.label :title, "タイトル" %>
+                    <%= f.label :title, "タイトルinai(50文字以内)" %>
                     <%= f.text_field :title, class: "form-control" %><br>
-                    <%= f.label :content, "内容" %>
+                    <%= f.label :content, "内容(400文字以内)" %>
                     <%= f.text_area :content, class: "form-control" %>
                     <%= f.hidden_field :movie_id, value: 1 %>
                     <div class="article-tags-field">

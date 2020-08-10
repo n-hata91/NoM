@@ -77,3 +77,12 @@ $(function() {
     $(this).fadeOut("slow");
   });
 });
+
+
+// スマホバーガー
+$(function() {
+  $(document).on("click", ".Toggle-bar", function() {
+    $(this).toggleClass('active');
+    $('.mobileMenu').toggleClass('active');
+  });
+});

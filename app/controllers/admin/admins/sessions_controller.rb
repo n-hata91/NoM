@@ -23,7 +23,7 @@ class Admin::Admins::SessionsController < Devise::SessionsController
   end
 
   def after_sign_out_path_for(resource)
-    new_admin_admin_session
+    new_admin_admin_session_path
   end
 
   # protected

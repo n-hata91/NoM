@@ -11,9 +11,7 @@ class Learner::ArticlesController < ApplicationController
   end
 
   def show
-    byebug
     @article = Article.find(params[:id])
-    # impressionist(@article, nil, unique: [:session_hash])
     @new_comment = Comment.new
     @comments = @article.comments.order(created_at: "desc")
   end
@@ -24,11 +22,13 @@ class Learner::ArticlesController < ApplicationController
   end
   
   def tipcorn
-    @article = Article.new
+    @article = Article.new(movie_id: 1)
   end
 
   def create
+    byebug
     @article = current_learner_user.articles.new(article_params)
+    # @article.image ||= 
     unless params[:tags] == nil
       tags = params[:tags].split(",")
     end
@@ -42,12 +42,12 @@ class Learner::ArticlesController < ApplicationController
         redirect_to learner_movie_article_path(@article.movie_id, @article)
       end
     else
-      @movie = Movie.find(params[:movie_id])
-      @article = Article.new
-      flash[:error] = "Something went wrong"
+      byebug
+      flash.now[:warning] = "入力をご確認ください"
       if @article.movie_id == 1
         render :tipcorn
       else
+        @movie = Movie.find(@article.movie_id)
         render :new
       end
     end
@@ -71,7 +71,7 @@ class Learner::ArticlesController < ApplicationController
       @article = Article.find(params[:id])
       @movie = Movie.find(@article.movie_id)
       @tags = @article.tags.pluck(:name).join(",")
-      flash[:warning] = '入力が正しくありません'
+      flash.now[:warning] = '入力をご確認ください'
       render :edit
     end
   end
@@ -81,7 +81,7 @@ class Learner::ArticlesController < ApplicationController
     if @article.destroy
       redirect_to learner_movie_articles_path
     else
-      flash[:error] = 'Something went wrong'
+      flash.now[:warning] = '削除に失敗しました'
       redirect_to learner_movie_articles_path
     end
   end
