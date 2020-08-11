@@ -28,7 +28,7 @@ class Learner::Users::OmniauthCallbacksController < Devise::OmniauthCallbacksCon
   #   super(scope)
   # end
 
-# SNSコールバック
+  # SNSコールバック
   def google_oauth2
     callback_for(:google)
   end
@@ -37,12 +37,12 @@ class Learner::Users::OmniauthCallbacksController < Devise::OmniauthCallbacksCon
     callback_for(:facebook)
   end
 
-  def callback_for(provider) #選択したSNSが渡される
+  def callback_for(provider) # 選択したSNSが渡される
     @omniauth = request.env['omniauth.auth']
     info = User.find_oauth(@omniauth)
     @user = info[:user]
-  # 既存の場合
-    if @user.persisted? 
+    # 既存の場合
+    if @user.persisted?
       sign_in @user
       @user.current_sign_in_at = Time.current
       @user.save
@@ -52,13 +52,13 @@ class Learner::Users::OmniauthCallbacksController < Devise::OmniauthCallbacksCon
         redirect_to learner_articles_path
       end
       set_flash_message(:notice, :success, kind: "#{provider}".capitalize) if is_navigational_format?
-    else 
-# 初めて使用の場合
-  # User保存
-  register = User.create(name: @user.name,
-                            email: @user.email,
-                            password: Devise.friendly_token[0,20] )
-  # SnsCredential保存
+    else
+      # 初めて使用の場合
+      # User保存
+      register = User.create(name: @user.name,
+                             email: @user.email,
+                             password: Devise.friendly_token[0, 20])
+      # SnsCredential保存
       sns = SnsCredential.new(provider: info[:sns].provider,
                               uid: info[:sns].uid,)
       sns.user_id = register.id
@@ -71,6 +71,6 @@ class Learner::Users::OmniauthCallbacksController < Devise::OmniauthCallbacksCon
   end
 
   def failure
-    redirect_to root_path and return
+    redirect_to(root_path) && return
   end
 end

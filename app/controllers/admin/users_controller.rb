@@ -1,7 +1,6 @@
 class Admin::UsersController < ApplicationController
-  
   before_action :authenticate_admin_admin!
-  
+
   def top
     @users = User.all
     @users_today = today(@users)
@@ -13,8 +12,8 @@ class Admin::UsersController < ApplicationController
     @users_today = today(@comments)
     @tags = Tag.all
     @users_today = today(@tags)
-    @user_ranking = User.ranking(3)
-    @pv_ranking = Article.ranking(3)
+    @user_ranking = User.post_ranking(3)
+    @pv_ranking = Article.pv_ranking(3)
   end
 
   def index
@@ -28,7 +27,7 @@ class Admin::UsersController < ApplicationController
       format.html
       format.csv do
         send_data render_to_string,
-        filename: "利用者.csv"
+                  filename: "利用者.csv"
       end
     end
   end
@@ -37,8 +36,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def today(object)
-    unless object.blank?
-      return object.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
+    if object.present?
+      object.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
     end
   end
 end

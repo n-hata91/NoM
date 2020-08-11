@@ -1,6 +1,6 @@
 class Admin::CommentsController < ApplicationController
   before_action :authenticate_admin_admin!
-  
+
   def index
     @p = params[:q]
     @q = Comment.ransack(@p)
@@ -17,5 +17,4 @@ class Admin::CommentsController < ApplicationController
       redirect_to admin_comments_url
     end
   end
-  
 end

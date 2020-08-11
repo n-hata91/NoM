@@ -16,7 +16,7 @@
             </div>
               <div class="col-lg-8">
                 <div class="card-body">
-                  <h5 id="MovieTitle" class="card-title"><%= @article.movie.title %></h5>
+                  <h5 id="showMovieTitle" class="card-title"><%= @article.movie.title %></h5>
                   <p class="card-text"><%= @article.movie.overview %></p>
                   <strong id="favorite-<%= @article.id %>"><%= render 'favorite', article: @article %></strong>
                   <h5 class="card-title"><%= @article.title %></h5>
@@ -27,7 +27,7 @@
                       <% end %>
                     <% end %>
                 <div class="row">
-                  <canvas id="myRaderChart" class="col-lg-8"></canvas>
+                  <canvas id="showRaderChart" class="col-lg-8"></canvas>
                   <ul class="col-lg-4 ml-auto">
                     <li class="card-text">総合評価：★<%= @article.rate %></li>
                     <li class="card-text">難易度：★<%= @article.difficulty %></li>
@@ -38,12 +38,10 @@
                     <li class="card-text"><small class="text-muted"><%= l @article.created_at %><%= @article.user.name %></small></li>
                     <% if @article.user_id == current_learner_user.id %>
                       <%= link_to edit_learner_movie_article_path(@article.movie_id,@article.id) do %>
-                        <i class="fas fa-edit"></i>
-                        編集
+                        <button class="article-show-edit-btn"><i class="fas fa-edit"></i>編集</button>
                       <% end %>
                       <%= link_to learner_movie_article_path(@article.movie_id,@article.id), data: { confirm: '削除しますか？'}, method: :delete do %>
-                        <i class="fas fa-trash-alt"></i>
-                        削除
+                        <button class="article-show-delete-btn"><i class="fas fa-trash-alt"></i>削除</button>
                       <% end %>
                     <% end %>
                   </ul>
@@ -99,53 +97,11 @@
       </div>
 
       <%# 記事評価データ %>
-      <input type="hidden" id="difficulty" value="<%= @article.difficulty %>">
-      <input type="hidden" id="length" value="<%= @article.length %>">
-      <input type="hidden" id="practicality" value="<%= @article.practicality %>">
-      <input type="hidden" id="speed" value="<%= @article.speed %>">
-      <input type="hidden" id="accent" value="<%= @article.accent %>">
+      <input type="hidden" id="show-difficulty" value="<%= @article.difficulty %>">
+      <input type="hidden" id="show-length" value="<%= @article.length %>">
+      <input type="hidden" id="show-practicality" value="<%= @article.practicality %>">
+      <input type="hidden" id="show-speed" value="<%= @article.speed %>">
+      <input type="hidden" id="show-accent" value="<%= @article.accent %>">
     </div>
   </div>
 </div>
-<%# レンジバーの描写 %>
-<script>
-    var ctx = document.getElementById("myRaderChart");
-    var movie_title = document.getElementById("MovieTitle");
-    var difficulty = document.getElementById("difficulty").value;
-    var length = document.getElementById("length").value;
-    var practicality = document.getElementById("practicality").value;
-    var speed = document.getElementById("speed").value;
-    var accent = document.getElementById("accent").value;
-    var paramater = ["難易度", "長さ", "実用性", "早さ", "クセ"]
-    var data = [difficulty, length, practicality, speed, accent]
-    var myRadarChart = new Chart(ctx, {
-      type: 'radar', 
-        data: { 
-          labels: paramater,
-          datasets: [{
-            label: movie_title.textContent,
-                data: data,
-                backgroundColor: 'RGBA(45, 117, 255, 0.5)',
-                pointBackgroundColor: 'RGB(237,172,38)',
-                borderColor: 'RGBA(45, 117, 255, 1)',
-                borderWidth: 2
-            }]
-        },
-        options: {
-          title: {
-            display: true,
-                text: "評価"
-            },
-            scale:{
-              ticks:{
-                suggestedMin: 0,
-                    suggestedMax: 5,
-                    stepSize: 1,
-                    callback: function(value, index, values){
-                      return  value
-                    }
-                }
-            }
-        }
-    });
-  </script>

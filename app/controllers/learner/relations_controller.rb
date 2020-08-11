@@ -12,5 +12,4 @@ class Learner::RelationsController < ApplicationController
     current_learner_user.unfollow(user)
     redirect_to request.referer
   end
-  
 end

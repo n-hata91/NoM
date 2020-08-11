@@ -7,39 +7,21 @@
     <%= favicon_link_tag 'nom.ico' %>
     <script src="https://kit.fontawesome.com/<%=ENV['FONT_AWESOME']%>.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
   </head>
   <body>
-
-<nav class="mobileMenu">
-  <ul>
-    <li><%= link_to "TOP", root_path %></li>
-    <li><%= link_to "投稿記事", learner_articles_path %></li>
-    <li><%= link_to "映画検索 / 投稿", learner_search_path %></li>
-    <li><%= link_to "TIPCORN", learner_tipcorn_path %></li>
-    <li><%= link_to "マイページ", learner_user_path(current_learner_user) %></li>
-    <li><%= link_to "ログアウト", destroy_learner_user_session_path, method: :delete %></li>
-  </ul>
-</nav>
-<!-- 三 --> 
-<div class="Toggle-bar">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
-
-
-
   <div class="page-container">
     <header>
-<% if learner_user_signed_in? %>
-  <%= render "learner/drawer" %>
-<% elsif admin_admin_signed_in? %>
-  <%= render "admin/header" %>
-<% else %>
-<% end %>
+      <% if learner_user_signed_in? %>
+        <%= render "learner/drawer" %>
+        <%= render "learner/mobile_menu" %>
+      <% elsif admin_admin_signed_in? %>
+        <%= render "admin/header" %>
+      <% else %>
+      <% end %>
     </header>
     <%= yield %>
   </div>

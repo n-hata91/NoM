@@ -1,0 +1,18 @@
+@import "application";
+footer {
+  background-color: $main-blue;
+  color: #fff;
+  a{
+    color: #fff;
+  }
+  .list-group-item {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #fff;
+  }
+  .modal-header, .form-group {
+    color: #000;
+  }
+}
+.page-container {
+  min-height: 100vh;
+}

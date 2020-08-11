@@ -15,7 +15,6 @@
         </div>
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
           <div class="card-body pb-1">
-            <%# 登録者数 %>
             <table class="table">
               <thead class="thead-dark">
                 <tr>
@@ -146,12 +145,6 @@
                   <th scope="row"></th>
                   <td>投稿数（本日）</td>
                   <td colspan="3"><%= @tags_today.nil? ? 0 : @tags_today.count %></td>
-                </tr>
-                <tr>
-                  <th scope="row"></th>
-                  <td>タグランキング</td>
-                  <td>@article.taged.name</td>
-                  <td>@article.taged.count</td>
                 </tr>
               </tbody>
             </table>
