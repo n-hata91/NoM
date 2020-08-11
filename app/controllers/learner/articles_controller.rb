@@ -1,7 +1,7 @@
 class Learner::ArticlesController < ApplicationController
   before_action :authenticate_learner_user!
   before_action :posted_user!, only: [:edit, :update, :destroy]
-  impressionist :actions=>[:show]
+  impressionist :actions => [:show]
 
   def index
     @p = params[:q]
@@ -9,7 +9,7 @@ class Learner::ArticlesController < ApplicationController
     @articles = @q.result(distinct: true).page(params[:page]).reverse_order
     @languages = Language.all
     @user_ranking = User.follower_ranking(3)
-    params[:pv] = {"user_language_eq_all"=>"#{current_learner_user.language}"}
+    params[:pv] = { "user_language_eq_all" => "#{current_learner_user.language}" }
     @pv_ranking = Article.ransack(params[:pv]).result(distinct: true).order(impressions_count: :desc).limit(3)
     @tag_ranking = Tag.tag_ranking(10)
   end
@@ -24,15 +24,15 @@ class Learner::ArticlesController < ApplicationController
     @movie = Movie.find(params[:movie_id])
     @article = Article.new
   end
-  
+
   def tipcorn
     @article = Article.new(movie_id: 1)
   end
 
   def create
     @article = current_learner_user.articles.new(article_params)
-    # @article.image ||= 
-    unless params[:tags] == nil
+    # @article.image ||=
+    unless params[:tags].nil?
       tags = params[:tags].split(",")
     end
     if @article.save
@@ -60,10 +60,10 @@ class Learner::ArticlesController < ApplicationController
     @movie = Movie.find(@article.movie_id)
     @tags = @article.tags.pluck(:name).join(",")
   end
-  
+
   def update
     @article = Article.find(params[:id])
-    unless params[:tags] == nil
+    unless params[:tags].nil?
       tags = params[:tags].split(",")
     end
     if @article.update(article_params)
@@ -87,8 +87,7 @@ class Learner::ArticlesController < ApplicationController
       redirect_to learner_movie_articles_path
     end
   end
-  
-  
+
   private
 
   def article_params
@@ -101,5 +100,4 @@ class Learner::ArticlesController < ApplicationController
       redirect_to root_path
     end
   end
-
 end

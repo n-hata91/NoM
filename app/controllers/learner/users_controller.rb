@@ -1,7 +1,7 @@
 class Learner::UsersController < ApplicationController
-  before_action :authenticate_learner_user!, only: [:welcome, :show ,:edit ,:update]
+  before_action :authenticate_learner_user!, only: [:welcome, :show, :edit, :update]
   before_action :correct_user!, only: [:edit, :update]
-  
+
   def top
   end
 
@@ -36,7 +36,7 @@ class Learner::UsersController < ApplicationController
     end
   end
 
-private
+  private
 
   def user_params
     params.require(:user).permit(:name, :email, :image, :language, :level, :introduction)

@@ -1,0 +1,24 @@
+@import "application";
+// 投稿編集ページ背景
+.article-show-bg {
+  @include dynamicBachground(1300px, 0.5)
+}
+// いいね
+.fa-bookmark {
+  color: $sub-blue;
+}
+// コメント
+.reply-form {
+  display: none;
+}
+.fa-window-close {
+  color: $google;
+}
+// 記事編集 btn
+#change_image {
+  display: none;
+}
+//  jQuery UIの'No search results.'を非表示 
+.ui-helper-hidden-accessible {
+  display: none;
+}

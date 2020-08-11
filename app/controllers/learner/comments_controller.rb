@@ -2,7 +2,7 @@ class Learner::CommentsController < ApplicationController
   before_action :authenticate_learner_user!
 
   def create
-    comment = current_learner_user.comments.new(comment_params) 
+    comment = current_learner_user.comments.new(comment_params)
     @article = Article.find(params[:article_id])
     comment.article_id = @article.id
     if comment.save
@@ -24,11 +24,10 @@ class Learner::CommentsController < ApplicationController
       redirect_to request.referer
     end
   end
-  
-private
+
+  private
 
   def comment_params
     params.require(:comment).permit(:content, :reply_to)
   end
-
 end

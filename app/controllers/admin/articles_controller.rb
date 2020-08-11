@@ -1,6 +1,6 @@
 class Admin::ArticlesController < ApplicationController
   before_action :authenticate_admin_admin!
-  
+
   def index
     @p = params[:q]
     @q = Article.ransack(@p)
@@ -20,5 +20,4 @@ class Admin::ArticlesController < ApplicationController
       redirect_to admin_articles_url
     end
   end
-  
 end

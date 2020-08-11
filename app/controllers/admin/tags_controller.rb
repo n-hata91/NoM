@@ -1,6 +1,6 @@
 class Admin::TagsController < ApplicationController
   before_action :authenticate_admin_admin!
-  
+
   def index
     @p = params[:q]
     @q = Tag.ransack(@p)
@@ -21,5 +21,4 @@ class Admin::TagsController < ApplicationController
       redirect_to admin_tags_url
     end
   end
-  
 end

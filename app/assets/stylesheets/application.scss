@@ -29,24 +29,26 @@ $google: #DB4437;
 * {
   font-family: "Montserrat", "游ゴシック", 'Lato', YuGothic, 'Noto Sans JP', "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
 }
-
-// フッター固定
-.page-container {
-  min-height: 100vh;
-}
-
-// top フェードイン
-.fade_in {
-    opacity: 0;
-    transform: translate(0, 50px);
-    transition: all 0.8s;
-}
-.fade_in.afterscroll {
-    opacity : 1;
-    transform : translate(0, 0);
-}
-
 // 背景
+@mixin dynamicBachground($height, $opacity) {
+  display: flex;
+  height: $height;
+  overflow: hidden;
+  position: relative;
+  .bg-img-show {
+    height: 100%;
+    width: 100vw;
+  }
+  .show-bg {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  background-color:rgba(255, 255, 255, $opacity);
+  width: 100vw;
+  height: 100%;
+  z-index: 1;
+  }
+}
 .bg-img {
   width: 100vw;
   height: 100vh;
@@ -87,47 +89,6 @@ $google: #DB4437;
     }
   }
 }
-.bg-index {
-  min-height: 100vh;
-  background: -moz-linear-gradient(45deg, $other-yellow, $sub-blue); 
-  background: -webkit-linear-gradient(45deg, $other-yellow, $sub-blue); 
-  background: linear-gradient(45deg, $other-yellow, $sub-blue); 
-}
-
-@mixin dynamicBachground($height, $opacity) {
-  display: flex;
-  height: $height;
-  overflow: hidden;
-  position: relative;
-  .bg-img-show {
-    height: 100%;
-    width: 100vw;
-  }
-  .show-bg {
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  background-color:rgba(255, 255, 255, $opacity);
-  width: 100vw;
-  height: 100%;
-  z-index: 1;
-  }
-}
-
-// ユーザー詳細ページヘッダー
-.show-header {
- @include dynamicBachground(40vh, 0.7)
-}
-.show-info-left, .show-info-right {
-  z-index: 2;
-  padding: 60px;
-}
-
-// 投稿編集ページ背景
-.article-show-bg {
-  @include dynamicBachground(1300px, 0.5)
- }
-
 // ボタンデザイン
 @mixin buttonDesign($color, $width, $height) {
   width: $width;
@@ -169,7 +130,6 @@ $google: #DB4437;
     opacity: 1;
   }
 }
-
 .main-btn {
   @include buttonDesign($main-blue, 180px, 50px);
   &.facebook-btn {
@@ -200,14 +160,23 @@ $google: #DB4437;
 .article-show-delete-btn {
   @include buttonDesign($other-yellow, 80px, 50px);
 }
-
-// 管理者ページ左側詳細固定
+// 記事一覧ランキング
+.ranking {
+  position: fixed;
+  top: 48px;
+  right: 28px;
+}
+.admin-bg {
+  background-color: rgb(170, 170, 170);
+  padding: 60px 30px;
+  min-height: 100vh;
+}
 .admin-detail {
   height: 100%;
   margin-bottom: 50px;
   padding: 20px;
   position: sticky;
-  top: 0px;
+  top: 56px;
   background-color: #fff;
   li{
     margin-bottom:10px;
@@ -218,305 +187,9 @@ $google: #DB4437;
 img .attachment {
   border-radius: 18px;
 }
-
-// スプラッシュページ
-.splash-container {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  z-index: 200;
-  background-color: black;
-}
-.content {
-  text-align: center;
-  p {
-    position: absolute;
-    top: 50%;
-    line-height: 100px;
-    height: 100px;
-    margin-top: -50px;
-    font-size: 40px;
-    width: 100%;
-    color: transparent;
-    animation: blurFadeInOut 3s ease-in backwards;
-  }
-  img {
-    margin: 200px auto;
-    height: 500px;
-  }
-}
-.splash-container p.splash-1 {
-  animation-delay: 0.1s;
-}
-
-.splash-container img.splash-2 {
-  animation: blurFadeIn 2s ease-in 3s backwards;
-}
-
-@keyframes blurFadeInOut{
-  0%{
-    opacity: 0;
-    text-shadow: 0px 0px 40px #fff;
-    transform: scale(0.9);
-  }
-  20%,75%{
-    opacity: 1;
-    text-shadow: 0px 0px 1px #fff;
-    transform: scale(1);
-  }
-  100%{
-    opacity: 0;
-    text-shadow: 0px 0px 50px #fff;
-    transform: scale(0);
-  }
-}
-@keyframes blurFadeIn{
-  0%{
-    opacity: 0;
-    text-shadow: 0px 0px 40px #fff;
-    transform: scale(1.3);
-  }
-  50%{
-    opacity: 0.5;
-    text-shadow: 0px 0px 10px #fff;
-    transform: scale(1.1);
-  }
-  100%{
-    opacity: 1;
-    text-shadow: 0px 0px 1px #fff;
-    transform: scale(1);
-  }
-}
-
-// ページャ
-  .pagination-wrap {
-    .pagination {
-      li > a {
-        border: solid 1px $main-yellow;
-        color: $main-blue;
-        &:hover {
-          font-size: 110%;
-          border-radius: 15px;
-          background-color: $sub-yellow;
-          transition-duration: 300ms;
-        }
-      }
-    }
-    .page-item.active .page-link { 
-      background-color: $sub-blue;
-    }
-  }
-
-// トップページ
-.top-movie {
-  position: relative;
-  video {
-    width: 100%;
-  }
-  .top-btn-bg {
-    position: absolute;
-    top: 56%;
-    left: 60%;
-    background-color:rgba(255,255,255,0.5);
-    width: 30vw;
-  }
-}
-  .jumbotron {
-    background-size: cover;
-    height: 650px;
-  }
-  
-  .first-image {
-    margin-bottom: 300px;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1)) ,image-url("language.jpg");
-    background-position: 0% 0%;
-    clip-path: polygon(0 0%, 100% 0, 100% 85%, 0 100%);
-    background-attachment: fixed;
-  }
-  .second-image {
-    margin-bottom: 300px;
-    background: linear-gradient(to left, rgba(0, 0, 0, 0) 20%, #fff 100%) ,image-url("study.jpg");
-    background-position: 50% 100%;
-    clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 85%);
-    background-attachment: fixed;
-  }
-  .third-image {
-    margin-bottom: 300px;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1)) ,image-url("popcorn.jpg");
-    background-position: 70% 50%;
-    clip-path: polygon(0 0%, 100% 15%, 100% 85%, 0 100%);
-    background-attachment: fixed;
-  }
-  .fourth-image {
-    margin-bottom: 300px;
-    background: linear-gradient(to left, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1)) ,image-url("chat.jpg");
-    background-position: 50% 50%;
-    clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 85%);
-    background-attachment: fixed;
-  }
-  .fifth-image {
-    background-image: image-url("screen.jpg");
-    background-position: 0% 50%;
-    clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0 100%);
-    background-attachment: scroll;
-    position: relative;
-    .top-entrance-btn {
-      position: relative;
-      top: 20vh;
-      left: 40vw;
-      margin: auto;
-      width: 320px;
-      height: 180px;
-      color: #FFF;
-      text-align: center;
-      line-height: 170px;
-      text-decoration: none;
-      font-size: 26px;
-      font-weight: bold;
-      background-color: $main-blue;
-      border: 2px solid $main-blue;
-      display: inline-block;
-      position: relative;
-      z-index: 1;
-      overflow: hidden;
-      &:after{
-        width: 100%;
-        height: 0;
-        content:"";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        background : #FFF;
-        opacity: 0;
-        transform: translateX(-50%) translateY(-50%) rotate(90deg);
-        transition: .2s;
-        z-index: -1;
-      }
-      &:hover {
-      color: $main-blue;
-      content:"<div>irasshai</div>";
-      text-decoration: none;
-      transition: 2s;
-        &:after {
-          height: 200px;
-          opacity: 1;
-        transition:4s;
-        }
-      }
-      &:active:after {
-        height: 4000%;
-        opacity: 1;
-      }
-    }
-  }
-  .search {
-    background-image: image-url("screen.jpg");
-    background-position: 50% 50%;
-    clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0 100%);
-    background-attachment: scroll;
-  }
-
-  // いいね
-  .fa-bookmark {
-    color: $sub-blue;
-  }
-  // コメント
-  .reply-form {
-    display: none;
-  }
-  .fa-window-close {
-    color: $google;
-  }
-
-// edit btn
-#change_image {
-  display: none;
-}
-
-// searchページスクロール
-.loop_wrap {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-  img {
-    height: 100vh;
-    width: 33vw;
-    border: none;
-  }
-  td {
-    border: none;
-  }
-  .search-form-bg {
-  position: absolute;
-  top: 33%;
-  left: 33%;
-  background-color:rgba(255, 255, 255, 0.5);
-  width: 40vw;
-  z-index: 1;
-  }
-  .movie-search-field {
-    z-index: 2;
-  }
-  .movie-search-btn {
-    z-index: 2;
-  }
-}
-@keyframes loop {
-  0% {transform: translateX(100%);}
-  to {transform: translateX(-100%);}
-}
-@keyframes loop2 {
-  0% {transform: translateX(0);}
-  to {transform: translateX(-200%);}
-}
-.loop_wrap {
-  img:first-child {
-    animation: loop 30s -25s linear infinite;
-  }
-  img:last-child {
-    animation: loop2 30s linear infinite;
-  }
-}
-
-//  jQuery UIの'No search results.'を非表示 
-.ui-helper-hidden-accessible {
-  display: none;
-}
-
-// フッター
-footer {
-  background-color: $main-blue;
-  color: #fff;
-  a{
-    color: #fff;
-  }
-  .list-group-item {
-    background-color: rgba(0, 0, 0, 0);
-    border-color: #fff;
-  }
-  .modal-header, .form-group {
-    color: #000;
-  }
-}
-
-// 管理者ページ
-.admin-bg {
-  background-color: rgb(170, 170, 170);
-  padding: 60px 30px;
-  min-height: 100vh;
-}
-
-@media screen and (max-width:1119px) {
-  
-
-}
-
-/* サイドバーメニュー */
+// サイドバー
 .drawer-btn {
-  @include buttonDesign($main-blue, 200px, 80px)
+  @include buttonDesign($main-blue, 200px, 80px);
   border-right: dashed 1px $other-yellow;
 }
 .primary-nav {
@@ -538,7 +211,6 @@ ul {
   background-color:$main-blue;
   padding: 0;
 }
-
 .hamburger {
   background: $other-yellow;
   position: relative;
@@ -665,10 +337,11 @@ input#menu[type="checkbox"] {
     transition: transform .45s cubic-bezier(0.77, 0, 0.175, 1);
   }
 }
-
+// レスポンシブ
 @media screen and (max-width:1119px) {
   body {
-    min-width: 1120px;
+    width: 100%;
+    // min-width: 1120px;
   }
   .loop_wrap {
     background-image: image-url("theater.jpg");
@@ -704,21 +377,20 @@ input#menu[type="checkbox"] {
     color: #fff !important;
     text-align: center;
   }
+  .ranking {
+    display: none;
+  }
 }
-
 @media screen and (min-width:767px) {
   .mobileMenu {
     display: none;
   }
 }
 @media screen and (max-width:767px) {
-  body {
-    min-width: 766px;
-  }
   .primary-nav {
     display: none;
   }
-  // スマホハンバーガー
+  // モバイルメニュー
   nav.mobileMenu {
     width: 100%;
     height: 100vh;

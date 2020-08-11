@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :authenticate_admin_admin!
-  
+
   def top
     @users = User.all
     @users_today = today(@users)
@@ -27,7 +27,7 @@ class Admin::UsersController < ApplicationController
       format.html
       format.csv do
         send_data render_to_string,
-        filename: "利用者.csv"
+                  filename: "利用者.csv"
       end
     end
   end
@@ -36,8 +36,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def today(object)
-    unless object.blank?
-      return object.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
+    if object.present?
+      object.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
     end
   end
 end

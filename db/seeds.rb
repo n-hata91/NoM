@@ -12,6 +12,7 @@ Admin.create!(
   email: 'hh@hh',
   password: 'hhhhhhhh'
 )
+
 # ユーザ情報
 20.times do |n|
   name = ForgeryJa(:name).full_name
@@ -25,7 +26,7 @@ Admin.create!(
   User.create!(
     name: name,
     email: email,
-    image: open("./app/assets/images/pop#{rand(1..4)}.jpg"),
+    image: open("./app/assets/images/img#{rand(1..9)}.jpg"),
     introduction: introduction,
     level: level,
     language: language[rand(0..3)],
@@ -33,6 +34,15 @@ Admin.create!(
     created_at: date1,
     current_sign_in_at: date2
   )
+end
+
+# フォロー
+User.all.each do |user|
+  own_id = [user.id]
+  follow_ids = (1..20).to_a.shuffle.take(rand(1..18)) - own_id
+  follow_ids.each do |i|
+    User.find(i).following << user
+  end
 end
 
 # 映画
@@ -64,6 +74,18 @@ Tag.create!(
     { name: '面白い'},
     { name: '勉強になる'},
     { name: '感動'},
+    { name: '英語'},
+    { name: '中国語'},
+    { name: 'フランス語'},
+    { name: '旅行'},
+    { name: '絵がきれい'},
+    { name: 'だめ'},
+    { name: 'おすすめ'},
+    { name: '勉強法'},
+    { name: '暗記'},
+    { name: 'かっこいい'},
+    { name: 'かわいい'},
+    { name: '動物'},
     { name: 'ホラー'}
   ]
 )

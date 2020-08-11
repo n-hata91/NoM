@@ -1,7 +1,7 @@
 class Article < ApplicationRecord
   validates :user_id, presence: true
-  validates :title, presence: true, length: {maximum: 50}
-  validates :content, presence: true, length: {maximum: 400}
+  validates :title, presence: true, length: { maximum: 50 }
+  validates :content, presence: true, length: { maximum: 400 }
   belongs_to :user
   belongs_to :movie
   has_many :favorites, dependent: :destroy
@@ -20,17 +20,17 @@ class Article < ApplicationRecord
 
   # タグの保存
   def save_tags(tags)
-    unless tags == nil
+    unless tags.nil?
       current_tags = self.tags.pluck(:name)
       # 古いタグの削除
       old_tags = current_tags - tags
       old_tags.each do |old_tag|
-        self.tags.delete Tag.find_by(name:old_tag)
+        self.tags.delete Tag.find_by(name: old_tag)
       end
       # 新しいタグの追加
       new_tags = tags - current_tags
       new_tags.each do |new_tag|
-        article_category = Tag.find_or_create_by(name:new_tag)
+        article_category = Tag.find_or_create_by(name: new_tag)
         self.tags << article_category
       end
     end
@@ -40,5 +40,4 @@ class Article < ApplicationRecord
   def self.pv_ranking(num)
     group(:impressions_count).order(impressions_count: :desc).limit(3)
   end
-  
 end
