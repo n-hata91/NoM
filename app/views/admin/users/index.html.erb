@@ -1,2 +1,90 @@
-<h1>Admin::Users#index</h1>
-<p>Find me in app/views/admin/users/index.html.erb</p>
+<div class="admin-bg">
+  <h1>ユーザー管理</h1>
+  <div class="row">
+    <% if @data %>
+      <div class="admin-detail col-lg-3 text-center">
+        <%= attachment_image_tag @data, :image, size: "100x100", fallback: "no_image.jpg", style: "border-radius: 18px;" %>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">ユーザー名：<%= @data.name %></li>
+          <li class="list-group-item">メール：<%= @data.email %></li>
+          <li class="list-group-item">自己紹介：<%= @data.introduction %></li>
+          <li class="list-group-item">学習言語：<%= @data.language %></li>
+          <li class="list-group-item">レベル：<%= @data.level %></li>
+          <li class="list-group-item">登録日：<%= l @data.created_at %></li>
+          <li class="list-group-item">最終ログイン：<%= l @data.current_sign_in_at %></li>
+          <li class="list-group-item">投稿数：<%= @data.articles.count %></li>
+          <li class="list-group-item">最終投稿日：<%= l @data.articles.last.created_at if @data.articles.present? %></li>
+          <li class="list-group-item">コメント数：<%= @data.comments.count %></li>
+          <li class="list-group-item">フォロー数：<%= @data.following.count %></li>
+          <li class="list-group-item">フォロワー数：<%= @data.followers.count %></li>
+          <li class="list-group-item">お気に入り数：<%= @data.favorites.count %></li>
+        </ul>
+      </div>
+    <% end %>
+    <div class="card col-lg-9 ml-auto">
+      <div class="card-header" id="head">
+        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+          <i class="fas fa-search">検索</i>
+        </button>
+        <% items = ["", "言語", "レベル"] %>
+        <% if !@p.blank? %>
+          <% for i in 0..items.length do %>
+            <% unless @p.values[i].blank? %>
+              <i class="fas fa-search mr-1"><%= "#{items[i]}:#{@p.values[i]}" %></i>
+            <% end %>
+          <% end %>
+          <%= link_to "検索をキャンセル", admin_users_path, class: "btn btn-outline-danger" %>
+        <% end %>
+      </div>
+      <div class="card-body">
+        <%= search_form_for @q, url: admin_users_path do |f| %>
+          <div class="form-row">
+            <div class="form-group col-lg-6">
+              <%= f.label :title, "キーワード" %>
+              <%= f.search_field :name_or_introduction_cont_all, class: "form-control mr-sm-2" %>
+            </div>
+            <div class="form-group col-lg-3">
+              <%= f.label :language, "学習言語" %>
+              <%= f.collection_select :language_eq_all, @languages, :language, :language, {prompt: "選択してください"}, class: "custom-select mr-sm-2" %><br>
+            </div>
+            <div class="form-group col-lg-3">
+              <%= f.label :level, "学習レベル" %>
+              <%= f.select :level_eq, User.levels.keys.map {|k| [k, k]},{ include_blank: '選択してください' }, class: "custom-select mr-sm-2" %>
+            </div>
+          </div>  
+          <%= f.submit "検索", class: "btn btn-outline-success" %>
+          <span>表示 <%= @users.count %> 件</span>
+          <%= link_to 'CSV出力', admin_users_path(q: request.params[:q], format: :csv), class: 'btn btn-success d-inline ml-auto' %>
+        <% end %>
+      </div>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">タイトル</th>
+            <th scope="col">映画</th>
+            <th scope="col">総合評価</th>
+            <th scope="col">ユーザー</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <th scope="row">
+                <%= attachment_image_tag user, :image, size: "50x50", fallback: "no_image.jpg", style: "border-radius: 18px;" %>
+              </th>
+                <td>
+                  <%= link_to admin_users_path(data: user.id) do %>
+                    <%= user.name %>
+                  <% end %>
+                </td>
+              <td><%= user.language %></td>
+              <td><%= user.articles.count %></td>
+              <td><%= user.comments.count %></td>
+            </tr>
+          <% end %>      
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

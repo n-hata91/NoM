@@ -1,34 +1,87 @@
-<div class="container">
-  <h1>記事一覧</h1>
-  <% @articles.each do |article| %>
-    <div class="card mb-3">
-      <div class="row no-gutters">
-        <div class="col-md-4">
-          <%= image_tag article.movie.image_id, size: "237x336" %>
+<div class="bg-index pt-5">
+<div class="row col-lg-11 mx-auto pr-0">
+  <div class="col-lg-9 col-11">
+    <div class="accordion col-lg-12" id="accordionExample">
+      <div class="card">
+        <div class="card-header" id="head">
+          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+            <i class="fas fa-search">検索</i>
+          </button>
+          <% items = ["", "タグ", "評価", "言語", "レベル"] %>
+          <% if !@p.blank? %>
+            <% for i in 0..items.length do %>
+              <% unless @p.values[i].blank? %>
+                <i class="fas fa-search mr-1"><%= "#{items[i]}:#{@p.values[i]}" %></i>
+              <% end %>
+            <% end %>
+            <%= link_to "検索をキャンセル", learner_articles_path, class: "btn btn-outline-danger" %>
+          <% end %>
         </div>
-        <div class="col-md-8">
+        <div id="collapse" class="collapse" aria-labelledby="head" data-parent="#accordionExample">
           <div class="card-body">
-            <%= link_to learner_movie_article_path(article.movie_id, article) do %>
-              <h5 class="card-title"><%= article.movie.title %></h5>
+            <%= search_form_for @q, url: learner_articles_path do |f| %>
+              <%= f.label :title, "キーワード" %>
+              <%= f.search_field :title_or_content_cont_all, class: "form-control mr-sm-2" %>
+              <%= f.label :title, "タグ" %>
+              <%= f.search_field :tags_name_eq, class: "form-control mr-sm-2" %>
+              <%= f.label :rate, "★ 総合評価" %>
+              <%= f.number_field :rate_gteq_all, min:1, max:5, class: "form-control mr-sm-2" %>以上
+              <%= f.label :language, "学習言語を登録" %>
+              <%= f.collection_select :user_language_eq_all, @languages, :language, :language, {prompt: "選択してください"}, class: "custom-select mr-sm-2" %><br>
+              <%= f.label :level, "学習レベルを登録" %>
+              <%= f.select :user_level_eq, User.levels.keys.map {|k| [k, k]},{ include_blank: '選択してください' }, class: "custom-select mr-sm-2" %>
+              <button class="sub-btn d-block ml-auto mt-3">検索</button>
             <% end %>
-            <h5 class="card-title"><%= article.title %></h5>
-            <p class="card-text"><%= article.content %></p>
-            <p class="card-text">
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
-              <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-            </svg>
-            <%= article.comments.count %></p>
-            <p class="card-text"><%= article.rate %></p>
-            <%= link_to learner_user_path(article.user) do %>
-              <p class="card-text"><%= article.user.name %></p>
-            <% end %>
-            <p class="card-text"><small class="text-muted"><%= article.created_at %></small></p>
-            <p id="favorite-<%= article.id %>"><%= render 'learner/articles/favorite', article: article %></p>
           </div>
         </div>
       </div>
     </div>
-  <% end %>
-  <%= paginate @articles %>
+    <div class="col-lg-12">
+      <% @articles.preload([:user]).preload([:movie]).each do |article| %>
+      <% if article.movie_id != 1 %>
+      <%= render 'article', article: article %>
+      <% else %>
+      <%= render 'tipcorn', article: article %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-lg-3 p-0 ranking">
+    <ul class="list-group mb-3">
+      <li class="list-group-item list-group-item-secondary">
+        <i class="far fa-newspaper">人気の記事(<%= current_learner_user.language %>記事)</i>
+      </li>
+        <% @pv_ranking.each do |rank_article| %>
+          <%= link_to learner_movie_article_path(rank_article.movie_id, rank_article) do %>
+            <li class="list-group-item"><%= truncate(rank_article.title, length: 30) %></li>
+          <% end %>
+        <% end %>
+    </ul>
+    <ul class="list-group mt-3">
+      <li class="list-group-item list-group-item-secondary">
+        <i class="fas fa-users">人気の投稿者</i>
+      </li>
+        <% @user_ranking.each do |rank_user| %>
+          <%= link_to learner_user_path(rank_user) do %>
+            <li class="list-group-item"><%= rank_user.name %></li>
+          <% end %>
+        <% end %>
+    </ul>
+    <ul class="list-group mt-3">
+      <li class="list-group-item list-group-item-secondary">
+        <i class="fas fa-tags mr-1 fa-border"><%= tag.name %>人気のタグ</i>
+      </li>
+      <li class="list-group-item">
+        <% @tag_ranking.each do |tag| %>
+          <%= link_to learner_articles_path q: {tags_name_eq: tag.name} do %>
+            <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
+          <% end %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>
+    <div class="pagination-wrap container p-5">
+      <%= paginate @articles %>
+    </div>
 </div>

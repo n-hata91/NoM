@@ -1,0 +1,25 @@
+@import "application";
+.bg-index {
+  min-height: 100vh;
+  background: -moz-linear-gradient(45deg, $other-yellow, $sub-blue); 
+  background: -webkit-linear-gradient(45deg, $other-yellow, $sub-blue); 
+  background: linear-gradient(45deg, $other-yellow, $sub-blue); 
+}
+// ページャ
+.pagination-wrap {
+  .pagination {
+    li > a {
+      border: solid 1px $main-yellow;
+      color: $main-blue;
+      &:hover {
+        font-size: 110%;
+        border-radius: 15px;
+        background-color: $sub-yellow;
+        transition-duration: 300ms;
+      }
+    }
+  }
+  .page-item.active .page-link { 
+    background-color: $sub-blue;
+  }
+}

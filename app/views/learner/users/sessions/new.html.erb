@@ -1,45 +1,33 @@
-<div class="container">
-  <h2>Log in</h2>
-
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="form">
-      <div class="col-md-6 mb-3">
-        <div class="field">
-          <%= f.label :email, "メールアドレス" %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-        </div>
-        <div class="valid-feedback">
-          Looks good!
-        </div>
-      </div>
-      <div class="col-md-6 mb-3">
-        <div class="field">
-          <%= f.label :password, "パスワード" %><br />
-          <%= f.password_field :password, autocomplete: "current-password" %>
-        </div>
-        <div class="valid-feedback">
-          Looks good!
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="form-check">
-      <% if devise_mapping.rememberable? %>
-        <div class="field">
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me, "ログイン状態を保持しますか？" %>
-        </div>
-      <% end %>
-        <div class="invalid-feedback">
-          ログイン状態を保持します。
-        </div>
+<div class="bg-img bg-sign_in">
+  <div class="blur_filter d-flex">
+    <div class="card col-lg-6 m-auto" style="background: rgba(255,255,255,0.7);">
+      <div class="card-body">
+        <h2 class="text-center">LOG IN</h2>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="col-lg-9 mb-3 mx-auto">
+            <%= f.label :email, "メールアドレス" %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+          </div>
+          <div class="col-lg-9 mb-3 mx-auto">
+            <%= f.label :password, "パスワード" %><br />
+            <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+          </div>
+          <div class="col-lg-9 mb-3 mx-auto text-center">
+            <div class="form-check mx-auto">
+              <% if devise_mapping.rememberable? %>
+                <div class="field mx-auto">
+                  <%= f.check_box :remember_me, class: "form-check-label" %>
+                  <%= f.label :remember_me, "ログイン状態を保持しますか？" %>
+                </div>
+              <% end %>
+            </div>
+            <button class="main-btn" >ログイン</button>
+          </div>
+          <div class="col-lg-9 mb-3 mx-auto text-center">
+            <%= render "learner/users/shared/links" %>
+          </div>
+        <% end %>
       </div>
     </div>
-    <div class="col-md-6 mb-3">
-      <div class="actions">
-        <%= f.submit "ログイン", class: "btn btn-outline-success" %>
-      </div>
-        <%= render "learner/users/shared/links" %>
-      </div>
-  <% end %>
+  </div>
 </div>

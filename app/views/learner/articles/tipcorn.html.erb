@@ -1,2 +1,67 @@
-<h1>tipcorn</h1>
-<p>Find me in app/views/learner/articles/tipcorn.html.erb</p>
+<div class="article-show-bg col-lg-12 p-0">
+  <%= image_tag 'bg-popcorn', class: "bg-img-show", fallback: "no_image.jpg" %>
+  <div class="show-bg">
+    <div class="card container mt-5" style="background: rgba(255,255,255,0.7);">
+
+  <div class="card my-3">
+    <div class="card-header">
+      <h1>tipcorn</h1>
+    </div>
+    <div class="card-body">
+      <p>学習ばかりでお疲れではないですか？息抜きに、</p>
+      <p>学習のtipsやお悩み、映画の感想, 見どころなど、</p>
+      <p>なんでもスナック感覚でシェアしてみましょう。</p>
+    </div>
+  </div> 
+  <div class="card mb-3">
+    <div class="row no-gutters">
+      <div class="col-lg-5 my-auto text-center">
+        <div class="item-image">
+          <%= attachment_image_tag @article, :image, id: "prev_image", fallback: "pop1.jpg", size:"450x310", style: "border-radius: 6px;", onClick: "$('#change_image').click()" %><br>
+          <i class="fas fa-sync-alt fa-2x fa-fw" onClick="$('#change_image').click()" ></i>画像を選択
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="card-body">
+          <%= form_with model: @article, url: learner_movie_articles_path(1, @article.id), local: true do |f| %>
+            <%= f.attachment_field :image, fallback: "pop1.jpg", id: "change_image" %><br>
+              <% if flash[:warning] %>
+                <div class="alert alert-warning"><%= flash[:warning] %></div>
+              <% end %>
+            <div class="col-lg-9 mb-3 mx-auto">
+              <%= f.label :title, "タイトル(50文字以内)" %>
+              <%= f.text_field :title, class: "form-control" %><br>
+            </div>
+            <div class="col-lg-9 mb-3 mx-auto">
+              <%= f.label :content, "内容(400文字以内)" %>
+              <%= f.text_area :content, class: "form-control", rows: "5" %>
+              <%= f.hidden_field :movie_id, value: 1 %>
+            </div>
+            <div class="col-lg-9 mb-3 mx-auto">
+              <div class="article-tags-field">
+                <%= f.label "タグ" %>
+                <ul id="article-tags">
+                  <%# デフォルトタグの設定: tipcorn %>
+                  <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable">
+                    <span class="tagit-label"></span>
+                    <a class="tagit-close">
+                      <span class="text-icon">tipcorn</span><span class="ui-icon ui-icon-close"></span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-9 mb-3 mx-auto text-center">
+              <button class="main-btn my-3">投稿</button>  
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+</div>

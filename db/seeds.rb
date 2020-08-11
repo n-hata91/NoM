@@ -4,31 +4,53 @@ User.create!(
   email: 'hh@hh',
   image: open("./app/assets/images/no_image.jpg"),
   introduction: "#{ForgeryJa(:date).month}生まれ、#{ForgeryJa(:address).full_address}在住です。",
-  level: 4,
+  level: 3,
   language: '英語',
-  password: 'hhhhhh'
+  password: 'hhhhhhhh'
+)
+Admin.create!(
+  email: 'hh@hh',
+  password: 'hhhhhhhh'
 )
 
 # ユーザ情報
-15.times do |n|
+20.times do |n|
   name = ForgeryJa(:name).full_name
   email = ForgeryJa('email').address
   introduction = "#{ForgeryJa(:date).month}生まれ、#{ForgeryJa(:address).full_address}在住です。"
-  level = rand(1..5)
-  language = ['英語','スペイン語','フランス語','中国語']
+  level = rand(0..3)
+  language = ['英語','スペイン語','フランス語','繁体中国語']
   password = 'password'
+  date1 = Faker::Time.between(from: '2015-05-01', to: '2020-05-01')
+  date2 = Faker::Time.between(from: '2020-08-02', to: '2020-08-15')
   User.create!(
     name: name,
     email: email,
-    image: open("./app/assets/images/no_image.jpg"),
+    image: open("./app/assets/images/img#{rand(1..9)}.jpg"),
     introduction: introduction,
     level: level,
     language: language[rand(0..3)],
-    password: password
+    password: password,
+    created_at: date1,
+    current_sign_in_at: date2
   )
 end
 
+# フォロー
+User.all.each do |user|
+  own_id = [user.id]
+  follow_ids = (1..20).to_a.shuffle.take(rand(1..18)) - own_id
+  follow_ids.each do |i|
+    User.find(i).following << user
+  end
+end
+
 # 映画
+Movie.create!(
+  id: 1,
+  title: 'tipcorn',
+  overview: 'for tipcorn'
+)
 require 'net/http'
 require 'uri'
 require 'json'
@@ -44,19 +66,45 @@ require 'json'
     )
   end
 
+  # タグ
+Tag.create!(
+  [
+    { name: 'movie'},
+    { name: 'tipcorn'},
+    { name: '面白い'},
+    { name: '勉強になる'},
+    { name: '感動'},
+    { name: '英語'},
+    { name: '中国語'},
+    { name: 'フランス語'},
+    { name: '旅行'},
+    { name: '絵がきれい'},
+    { name: 'だめ'},
+    { name: 'おすすめ'},
+    { name: '勉強法'},
+    { name: '暗記'},
+    { name: 'かっこいい'},
+    { name: 'かわいい'},
+    { name: '動物'},
+    { name: 'ホラー'}
+  ]
+)
+
 # 記事
-2.times do |n|
-  users = User.all[1..15]
-  users.each do |user|
-    movie_id = rand(1..5)
+20.times do |n|
+  2.times do |m|
+    user = User.find(rand(1..20))
+    movie_id = rand(2..6)
     title = "【#{user.language}】#{Movie.find(movie_id).title}は勉強になります。"
-    content = "【#{user.language}】内容も良くて楽しみながら勉強できます。#{user.name}"
+    content = "【#{user.language}】内容も良くて楽しみながら勉強できます。#{user.name}" + Faker::Lorem.characters(number:50)
     rate1 = rand(1..5)
     rate2 = rand(1..5)
     rate3 = rand(1..5)
     rate4 = rand(1..5)
     rate5 = rand(1..5)
     rate = ((rate1 + rate2+ rate3 + rate4 + rate5)/5).round
+    counter = rand(0..21)
+    date = Faker::Time.between(from: '2020-07-01', to: '2020-08-01')
     user.articles.create!(
       movie_id: movie_id,
       title: title,
@@ -66,28 +114,55 @@ require 'json'
       length: rate2,
       practicality: rate3,
       speed: rate4,
-      accent: rate5
+      accent: rate5,
+      impressions_count: counter,
+      created_at: date
+    )
+    Article.last.article_tags.create!(
+      tag_id: 1
+    )
+    Article.last.article_tags.create!(
+      tag_id: rand(3..6),
     )
   end
+  user = User.find(rand(1..20))
+    movie_id = 1
+    title = "【tipcorn】こんな勉強しています。"
+    content = "【#{user.language}】よかったら皆さんも試してみてください。#{user.name}" + Faker::Lorem.characters(number:50)
+    counter = rand(0..20)
+    user.articles.create!(
+      movie_id: movie_id,
+      title: title,
+      content: content,
+      impressions_count: counter,
+      image: open("./app/assets/images/pop#{rand(1..4)}.jpg")
+    )
+    Article.last.article_tags.create!(
+      tag_id: 1
+    )
+    Article.last.article_tags.create!(
+      tag_id: rand(3..6)
+    )
 end
 
 # コメント
 2.times do |n|
-  users = User.all[1..15]
+  users = User.all[1..20]
   users.each do |user|
-    content = "#{user.name}コメントしました。"
+    content = "[comment]#{user.name}コメントしました。"
     user.comments.create!(
       article_id: rand(1..30),
       content: content,
     )
   end
 end
+
 # 返信コメント
-2.times do |n|
-  users = User.all[1..15]
+4.times do |n|
+  users = User.all[1..20]
   users.each do |user|
-  content = "#{n}への返信コメント"
-  reply_to = rand(1..30)
+  content = "[reply]#{n}への返信コメント"
+  reply_to = rand(1..40)
   article = Comment.find(reply_to).article_id
   user.comments.create!(
     reply_to: reply_to,
@@ -96,8 +171,6 @@ end
     )
   end
 end
-
-
 
 # 言語（確定）
 Language.create!(
