@@ -1,101 +1,107 @@
-<div class="container">
-  <h1>記事詳細</h1>
-  <p>Find me in app/views/learner/articles/show.html.erb</p>
-  <%# 記事詳細カード %>
-  <div class="card mb-3" style="max-width: 1200px;">
-    <div class="row no-gutters">
-      <div class="col-md-4">
-        <%= image_tag @article.movie.image_id, size: "350x495" %>
-      </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 id="MovieTitle" class="card-title"><%= @article.movie.title %></h5>
-            <p class="card-text"><%= @article.movie.overview %></p>
-            <i id="favorite-<%= @article.id %>"><%= render 'favorite', article: @article %></i>
-            <h5 class="card-title"><%= @article.title %></h5>
-              <p class="card-text"><%= @article.content %></p>
-          <div class="row">
-            <canvas id="myRaderChart" class="col-md-8"></canvas>
-            <ul class="col-md-4 ml-auto">
-              <li class="card-text">総合評価：<%= @article.rate %></li>
-              <li class="card-text">難易度：<%= @article.difficulty %></li>
-              <li class="card-text">映画の長さ：<%= @article.length %></li>
-              <li class="card-text">実用性：<%= @article.practicality %></li>
-              <li class="card-text">スピード：<%= @article.speed %></li>
-              <li class="card-text">発音のクセ：<%= @article.accent %></li>
-              <li class="card-text"><small class="text-muted"><%= @article.created_at %><%= @article.user.name %></small></li>
-            </ul>
+<div class="article-show-bg col-lg-12 p-0">
+  <% if @article.movie_id != 1 %>
+    <%= image_tag @article.movie.image_id, class: "bg-img-show", fallback: "sign-up.jpg" %>
+  <% else %>
+    <%= attachment_image_tag @article, :image, class: "bg-img-show", fallback: "bg-popcorn.jpg" %>
+  <% end %>
+  <div class="show-bg">
+    <div class="card container mt-5" style="background: rgba(255,255,255,0.7);">
+      <h1>詳細ページ</h1>
+      <%# 記事詳細カード %>
+      <% if @article.movie_id != 1 %>
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-lg-4 text-center">
+              <%= image_tag @article.movie.image_id, size: "350x495" %>
+            </div>
+              <div class="col-lg-8">
+                <div class="card-body">
+                  <h5 id="showMovieTitle" class="card-title"><%= @article.movie.title %></h5>
+                  <p class="card-text"><%= @article.movie.overview %></p>
+                  <strong id="favorite-<%= @article.id %>"><%= render 'favorite', article: @article %></strong>
+                  <h5 class="card-title"><%= @article.title %></h5>
+                    <p class="card-text"><%= @article.content %></p>
+                    <% @article.tags.each do |tag| %>
+                      <%= link_to learner_articles_path q: {tags_name_eq: tag.name} do %>
+                        <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
+                      <% end %>
+                    <% end %>
+                <div class="row">
+                  <canvas id="showRaderChart" class="col-lg-8"></canvas>
+                  <ul class="col-lg-4 ml-auto">
+                    <li class="card-text">総合評価：★<%= @article.rate %></li>
+                    <li class="card-text">難易度：★<%= @article.difficulty %></li>
+                    <li class="card-text">映画の長さ：★<%= @article.length %></li>
+                    <li class="card-text">実用性：★<%= @article.practicality %></li>
+                    <li class="card-text">スピード：★<%= @article.speed %></li>
+                    <li class="card-text">発音のクセ：★<%= @article.accent %></li>
+                    <li class="card-text"><small class="text-muted"><%= l @article.created_at %><%= @article.user.name %></small></li>
+                    <% if @article.user_id == current_learner_user.id %>
+                      <%= link_to edit_learner_movie_article_path(@article.movie_id,@article.id) do %>
+                        <button class="article-show-edit-btn"><i class="fas fa-edit"></i>編集</button>
+                      <% end %>
+                      <%= link_to learner_movie_article_path(@article.movie_id,@article.id), data: { confirm: '削除しますか？'}, method: :delete do %>
+                        <button class="article-show-delete-btn"><i class="fas fa-trash-alt"></i>削除</button>
+                      <% end %>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      <% else %>
+        <div class="card mb-3">
+          <div class="col-lg-10 mx-auto">
+            <div class="col-lg-12 text-center">
+              <%= attachment_image_tag @article, :image, fallback: "pop1.jpg", size: "450x336" %>
+            </div>
+            <div class="col-lg-12">
+              <div class="card-body">
+                <strong id="favorite-<%= @article.id %>"><%= render 'favorite', article: @article %></strong>
+                <h5 class="card-title"><%= @article.title %></h5>
+                <p class="card-text"><%= @article.content %></p>
+                <% @article.tags.each do |tag| %>
+                  <%= link_to learner_articles_path q: {tags_name_eq: tag.name} do %>
+                    <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
+                  <% end %>
+                <% end %>
+                  <% if @article.user_id == current_learner_user.id %>
+                    <%= link_to edit_learner_movie_article_path(@article.movie_id,@article.id) do %>
+                      <i class="fas fa-edit"></i>
+                      編集
+                    <% end %>
+                    <%= link_to learner_movie_article_path(@article.movie_id,@article.id), data: { confirm: '削除しますか？'}, method: :delete do %>
+                      <i class="fas fa-trash-alt"></i>
+                      削除
+                    <% end %>
+                  <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <%# コメントフォーム %>
+      <div class="form-group container">
+        <%= form_with model: @new_comment, url: learner_movie_article_comments_path(@article.movie.id, @article.id), method: :post, class: "row" do |f| %>
+          <%= f.text_field :content, placeholder: "コメントを入力(140文字以内)", class: "form-control" %>
+          <%= f.hidden_field :article_id, value: @article.id %>
+          <button class="main-btn d-block ml-auto mt-1">コメント</button>
+        <% end %>
       </div>
+
+      <%# コメント表示 %>
+      <div id="comment_render">
+        <%= render 'comment', {comments: @comments, new_comment: @new_comment, article: @article} %>
+      </div>
+
+      <%# 記事評価データ %>
+      <input type="hidden" id="show-difficulty" value="<%= @article.difficulty %>">
+      <input type="hidden" id="show-length" value="<%= @article.length %>">
+      <input type="hidden" id="show-practicality" value="<%= @article.practicality %>">
+      <input type="hidden" id="show-speed" value="<%= @article.speed %>">
+      <input type="hidden" id="show-accent" value="<%= @article.accent %>">
     </div>
   </div>
-
-  <%# コメントフォーム %>
-  <div class="form-group">
-  <%= form_with model: @new_comment, url: learner_movie_article_comments_path(@article.movie.id, @article.id), method: :post, class: "row" do |f| %>
-    <%= f.text_field :content, class: "form-control" %>
-    <%= f.hidden_field :article_id, value: @article.id %>
-    <%= f.submit "コメント", class: "btn btn-outline-dark ml-auto" %>
-  <% end %>
-  </div>
-
-  <%# コメント表示 %>
-  <div id="comment_render">
-    <%= render 'comment', {comments: @comments, new_comment: @new_comment, article: @article} %>
-  </div>
 </div>
-<input type="hidden" id="difficulty" value="<%= @article.difficulty %>"></input>
-<input type="hidden" id="length" value="<%= @article.length %>"></input>
-<input type="hidden" id="practicality" value="<%= @article.practicality %>"></input>
-<input type="hidden" id="speed" value="<%= @article.speed %>"></input>
-<input type="hidden" id="accent" value="<%= @article.accent %>"></input>
-
-
-
-
-
-<%# 　chart.js CDN　 %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-<%# レンジバーの描写 %>
-<script>
-    var ctx = document.getElementById("myRaderChart");
-      var movie_title = document.getElementById("MovieTitle");
-      var difficulty = document.getElementById("difficulty").value;
-      var length = document.getElementById("length").value;
-      var practicality = document.getElementById("practicality").value;
-      var speed = document.getElementById("speed").value;
-      var accent = document.getElementById("accent").value;
-      var paramater = ["難易度", "長さ", "実用性", "早さ", "クセ"]
-      var data = [difficulty, length, practicality, speed, accent]
-      var myRadarChart = new Chart(ctx, {
-        type: 'radar', 
-          data: { 
-            labels: paramater,
-            datasets: [{
-              label: movie_title.textContent,
-                  data: data,
-                  backgroundColor: 'RGBA(225,95,150, 0.5)',
-                  pointBackgroundColor: 'RGB(46,106,177)',
-                  borderColor: 'RGBA(225,95,150, 1)',
-                  borderWidth: 2
-              }]
-          },
-          options: {
-            title: {
-              display: true,
-                  text: "評価"
-              },
-              scale:{
-                ticks:{
-                  suggestedMin: 0,
-                      suggestedMax: 5,
-                      stepSize: 1,
-                      callback: function(value, index, values){
-                        return  value
-                      }
-                  }
-              }
-          }
-      });
-  </script>

@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row">
+    <ul class="list-group list-group-flush col-lg-3 mx-auto">
+      <li class="list-group-item">
+        <%= image_tag 'logo-s.png', size: '42x30' %>
+        <strong>NoM</strong>
+      </li>
+      <li class="list-group-item">
+        <span class="icon"><i class="fab fa-github-square"></i></span>
+        <%= link_to "GitHub", "https://github.com/n-hata91/NoM" %>
+      </li>
+      <li class="list-group-item">
+        <span class="icon"><i class="fab fa-twitter-square"></i></i></span>
+        <%= link_to "Twitter", "https://twitter.com/n_hata91" %>
+      </li>
+      <li class="list-group-item">
+      <a data-toggle="modal" data-target="#exampleModal">お問い合わせ</a>
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">お問い合わせフォーム</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Email</label>
+                  <input type="email" class="form-control" id="exampleFormControlInput1">
+                  <label for="exampleFormControlTextarea1">件名</label>
+                  <input type="text" class="form-control" id="exampleFormControlTextarea1">
+                  <label for="exampleFormControlTextarea2">内容</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea2" rows="3"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="main-btn">お問合せ</button>
+              <button type="button" class="sub-btn" data-dismiss="modal">閉じる</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </li>
+    </ul>
+    <ul class="list-group list-group-flush col-lg-3 mx-auto">
+      <li class="list-group-item"><span class="icon"><i class="fas fa-home"></i></span>
+        <%= link_to "top", root_path, class: "" %>
+      </li>
+      <li class="list-group-item"><span class="icon"><i class="fas fa-pencil-alt"></i></i></span>
+        <%= link_to "記事一覧", learner_articles_path, class: "" %>
+      </li>
+      <li class="list-group-item"><span class="icon"><i class="fas fa-film"></i></span>
+        <%= link_to "映画検索", learner_search_path, class: "" %>
+      </li>
+      <li class="list-group-item"><span class="icon"><i class="far fa-sun"></i></span>
+        <%= link_to "tipcorn", learner_tipcorn_path, class: "" %>
+      </li>
+    </ul>
+    <ul class="list-group list-group-flush col-lg-3 mx-auto">
+      <li class="list-group-item"><strong>API</strong></li>
+      <li class="list-group-item">
+        <%= link_to "https://www.themoviedb.org/" do %>
+      <h6>TMDb</h6>
+          <%= image_tag 'api-logo.svg', size: "130x94" %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>

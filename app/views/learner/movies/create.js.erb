@@ -1,2 +1,3 @@
 $("#movie_list").empty();
 $("#movie_list").append("<%= j(render 'listup', movies: @movies) %>").hide().fadeIn();
+$("html,body").animate({scrollTop:$('#movie_list').offset().top});

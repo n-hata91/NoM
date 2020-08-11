@@ -55,8 +55,10 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'rubocop-airbnb'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'bullet'
 end
 
 group :test do
@@ -65,6 +67,10 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem "factory_bot_rails"
+  gem 'rspec-parameterized'
+  gem 'shoulda-matchers'
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -72,21 +78,22 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'bootstrap', '~> 4.5.0'
 gem 'jquery-rails'
-gem 'rubocop-airbnb'
 gem 'forgery_ja'
 gem 'faker'
 gem 'forgery'
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem 'refile-mini_magick'
 gem 'kaminari', '~> 1.2.1'
+gem 'rails-i18n', '~> 5.1'
 # gem 'enum_help'
-# gem 'rails-i18n', '~> 5.1'
 # gem 'cancancan'
 # gem 'chart-js-rails', '~> 0.1.4'
-# gem 'ransack'
+# gem 'active_admin'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 gem 'dotenv-rails'
 gem 'gon'
-# gem 'active_admin'
+gem 'jquery-ui-rails'
+gem 'ransack'
+gem 'impressionist', '~>1.6.1'

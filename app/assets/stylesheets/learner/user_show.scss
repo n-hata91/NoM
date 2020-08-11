@@ -1,0 +1,9 @@
+@import "application";
+// ユーザー詳細ページヘッダー
+.show-header {
+  @include dynamicBachground(40vh, 0.7)
+ }
+ .show-info-left, .show-info-right {
+   z-index: 2;
+   padding: 60px;
+ }

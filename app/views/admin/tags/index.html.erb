@@ -1,2 +1,60 @@
-<h1>Admin::Tags#index</h1>
-<p>Find me in app/views/admin/tags/index.html.erb</p>
+<div class="admin-bg">
+  <div class="container">
+  <h1>タグ管理</h1>
+    <div class="card col-lg-12">
+      <div class="card-header" id="head">
+        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+          <i class="fas fa-search">検索</i>
+        </button>
+        <% if !@p.blank? %>
+          <% unless @p.values.blank? %>
+            <i class="fas fa-search mr-1"><%= @p["name_cont_all"] %></i>
+          <% end %>
+          <%= link_to "検索をキャンセル", admin_tags_path, class: "btn btn-outline-danger" %>
+        <% end %>
+      </div>
+      <div class="card-body">
+        <%= search_form_for @q, url: admin_tags_path do |f| %>
+          <div class="form-row">
+            <div class="form-group col-lg-12">
+              <%= f.label :title, "キーワード" %>
+              <%= f.search_field :name_cont_all, class: "form-control mr-sm-2" %>
+            </div>
+          </div>
+          <%= f.submit "検索", class: "btn btn-outline-success" %>
+          <span>表示 <%= @tags.count %> 件</span>
+        <% end %>
+      </div>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">タグ</th>
+            <th scope="col">関連記事数</th>
+            <th scope="col"><%= sort_link(@q, :created_at, '作成日時', default_order: :desc) %></th>
+            <th scope="col">削除</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tags.each do |tag| %>
+            <tr>
+              <th scope="row"></th>
+                <td>
+                  <%= link_to admin_articles_path(q: {tags_name_eq: tag.name}) do %>
+                    <%= tag.name %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to admin_articles_path(q: {tags_name_eq: tag.name}) do %>
+                    <%= tag.articles.count %>
+                  <% end %>
+                </td>
+              <td><%= l tag.created_at %></td>
+              <td><%= link_to '削除', admin_tag_path(tag), class: "btn btn-outline-danger", method: :delete, data: { confirm: '削除しますか？' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
