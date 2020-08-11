@@ -1,5 +1,5 @@
 <div class="bg-index pt-5">
-  <div class="container">
+  <div class="col-lg-11 mx-auto">
     <div class="accordion" id="accordionExample">
       <div class="card">
         <div class="card-header" id="head">
@@ -35,13 +35,45 @@
         </div>
       </div>
     </div>
-    <% @articles.preload([:user]).preload([:movie]).each do |article| %>
-    <% if article.movie_id != 1 %>
-    <%= render 'article', article: article %>
-    <% else %>
-    <%= render 'tipcorn', article: article %>
-      <% end %>
-    <% end %>
+    <div class="row">
+      <div class="col-lg-9 col-12">
+        <% @articles.preload([:user]).preload([:movie]).each do |article| %>
+        <% if article.movie_id != 1 %>
+        <%= render 'article', article: article %>
+        <% else %>
+        <%= render 'tipcorn', article: article %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="col-lg-3 pl-0 ranking">
+        <ul class="list-group mt-3">
+          <li class="list-group-item">人気の記事(<%= current_learner_user.language %>記事)</li>
+            <% @pv_ranking.each do |rank_article| %>
+              <%= link_to learner_movie_article_path(rank_article.movie_id, rank_article) do %>
+                <li class="list-group-item"><%= truncate(rank_article.title, length: 30) %></li>
+              <% end %>
+            <% end %>
+        </ul>
+        <ul class="list-group mt-3">
+          <li class="list-group-item">人気の投稿者</li>
+            <% @user_ranking.each do |rank_user| %>
+              <%= link_to learner_user_path(rank_user) do %>
+                <li class="list-group-item"><%= rank_user.name %></li>
+              <% end %>
+            <% end %>
+        </ul>
+        <ul class="list-group mt-3">
+          <li class="list-group-item">人気のタグ</li>
+          <li class="list-group-item">
+            <% @tag_ranking.each do |tag| %>
+              <%= link_to learner_articles_path q: {tags_name_eq: tag.name} do %>
+                <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
+              <% end %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </div>
     <div class="pagination-wrap mx-auto">
       <%= paginate @articles %>
     </div>

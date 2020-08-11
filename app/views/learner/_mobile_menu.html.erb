@@ -1,0 +1,16 @@
+<nav class="mobileMenu">
+  <ul>
+    <li><%= link_to "TOP", root_path %></li>
+    <li><%= link_to "投稿記事", learner_articles_path %></li>
+    <li><%= link_to "映画検索 / 投稿", learner_search_path %></li>
+    <li><%= link_to "TIPCORN", learner_tipcorn_path %></li>
+    <li><%= link_to "マイページ", learner_user_path(current_learner_user) %></li>
+    <li><%= link_to "ログアウト", destroy_learner_user_session_path, method: :delete %></li>
+  </ul>
+</nav>
+<!-- 三 --> 
+<div class="Toggle-bar">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>

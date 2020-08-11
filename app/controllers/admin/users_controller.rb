@@ -1,5 +1,4 @@
 class Admin::UsersController < ApplicationController
-  
   before_action :authenticate_admin_admin!
   
   def top
@@ -13,8 +12,8 @@ class Admin::UsersController < ApplicationController
     @users_today = today(@comments)
     @tags = Tag.all
     @users_today = today(@tags)
-    @user_ranking = User.ranking(3)
-    @pv_ranking = Article.ranking(3)
+    @user_ranking = User.post_ranking(3)
+    @pv_ranking = Article.pv_ranking(3)
   end
 
   def index

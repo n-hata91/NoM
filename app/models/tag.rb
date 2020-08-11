@@ -9,4 +9,7 @@ class Tag < ApplicationRecord
     find_by(name: tag_name).articles.size
   end
 
+  def self.tag_ranking(num)
+    find(ArticleTag.group(:tag_id).order('count(tag_id) desc').limit(num).pluck(:tag_id))
+  end
 end

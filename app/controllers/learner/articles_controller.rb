@@ -8,6 +8,10 @@ class Learner::ArticlesController < ApplicationController
     @q = Article.ransack(@p)
     @articles = @q.result(distinct: true).page(params[:page]).reverse_order
     @languages = Language.all
+    @user_ranking = User.follower_ranking(3)
+    params[:pv] = {"user_language_eq_all"=>"#{current_learner_user.language}"}
+    @pv_ranking = Article.ransack(params[:pv]).result(distinct: true).order(impressions_count: :desc).limit(3)
+    @tag_ranking = Tag.tag_ranking(10)
   end
 
   def show
@@ -26,7 +30,6 @@ class Learner::ArticlesController < ApplicationController
   end
 
   def create
-    byebug
     @article = current_learner_user.articles.new(article_params)
     # @article.image ||= 
     unless params[:tags] == nil
@@ -42,7 +45,6 @@ class Learner::ArticlesController < ApplicationController
         redirect_to learner_movie_article_path(@article.movie_id, @article)
       end
     else
-      byebug
       flash.now[:warning] = "入力をご確認ください"
       if @article.movie_id == 1
         render :tipcorn

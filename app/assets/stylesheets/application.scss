@@ -171,7 +171,7 @@ $google: #DB4437;
 }
 
 .main-btn {
-  @include buttonDesign($main-blue, 180px, 50px)
+  @include buttonDesign($main-blue, 180px, 50px);
   &.facebook-btn {
     background-color: $facebook;
     border: $facebook;
@@ -190,9 +190,15 @@ $google: #DB4437;
     }
   }
 }
-
 .sub-btn {
-  @include buttonDesign($other-yellow, 180px, 50px)
+  @include buttonDesign($other-yellow, 180px, 50px);
+}
+.article-show-edit-btn {
+  @include buttonDesign($main-blue, 80px, 50px);
+  text-align: center;
+}
+.article-show-delete-btn {
+  @include buttonDesign($other-yellow, 80px, 50px);
 }
 
 // 管理者ページ左側詳細固定
@@ -661,6 +667,9 @@ input#menu[type="checkbox"] {
 }
 
 @media screen and (max-width:1119px) {
+  body {
+    min-width: 1120px;
+  }
   .loop_wrap {
     background-image: image-url("theater.jpg");
     background-position: 10% 0%;
@@ -672,7 +681,29 @@ input#menu[type="checkbox"] {
   .search-form-bg {
     width: 80vw;
   }
-
+  .article-show-bg {
+    @include dynamicBachground(1800px, 0.5)
+  }
+  .main-btn, .sub-btn {
+    width: 100%;
+  }
+  .article-show-edit-btn {
+    @include buttonDesign($main-blue, 100%, 50px);
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .article-show-delete-btn {
+    @include buttonDesign($other-yellow, 100%, 50px);
+  }
+  .top-movie .top-btn-bg {
+    width: 100%;
+    top: 15%;
+    left: 0;
+  }
+  .jumbotron {
+    color: #fff !important;
+    text-align: center;
+  }
 }
 
 @media screen and (min-width:767px) {
@@ -681,6 +712,9 @@ input#menu[type="checkbox"] {
   }
 }
 @media screen and (max-width:767px) {
+  body {
+    min-width: 766px;
+  }
   .primary-nav {
     display: none;
   }
@@ -695,7 +729,7 @@ input#menu[type="checkbox"] {
     left: 0;
     text-align: center;
     transition: all 0.2s;
-    transform: translateY(-100%);
+    transform: translateY(-200%);
     z-index: 2;
     ul{
       width: 100%;

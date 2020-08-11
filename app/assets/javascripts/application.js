@@ -78,7 +78,6 @@ $(function() {
   });
 });
 
-
 // スマホバーガー
 $(function() {
   $(document).on("click", ".Toggle-bar", function() {

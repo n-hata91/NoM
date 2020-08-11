@@ -84,8 +84,12 @@ class User < ApplicationRecord
     return { user: user ,sns: sns}
   end
   # ランキング
-  def self.ranking(num)
+  def self.post_ranking(num)
     find(Article.group(:user_id).order('count(user_id) desc').limit(num).pluck(:user_id))
+  end
+
+  def self.follower_ranking(num)
+    User.find(Relation.group(:followed_id).order('count(followed_id) desc').limit(num).pluck(:followed_id))
   end
 
 end

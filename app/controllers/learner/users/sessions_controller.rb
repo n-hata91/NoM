@@ -22,7 +22,6 @@ class Learner::Users::SessionsController < Devise::SessionsController
     user = current_learner_user
     user.current_sign_in_at = Time.current
     user.save
-    byebug
     learner_articles_path
   end
 
