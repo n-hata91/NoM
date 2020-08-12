@@ -180,3 +180,8 @@
     transform: scale(1);
   }
 }
+@media screen and (min-width:767px) {
+  .mobileMenu {
+    display: none;
+  }
+}
