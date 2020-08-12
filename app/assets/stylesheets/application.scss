@@ -25,6 +25,8 @@ $sub-yellow: #ebcb1b;
 $other-yellow: #edac26;
 $facebook: #3B5998;
 $google: #DB4437;
+$xl-width: 1119px;
+$md-width: 767px;
 
 * {
   font-family: "Montserrat", "游ゴシック", 'Lato', YuGothic, 'Noto Sans JP', "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
@@ -117,17 +119,19 @@ $google: #DB4437;
     transition: .2s;
     z-index: -1;
   }
+  @media screen and (min-width:1119px) {
   &:hover {
-  color: $color;
-  text-decoration: none;
-    &:after {
-      height: 650%;
+      color: $color;
+      text-decoration: none;
+      &:after {
+        height: 650%;
+        opacity: 1;
+      }
+    }
+    &:active:after {
+      height: 800%;
       opacity: 1;
     }
-  }
-  &:active:after {
-    height: 800%;
-    opacity: 1;
   }
 }
 .main-btn {
@@ -341,7 +345,6 @@ input#menu[type="checkbox"] {
 @media screen and (max-width:1119px) {
   body {
     width: 100%;
-    // min-width: 1120px;
   }
   .loop_wrap {
     background-image: image-url("theater.jpg");
