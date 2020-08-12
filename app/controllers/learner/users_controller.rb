@@ -28,7 +28,11 @@ class Learner::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to learner_user_path(current_learner_user)
+      if params[:welcome]
+        redirect_to learner_articles_path
+      else
+        redirect_to learner_user_path(current_learner_user)
+      end
     else
       @languages = Language.all
       flash.now[:warning] = '入力をご確認ください'
