@@ -55,15 +55,7 @@ class Learner::Users::RegistrationsController < Devise::RegistrationsController
     user = current_learner_user
     user.current_sign_in_at = Time.current
     user.save
-    if resource.language.blank?
-      learner_welcome_path
-    else
-      learner_articles_path
-    end
-  end
-
-  def after_sign_in_path_for(resource)
-    learner_articles_path
+    learner_welcome_path
   end
 
   # The path used after sign up for inactive accounts.
