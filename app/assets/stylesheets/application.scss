@@ -197,6 +197,7 @@ img .attachment {
   border-right: dashed 1px $other-yellow;
 }
 .primary-nav {
+  width: 100%;
   position: fixed;
   z-index: 4;
   .menu li {
@@ -360,6 +361,9 @@ input#menu[type="checkbox"] {
   .article-show-bg {
     @include dynamicBachground(1800px, 0.5)
   }
+  .fifth-image .top-entrance-btn {
+    left: 0;
+  }
   .main-btn, .sub-btn {
     width: 100%;
   }
@@ -381,11 +385,6 @@ input#menu[type="checkbox"] {
     text-align: center;
   }
   .ranking {
-    display: none;
-  }
-}
-@media screen and (min-width:767px) {
-  .mobileMenu {
     display: none;
   }
 }
