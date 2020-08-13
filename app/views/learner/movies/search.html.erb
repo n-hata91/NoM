@@ -2,8 +2,9 @@
   <div class="search-form-bg text-center p-4">
     <h1 class="my-2">映画検索</h1>
     <%= form_with model: @movie, url:learner_movies_path do |f| %>
-      <%= f.text_field :search_word, placeholder: "タイトルを入力", id: "movie-search-field", class: "form-control-lg col-lg-7 movie-search-field my-3" %>
-      <button class="main-btn movie-search-btn">検索</button>
+      <%= f.text_field :search_word, placeholder: "タイトルを入力", id: "movie-search-field", class: "form-control-lg col-lg-7 movie-search-field mt-3" %>
+      <div class="search-list mx-auto p-0 col-lg-7"></div>
+      <button class="main-btn movie-search-btn mt-4">検索</button>
     <% end %>
   </div>
   <table class="image-table">
@@ -20,5 +21,3 @@
   </table>
 </div>
 <div id="movie_list" class="container"></div>
-
-

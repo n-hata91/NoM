@@ -87,49 +87,68 @@
 
 <script>
 $(function() {
+  var ctx = $("#myRaderChart");
+  var movie_title = $("#MovieTitle").text();
   var params = $('.rate-range');
+  var paramater = ["難易度", "長さ", "実用性", "スピード", "クセ"]
+  new Chart(ctx, {
+      type: 'radar', 
+        data: {
+          labels: paramater,
+          datasets: [{
+            label: movie_title,
+            data: [,,,,]
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: "評価"
+          },
+          scale:{
+            ticks:{
+              suggestedMin: 0,
+              suggestedMax: 5
+            }
+          }
+        }
+      });
+// 2222222
   var rate = function (params, stars) {
     return function(evt) {
-      apple = "★"
-      stars.innerHTML = apple.repeat( params.value );
-      var ctx = $("#myRaderChart");
-      var movie_title = $("#MovieTitle");
+      star = "★"
+      stars.innerHTML = star.repeat( params.value );
       var difficulty = $("#difficulty").val();
       var length = $("#length").val();
       var practicality = $("#practicality").val();
       var speed = $("#speed").val();
       var accent = $("#accent").val();
-      var paramater = ["難易度", "長さ", "実用性", "スピード", "クセ"]
-      var data = [difficulty, length, practicality, speed, accent]
-      var myRadarChart = new Chart(ctx, {
+      new Chart(ctx, {
         type: 'radar', 
-          data: { 
-            labels: paramater,
-            datasets: [{
-              label: movie_title.textContent,
-                  data: data,
-                  backgroundColor: 'RGBA(45, 117, 255, 0.5)',
-                  pointBackgroundColor: 'RGB(237,172,38)',
-                  borderColor: 'RGBA(45, 117, 255, 1)',
-                  borderWidth: 2
-              }]
+        data: {
+          labels: paramater,
+          datasets: [{
+            label: movie_title,
+            data: [difficulty, length, practicality, speed, accent],
+            backgroundColor: 'RGBA(45, 117, 255, 0.5)',
+            pointBackgroundColor: 'RGB(237,172,38)',
+            borderColor: 'RGBA(45, 117, 255, 1)',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: "評価"
           },
-          options: {
-            title: {
-              display: true,
-                  text: "評価"
-              },
-              scale:{
-                ticks:{
-                  suggestedMin: 0,
-                      suggestedMax: 5,
-                      stepSize: 1,
-                      callback: function(value, index, values){
-                        return  value
-                      }
-                  }
-              }
+          scale:{
+            ticks:{
+              suggestedMin: 0,
+              suggestedMax: 5,
+              stepSize: 1,
+            }
           }
+        }
       });
     }
   }

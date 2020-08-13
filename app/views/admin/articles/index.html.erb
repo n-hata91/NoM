@@ -1,31 +1,7 @@
 <div class="admin-bg">
   <h1>記事管理</h1>
   <div class="row">
-    <% if @data %>
-      <div class="admin-detail col-lg-3 text-center">
-        <%= attachment_image_tag @data.user, :image, size: "100x100", fallback: "no_image.jpg", style: "border-radius: 18px;" %>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">ユーザー名：<%= @data.user.name %></li>
-          <li class="list-group-item">日時：<%= l @data.created_at %></li>
-          <li class="list-group-item">タイトル：<%= @data.title %></li>
-          <li class="list-group-item">映画タイトル：<%= @data.content %></li>
-          <li class="list-group-item">映画タイトル：<%= @data.movie.title %></li>
-          <li class="list-group-item">映画タイトル：<%= @data.movie.title %></li>
-          <li class="list-group-item">総合評価：<%= "★" * @data.rate %></li>
-          <li class="list-group-item">難易度：<%= "★" * @data.difficulty %></li>
-          <li class="list-group-item">長さ：<%= "★" * @data.length %></li>
-          <li class="list-group-item">実用性：<%= "★" * @data.practicality %></li>
-          <li class="list-group-item">早さ：<%= "★" * @data.speed %></li>
-          <li class="list-group-item">クセ：<%= "★" * @data.accent %></li>
-          <li class="list-group-item">
-            <% @data.tags.each do |tag| %>
-                <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
-            <% end %>
-          </li>
-          <%= link_to '削除', admin_article_path(@data), class: "btn btn-outline-danger", method: :delete, data: { confirm: '削除しますか？' } %>
-        </ul>
-      </div>
-    <% end %>
+    <div class="admin-detail col-lg-3 text-center"></div>
     <div class="card col-lg-9 ml-auto">
       <div class="card-header" id="head">
         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
@@ -41,7 +17,7 @@
           <%= link_to "検索をキャンセル", admin_articles_path, class: "btn btn-outline-danger" %>
         <% end %>
       </div>
-      <div class="card-body">
+      <div class="admin-card-body">
         <%= search_form_for @q, url: admin_articles_path do |f| %>
           <div class="form-row">
             <div class="form-group col-lg-6">
@@ -69,7 +45,7 @@
           <span>表示 <%= @articles.count %> 件</span>
         <% end %>
       </div>
-        <table class="table">
+        <table class="table table-hover">
           <thead class="thead-dark">
             <tr>
               <th scope="col"></th>
@@ -81,12 +57,10 @@
           </thead>
           <tbody>
             <% @articles.preload([:movie]).preload([:user]).each do |article| %>
-              <tr>
+              <tr class="admin-article-data" data-number="<%= article.id %>">
                 <th scope="row"></th>
                   <td>
-                    <%= link_to admin_articles_path(data: article.id) do %>
                       <%= truncate(article.title, length: 20) %>
-                    <% end %>
                   </td>
                 <td><%= truncate(article.movie.title, length: 15) %></td>
                 <td><%= "★" * article.rate %></td>

@@ -351,12 +351,15 @@ input#menu[type="checkbox"] {
     background-image: image-url("theater.jpg");
     background-position: 10% 0%;
     background-size: cover;
+    .search-form-bg {
+      position: absolute;
+      top: 33%;
+      left: 12%;
+      width: 80%;
+    }
   }
   .image-table {
     display: none;
-  }
-  .search-form-bg {
-    width: 80vw;
   }
   .article-show-bg {
     @include dynamicBachground(1800px, 0.5)
@@ -427,6 +430,12 @@ input#menu[type="checkbox"] {
   }
   nav.mobileMenu.active{
     transform: translateY(0%);
+  }
+  .loop_wrap .search-form-bg {
+    position: absolute;
+    top: 33%;
+    left: 0%;
+    width: 100%;
   }
   .Toggle-bar {
     width: 45px;

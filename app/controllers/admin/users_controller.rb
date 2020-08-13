@@ -22,9 +22,9 @@ class Admin::UsersController < ApplicationController
     @users = @q.result(distinct: true).all.reverse_order
     @languages = Language.all
     @data = User.find(params[:data]) if params[:data].present?
-    # csvエクスポート
     respond_to do |format|
       format.html
+      format.js
       format.csv do
         send_data render_to_string,
                   filename: "利用者.csv"
