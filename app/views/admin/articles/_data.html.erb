@@ -1,0 +1,19 @@
+<%= attachment_image_tag data.user, :image, size: "100x100", fallback: "no_image.jpg", style: "border-radius: 18px;" %>
+<ul class="list-group list-group-flush">
+  <li class="list-group-item">ユーザー名：<%= data.user.name %></li>
+  <%= link_to '削除', admin_article_path(data), class: "btn btn-outline-danger", method: :delete, data: { confirm: '削除しますか？' } %>
+  <li class="list-group-item">投稿日時：<%= l data.created_at %></li>
+  <li class="list-group-item">タイトル：<%= data.title %></li>
+  <li class="list-group-item">映画タイトル：<%= data.content %></li>
+  <li class="list-group-item">総合評価：<%= "★" * data.rate %></li>
+  <li class="list-group-item">難易度：<%= "★" * data.difficulty %></li>
+  <li class="list-group-item">長さ：<%= "★" * data.length %></li>
+  <li class="list-group-item">実用性：<%= "★" * data.practicality %></li>
+  <li class="list-group-item">早さ：<%= "★" * data.speed %></li>
+  <li class="list-group-item">クセ：<%= "★" * data.accent %></li>
+  <li class="list-group-item">
+    <% data.tags.each do |tag| %>
+        <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
+    <% end %>
+  </li>
+</ul>

@@ -6,6 +6,10 @@ class Admin::CommentsController < ApplicationController
     @q = Comment.ransack(@p)
     @comments = @q.result(distinct: true).all.reverse_order
     @data = Comment.find(params[:data]) if params[:data].present?
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def destroy
