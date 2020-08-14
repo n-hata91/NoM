@@ -29,7 +29,7 @@ class Learner::UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       if params[:welcome]
-        redirect_to learner_articles_path
+        redirect_to learner_articles_path(welcome:"")
       else
         redirect_to learner_user_path(current_learner_user)
       end

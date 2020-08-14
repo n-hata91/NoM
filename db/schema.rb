@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_05_081615) do
+ActiveRecord::Schema.define(version: 2020_08_05_152754) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2020_08_05_081615) do
     t.integer "accent", default: 3
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "pv_counter", default: 0
+    t.integer "impressions_count", default: 0
   end
 
   create_table "comments", force: :cascade do |t|

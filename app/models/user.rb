@@ -24,6 +24,12 @@ class User < ApplicationRecord
   has_many :article_tags, dependent: :destroy
   enum level: { '初心者レベル': 0, '初級会話レベル': 1, '日常会話レベル': 2, 'ビジネスレベル': 3 }
 
+
+  # 初めての
+  def first_visitor?
+    created_at.to_s == current_sign_in_at.to_s
+  end
+
   # フォロー機能
   def follow(other_user)
     following << other_user

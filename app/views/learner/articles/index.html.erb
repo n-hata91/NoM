@@ -1,8 +1,8 @@
 <div class="bg-index pt-5">
 <div class="row col-lg-11 mx-auto pr-0">
-  <div class="col-lg-9 col-11">
+  <div class="col-lg-9 col-11 mx-auto">
     <div class="accordion col-lg-12" id="accordionExample">
-      <div class="card">
+      <div class="card" id="intro2">
         <div class="card-header" id="head">
           <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
             <i class="fas fa-search">検索</i>
@@ -46,7 +46,7 @@
       <% end %>
     </div>
   </div>
-  <div class="col-lg-3 p-0 ranking">
+  <div class="col-lg-3 p-0 ranking" id="intro3">
     <ul class="list-group mb-3">
       <li class="list-group-item list-group-item-secondary">
         <i class="far fa-newspaper">人気の記事(<%= current_learner_user.language %>記事)</i>
@@ -79,6 +79,7 @@
         <% end %>
       </li>
     </ul>
+    <div id="first-visitor" class="invisible"><%= @first_visitor %></div>
   </div>
 </div>
     <div class="pagination-wrap container p-5">
