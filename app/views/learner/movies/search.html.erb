@@ -21,3 +21,40 @@
   </table>
 </div>
 <div id="movie_list" class="container"></div>
+
+<script>// 映画インクリメンタルサーチ
+$(function() {
+  var search_list = $(".search-list");
+  function appendReview(title) {
+    var html = `<div class="list-group list-group-flush">
+                  <li class="list-group-item list-group-item-action p-1">${title.title}</li>
+                </div>`
+    search_list.append(html);
+  }
+  $(document).on("keyup", ".movie-search-field", function() {
+    var input = $(".movie-search-field").val();
+    $.ajax({
+      type: 'GET',
+      url: '/learner/movies/search',
+      data: { keyword: input },
+      dataType: 'json'
+    })
+    .done(function(titles) {
+      $(search_list).empty();
+      if (titles.length !== 0) {
+        titles.forEach(function(title){
+          appendReview(title);
+        });
+      }
+      if ($('input[type="text"]').val() === "") {
+        $(search_list).empty();
+      }
+    })
+  })
+  $(document).on('click', ".list-group-item-action", function() {
+    $(search_list).empty();
+    $(this).val();
+    $('input[type="text"]').val($(this).text());
+  })
+});
+</script>

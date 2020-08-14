@@ -16,9 +16,9 @@
 //= require jquery-ui
 //= require tag-it
 //= require turbolinks
-//= require_tree .
 //= require popper
 //= require bootstrap
+//= require_tree .
 
 $(function() {
   $(window).scroll(function() {
@@ -84,85 +84,6 @@ $(function() {
     $(this).toggleClass('active');
     $('.mobileMenu').toggleClass('active');
   });
-});
-
-// showレーダーチャート
-$(function () {
-  var ctx = $("#showRaderChart");
-  var movie_title = $("#showMovieTitle").text();
-  var difficulty = $("#show-difficulty").val();
-  var length = $("#show-length").val();
-  var practicality = $("#show-practicality").val();
-  var speed = $("#show-speed").val();
-  var accent = $("#show-accent").val();
-  var paramater = ["難易度", "長さ", "実用性", "スピード", "クセ"]
-  var data = [difficulty, length, practicality, speed, accent]
-  new Chart(ctx, {
-    type: 'radar', 
-    data: { 
-      labels: paramater,
-      datasets: [{
-        label: movie_title,
-        data: data,
-        backgroundColor: 'RGBA(45, 117, 255, 0.5)',
-        pointBackgroundColor: 'RGB(237,172,38)',
-        borderColor: 'RGBA(45, 117, 255, 1)',
-        borderWidth: 2
-        }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: "評価"
-      },
-      scale:{
-        ticks:{
-          suggestedMin: 0,
-          suggestedMax: 5,
-          stepSize: 1,
-          callback: function(value, index, values){
-            return  value
-          }
-        }
-      }
-    }
-  });
-});
-
-// 映画インクリメンタルサーチ
-$(function() {
-  var search_list = $(".search-list");
-  function appendReview(title) {
-    var html = `<div class="list-group list-group-flush">
-                  <li class="list-group-item list-group-item-action p-1">${title.title}</li>
-                </div>`
-    search_list.append(html);
-  }
-  $(document).on("keyup", ".movie-search-field", function() {
-    var input = $(".movie-search-field").val();
-    $.ajax({
-      type: 'GET',
-      url: '/learner/movies/search',
-      data: { keyword: input },
-      dataType: 'json'
-    })
-    .done(function(titles) {
-      $(search_list).empty();
-      if (titles.length !== 0) {
-        titles.forEach(function(title){
-          appendReview(title);
-        });
-      }
-      if ($('input[type="text"]').val() === "") {
-        $(search_list).empty();
-      }
-    })
-  })
-  $(document).on('click', ".list-group-item-action", function() {
-    $(search_list).empty();
-    $(this).val();
-    $('input[type="text"]').val($(this).text());
-  })
 });
 
 // 管理者 サイドshow
