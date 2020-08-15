@@ -12,7 +12,7 @@ $(window).on("load", function () {
       showStepNumbers: false,
       steps: [
         {
-          intro: '<h5><img src="/assets/NoM-logo.png" width="70px" height="50px">へようこそ！</h5><br><p>使い方の説明です。<br>不要な方はスキップできます。</p>'
+          intro: '<h5>NoMへようこそ！</h5><br><p>使い方の説明です。<br>不要な方はスキップできます。</p>'
         },
         {
           element: '#intro1',
