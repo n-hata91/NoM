@@ -12,6 +12,9 @@ class Learner::ArticlesController < ApplicationController
     params[:pv] = { "user_language_eq_all" => "#{current_learner_user.language}" }
     @pv_ranking = Article.ransack(params[:pv]).result(distinct: true).order(impressions_count: :desc).limit(3)
     @tag_ranking = Tag.tag_ranking(10)
+    if params[:welcome]
+      @first_visitor = "true"
+    end
   end
 
   def show
@@ -31,7 +34,6 @@ class Learner::ArticlesController < ApplicationController
 
   def create
     @article = current_learner_user.articles.new(article_params)
-    # @article.image ||=
     unless params[:tags].nil?
       tags = params[:tags].split(",")
     end

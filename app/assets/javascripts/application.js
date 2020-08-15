@@ -16,9 +16,9 @@
 //= require jquery-ui
 //= require tag-it
 //= require turbolinks
-//= require_tree .
 //= require popper
 //= require bootstrap
+//= require_tree .
 
 $(function() {
   $(window).scroll(function() {
@@ -83,5 +83,43 @@ $(function() {
   $(document).on("click", ".Toggle-bar", function() {
     $(this).toggleClass('active');
     $('.mobileMenu').toggleClass('active');
+  });
+});
+
+// 管理者 サイドshow
+// ユーザー
+$(function () {
+  $(document).on("click", ".admin-user-data", function () {
+    var user_id = $(this).data("number");
+    $.ajax({
+      type: "GET",
+      url: "/admin/users",
+      dataType: "script",
+      data: { data: user_id }
+    });
+  });
+});
+// 記事
+$(function () {
+  $(document).on("click", ".admin-article-data", function () {
+    var article_id = $(this).data("number");
+    $.ajax({
+      type: "GET",
+      url: "/admin/articles",
+      dataType: "script",
+      data: { data: article_id }
+    });
+  });
+});
+// コメント
+$(function () {
+  $(document).on("click", ".admin-comment-data", function () {
+    var comment_id = $(this).data("number");
+    $.ajax({
+      type: "GET",
+      url: "/admin/comments",
+      dataType: "script",
+      data: { data: comment_id }
+    });
   });
 });

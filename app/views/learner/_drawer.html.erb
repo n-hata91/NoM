@@ -1,13 +1,13 @@
-<div class="primary-nav">
+<div class="primary-nav" id="intro4">
   <span class="hamburger open-panel drawer-toggle"></span>
 	<nav role="navigation" class="menu">
     <a href="/" class="logotype"><%= image_tag 'NoM-logo.png', size: "120x80" %></a>
 		<div class="overflow-container">
 			<ul class="drawer-menu">
-
+      
 				<li><%= link_to "TOP", root_path, class: "drawer-btn" %><span class="icon"><i class="fas fa-home"></i></span></li>
         <li><%= link_to "投稿記事", learner_articles_path, class: "drawer-btn" %><span class="icon"><i class="fas fa-pencil-alt"></i></i></span></li>
-        <li><%= link_to "映画検索 / 投稿", learner_search_path, class: "drawer-btn" %><span class="icon"><i class="fas fa-film"></i></span></li>
+        <li ><%= link_to "映画検索 / 投稿", learner_search_path, class: "drawer-btn" %><span class="icon"><i class="fas fa-film"></i></span></li>
         <li><%= link_to "TIPCORN", learner_tipcorn_path, class: "drawer-btn" %><span class="icon"><i class="far fa-sun"></i></span></li>
         <li><%= link_to "マイページ", learner_user_path(current_learner_user), class: "drawer-btn" %><span class="icon"><i class="fas fa-user-circle"></i></span></li>
         <li>
