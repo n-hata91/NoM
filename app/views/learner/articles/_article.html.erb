@@ -1,9 +1,9 @@
-<div class="card mb-3 faa-float animated-hover">
+<div class="card mb-3 faa-float animated-hover" id="intro1">
   <div class="row no-gutters">
-    <div class="col-lg-4 text-center bg-light">
-      <%= image_tag article.movie.image_id, size: "245x336" %>
+    <div class="col-lg-4 text-center bg-light article-image">
+      <%= image_tag article.movie.image_id %>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-8 article-card">
       <div class="card-body">
         <%= link_to learner_movie_article_path(article.movie_id, article) do %>
           <h5 class="card-title">

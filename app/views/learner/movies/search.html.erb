@@ -2,8 +2,9 @@
   <div class="search-form-bg text-center p-4">
     <h1 class="my-2">映画検索</h1>
     <%= form_with model: @movie, url:learner_movies_path do |f| %>
-      <%= f.text_field :search_word, placeholder: "タイトルを入力", id: "movie-search-field", class: "form-control-lg col-lg-7 movie-search-field my-3" %>
-      <button class="main-btn movie-search-btn">検索</button>
+      <%= f.text_field :search_word, placeholder: "タイトルを入力", id: "movie-search-field", class: "form-control-lg col-lg-7 movie-search-field mt-3" %>
+      <div class="search-list mx-auto p-0 col-lg-7"></div>
+      <button class="main-btn movie-search-btn mt-4">検索</button>
     <% end %>
   </div>
   <table class="image-table">
@@ -21,4 +22,39 @@
 </div>
 <div id="movie_list" class="container"></div>
 
-
+<script>// 映画インクリメンタルサーチ
+$(function() {
+  var search_list = $(".search-list");
+  function appendReview(title) {
+    var html = `<div class="list-group list-group-flush">
+                  <li class="list-group-item list-group-item-action p-1">${title.title}</li>
+                </div>`
+    search_list.append(html);
+  }
+  $(document).on("keyup", ".movie-search-field", function() {
+    var input = $(".movie-search-field").val();
+    $.ajax({
+      type: 'GET',
+      url: '/learner/movies/search',
+      data: { keyword: input },
+      dataType: 'json'
+    })
+    .done(function(titles) {
+      $(search_list).empty();
+      if (titles.length !== 0) {
+        titles.forEach(function(title){
+          appendReview(title);
+        });
+      }
+      if ($('input[type="text"]').val() === "") {
+        $(search_list).empty();
+      }
+    })
+  })
+  $(document).on('click', ".list-group-item-action", function() {
+    $(search_list).empty();
+    $(this).val();
+    $('input[type="text"]').val($(this).text());
+  })
+});
+</script>

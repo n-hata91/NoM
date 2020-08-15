@@ -106,10 +106,10 @@
   </div>
 </div>
 
-<script>
+<script>// showレーダーチャート
 $(function () {
   var ctx = $("#showRaderChart");
-  var movie_title = $("#showMovieTitle");
+  var movie_title = $("#showMovieTitle").text();
   var difficulty = $("#show-difficulty").val();
   var length = $("#show-length").val();
   var practicality = $("#show-practicality").val();
@@ -117,35 +117,32 @@ $(function () {
   var accent = $("#show-accent").val();
   var paramater = ["難易度", "長さ", "実用性", "スピード", "クセ"]
   var data = [difficulty, length, practicality, speed, accent]
-  var showRadarChart = new Chart(ctx, {
+  new Chart(ctx, {
     type: 'radar', 
-      data: { 
-        labels: paramater,
-        datasets: [{
-          label: movie_title.textContent,
-              data: data,
-              backgroundColor: 'RGBA(45, 117, 255, 0.5)',
-              pointBackgroundColor: 'RGB(237,172,38)',
-              borderColor: 'RGBA(45, 117, 255, 1)',
-              borderWidth: 2
-          }]
+    data: { 
+      labels: paramater,
+      datasets: [{
+        label: movie_title,
+        data: data,
+        backgroundColor: 'RGBA(45, 117, 255, 0.5)',
+        pointBackgroundColor: 'RGB(237,172,38)',
+        borderColor: 'RGBA(45, 117, 255, 1)',
+        borderWidth: 2
+        }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "評価"
       },
-      options: {
-        title: {
-          display: true,
-              text: "評価"
-          },
-          scale:{
-            ticks:{
-              suggestedMin: 0,
-                  suggestedMax: 5,
-                  stepSize: 1,
-                  callback: function(value, index, values){
-                    return  value
-                  }
-              }
-          }
+      scale:{
+        ticks:{
+          suggestedMin: 0,
+          suggestedMax: 5,
+          stepSize: 1,
+        }
       }
+    }
   });
 });
 </script>

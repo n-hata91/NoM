@@ -7,14 +7,13 @@ class Learner::MoviesController < ApplicationController
   def search
     @images = Movie.where.not(image_id: nil).shuffle.take(20)
     @movies = Movie.find(Article.group(:movie_id).order('count(movie_id) desc').limit(10).pluck(:movie_id))
+
     # インクリメンタルサーチ
-    # unless params[:search_word].nil?
-    #   @movies = getMovies(params[:search_word])
-    #   @movies.each do |movie|
-    #     moveieDate = Movie.new(title: movie["title"], overview: movie["overview"], image_id: "https://image.tmdb.org/t/p/w500#{movie["poster_path"]}")
-    #     @movies.push(moveieDate)
-    #   end
-    # end
+    @titles = Movie.where('title LIKE(?)', "#{params[:keyword]}%").take(5)
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def create
