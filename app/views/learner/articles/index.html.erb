@@ -24,11 +24,11 @@
               <%= f.search_field :title_or_content_cont_all, class: "form-control mr-sm-2" %>
               <%= f.label :title, "タグ" %>
               <%= f.search_field :tags_name_eq, class: "form-control mr-sm-2" %>
-              <%= f.label :rate, "★ 総合評価" %>
+              <%= f.label :rate, "★ 総合評価(~以上)" %>
               <%= f.number_field :rate_gteq_all, min:1, max:5, class: "form-control mr-sm-2" %>以上
-              <%= f.label :language, "学習言語を登録" %>
+              <%= f.label :language, "学習言語" %>
               <%= f.collection_select :user_language_eq_all, @languages, :language, :language, {prompt: "選択してください"}, class: "custom-select mr-sm-2" %><br>
-              <%= f.label :level, "学習レベルを登録" %>
+              <%= f.label :level, "学習レベル" %>
               <%= f.select :user_level_eq, User.levels.keys.map {|k| [k, k]},{ include_blank: '選択してください' }, class: "custom-select mr-sm-2" %>
               <button class="sub-btn d-block ml-auto mt-3">検索</button>
             <% end %>
