@@ -34,6 +34,7 @@ class Learner::ArticlesController < ApplicationController
 
   def create
     @article = current_learner_user.articles.new(article_params)
+    @article.score = Analyze.get_data(params["article"]["content"])
     unless params[:tags].nil?
       tags = params[:tags].split(",")
     end
@@ -65,6 +66,7 @@ class Learner::ArticlesController < ApplicationController
 
   def update
     @article = Article.find(params[:id])
+    @article.score = Analyze.get_data(@article.content)
     unless params[:tags].nil?
       tags = params[:tags].split(",")
     end

@@ -1,7 +1,7 @@
 <div class="admin-bg">
   <h1>記事管理</h1>
   <div class="row">
-    <div class="admin-detail col-lg-3 text-center"></div>
+    <div class="admin-detail col-lg-3 text-center d-none"></div>
     <div class="card col-lg-9 ml-auto">
       <div class="card-header" id="head">
         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
@@ -51,19 +51,21 @@
               <th scope="col"></th>
               <th scope="col">タイトル</th>
               <th scope="col">映画</th>
-              <th scope="col">総合評価</th>
+              <th scope="col"><%= sort_link(@q, :rate, '総合評価', default_order: :desc) %></th>
+              <th scope="col"><%= sort_link(@q, :score, '感情分析', default_order: :desc) %></th>
               <th scope="col">ユーザー</th>
             </tr>
           </thead>
           <tbody>
             <% @articles.preload([:movie]).preload([:user]).each do |article| %>
-              <tr class="admin-article-data" data-number="<%= article.id %>">
+              <tr class="admin-article-data" data-number="<%= article.id %>" style="background-color: rgba(255, 111, 111, <%= -article.score %>);">
                 <th scope="row"></th>
                   <td>
-                      <%= truncate(article.title, length: 20) %>
+                      <%= truncate(article.title, length: 15) %>
                   </td>
-                <td><%= truncate(article.movie.title, length: 15) %></td>
+                <td><%= truncate(article.movie.title, length: 10) %></td>
                 <td><%= "★" * article.rate %></td>
+                <td><%= article.score %></td>
                 <td><%= article.user.name %></td>
               </tr>
             <% end %>      

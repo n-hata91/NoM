@@ -66,16 +66,18 @@
                     <i class="fas fa-tag mr-1 fa-border"><%= tag.name %></i>
                   <% end %>
                 <% end %>
+                <div class="show-buttons text-right">
                   <% if @article.user_id == current_learner_user.id %>
-                    <%= link_to edit_learner_movie_article_path(@article.movie_id,@article.id) do %>
+                    <%= link_to edit_learner_movie_article_path(@article.movie_id,@article.id), class: 'article-show-edit-btn' do %>
                       <i class="fas fa-edit"></i>
                       編集
                     <% end %>
-                    <%= link_to learner_movie_article_path(@article.movie_id,@article.id), data: { confirm: '削除しますか？'}, method: :delete do %>
+                    <%= link_to learner_movie_article_path(@article.movie_id,@article.id), class: 'article-show-delete-btn', data: { confirm: '削除しますか？'}, method: :delete do %>
                       <i class="fas fa-trash-alt"></i>
                       削除
                     <% end %>
                   <% end %>
+                </div>
               </div>
             </div>
           </div>
