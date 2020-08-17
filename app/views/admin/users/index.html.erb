@@ -1,7 +1,7 @@
 <div class="admin-bg">
   <h1>ユーザー管理</h1>
   <div class="row">
-    <div class="admin-detail col-lg-3 text-center"></div>
+    <div class="admin-detail col-lg-3 text-center d-none"></div>
     <div class="card col-lg-9 ml-auto">
       <div class="card-header" id="head">
         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
@@ -44,8 +44,13 @@
             <th scope="col"></th>
             <th scope="col">名前</th>
             <th scope="col">言語</th>
+<<<<<<< HEAD
             <th scope="col">投稿数</th>
             <th scope="col">コメント数</th>
+=======
+            <th scope="col"><%= sort_link(@q, :score, '投稿数', default_order: :desc) %></th>
+            <th scope="col"><%= sort_link(@q, :score, 'コメント数', default_order: :desc) %></th>
+>>>>>>> d44c056b5e58799e490383c5cffb02f4ea08f54d
           </tr>
         </thead>
         <tbody>

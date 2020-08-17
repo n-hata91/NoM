@@ -32,12 +32,13 @@
             <th scope="col">タグ</th>
             <th scope="col">関連記事数</th>
             <th scope="col"><%= sort_link(@q, :created_at, '作成日時', default_order: :desc) %></th>
+            <th scope="col"><%= sort_link(@q, :score, '感情分析', default_order: :desc) %></th>
             <th scope="col">削除</th>
           </tr>
         </thead>
         <tbody>
           <% @tags.each do |tag| %>
-            <tr>
+            <tr style="background-color: rgba(255, 111, 111, <%= -tag.score %>);">
               <th scope="row"></th>
                 <td>
                   <%= link_to admin_articles_path(q: {tags_name_eq: tag.name}) do %>
@@ -50,6 +51,7 @@
                   <% end %>
                 </td>
               <td><%= l tag.created_at %></td>
+              <td><%= tag.score %></td>
               <td><%= link_to '削除', admin_tag_path(tag), class: "btn btn-outline-danger", method: :delete, data: { confirm: '削除しますか？' } %></td>
             </tr>
           <% end %>

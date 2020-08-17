@@ -5,12 +5,15 @@ class Admin::UsersController < ApplicationController
     @users = User.all
     @users_today = today(@users)
     @articles = Article.all
+    @negative_articles = Article.where(score: -1..-0.5)
     @movie_articles = Tag.article_count('movie')
     @tipcorn_articles = Tag.article_count('tipcorn')
     @users_today = today(@usearticlesrs)
     @comments = Comment.all
+    @negative_comments = Comment.where(score: -1..-0.5)
     @users_today = today(@comments)
     @tags = Tag.all
+    @negative_tags = Tag.where(score: -1..-0.5)
     @users_today = today(@tags)
     @user_ranking = User.post_ranking(3)
     @pv_ranking = Article.pv_ranking(3)

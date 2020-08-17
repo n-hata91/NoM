@@ -25,7 +25,11 @@
               <%= f.label :title, "タグ" %>
               <%= f.search_field :tags_name_eq, class: "form-control mr-sm-2" %>
               <%= f.label :rate, "★ 総合評価(~以上)" %>
+<<<<<<< HEAD
               <%= f.number_field :rate_gteq_all, min:1, max:5, class: "form-control mr-sm-2" %>以上
+=======
+              <%= f.number_field :rate_gteq_all, min:1, max:5, class: "form-control mr-sm-2" %>
+>>>>>>> d44c056b5e58799e490383c5cffb02f4ea08f54d
               <%= f.label :language, "学習言語" %>
               <%= f.collection_select :user_language_eq_all, @languages, :language, :language, {prompt: "選択してください"}, class: "custom-select mr-sm-2" %><br>
               <%= f.label :level, "学習レベル" %>

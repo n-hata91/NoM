@@ -31,6 +31,7 @@ class Article < ApplicationRecord
       new_tags = tags - current_tags
       new_tags.each do |new_tag|
         article_category = Tag.find_or_create_by(name: new_tag)
+        article_category.score = Analyze.get_data(new_tag)
         self.tags << article_category
       end
     end

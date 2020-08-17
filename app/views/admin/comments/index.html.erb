@@ -1,7 +1,7 @@
 <div class="admin-bg">
   <h1>コメント管理</h1>
   <div class="row">
-    <div class="admin-detail col-lg-3 text-center"></div>
+    <div class="admin-detail col-lg-3 text-center d-none"></div>
     <div class="card col-lg-9 ml-auto">
       <div class="card-header" id="head">
         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
@@ -31,15 +31,17 @@
           <tr>
             <th scope="col"></th>
             <th scope="col">内容</th>
+            <th scope="col"><%= sort_link(@q, :score, '感情分析', default_order: :desc) %></th>
             <th scope="col">記事</th>
             <th scope="col">ユーザー</th>
           </tr>
         </thead>
         <tbody>
           <% @comments.preload([:user]).preload([:article]).each do |comment| %>
-            <tr class="admin-comment-data" data-number="<%= comment.id %>">
+            <tr class="admin-comment-data" data-number="<%= comment.id %>"  style="background-color: rgba(255, 111, 111, <%= -comment.score %>);">
               <th scope="row"></th>
-                <td><%= truncate(comment.content, length: 20) %></td>
+              <td><%= truncate(comment.content, length: 20) %></td>
+              <td><%= comment.score %></td>
               <td><%= truncate(comment.article.title, length: 20) %></td>
               <td><%= comment.user.name %></td>
             </tr>
