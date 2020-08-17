@@ -28,3 +28,8 @@ Vision AIを使った、出演者作品のオススメ、Safe Searchや、Natura
 https://docs.google.com/spreadsheets/d/1YbYjzuFkO22YOKPoJp9PFmRody3KhoPrw3GsVWcmwMI/edit?usp=sharing
 ### 機能一覧
 https://docs.google.com/spreadsheets/d/16fCEKimM3ANY7GSoARds0D2VP4XWf-RrxUF1g7mwsXs/edit?usp=sharing
+### ログイン  
+| ページ | URL |  |
+|:-----------|:------------|:------------|
+| 利用者用 | https://nom2020.tech | email:hh@hh, password:hhhhhhhh |
+| 管理者用 | https://nom2020.tech/admin/admins/sign_in | email:hh@hh, password:hhhhhhhh |
