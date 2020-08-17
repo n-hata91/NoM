@@ -1,2 +1,2 @@
-$('.admin-detail').empty();
+$('.admin-detail').empty().removeClass('d-none');
 $('.admin-detail').html("<%= j(render 'data', data: @data)%>");

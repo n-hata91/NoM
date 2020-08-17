@@ -69,39 +69,61 @@ require 'json'
   # タグ
 Tag.create!(
   [
-    { name: 'movie'},
-    { name: 'tipcorn'},
-    { name: '面白い'},
-    { name: '勉強になる'},
-    { name: '感動'},
-    { name: '英語'},
-    { name: '中国語'},
-    { name: 'フランス語'},
-    { name: '旅行'},
-    { name: '絵がきれい'},
-    { name: 'だめ'},
-    { name: 'おすすめ'},
-    { name: '勉強法'},
-    { name: '暗記'},
-    { name: 'かっこいい'},
-    { name: 'かわいい'},
-    { name: '動物'},
-    { name: 'ホラー'}
+    { name: 'movie',
+      score: Analyze.get_data('movie')},
+    { name: 'tipcorn',
+      score: Analyze.get_data('tipcorn')},
+    { name: '面白い',
+      score: Analyze.get_data('面白い')},
+    { name: '勉強になる',
+      score: Analyze.get_data('勉強になる')},
+    { name: '感動',
+      score: Analyze.get_data('感動')},
+    { name: '旅行',
+      score: Analyze.get_data('旅行')},
+    { name: '絵がきれい',
+      score: Analyze.get_data('絵がきれい')},
+    { name: '微妙',
+      score: Analyze.get_data('微妙')},
+    { name: '少しだめ',
+      score: Analyze.get_data('少しだめ')},
+    { name: 'だめ',
+      score: Analyze.get_data('だめ')},
+    { name: 'bad',
+      score: Analyze.get_data('bad')},
+    { name: '時間の無駄',
+      score: Analyze.get_data('時間の無駄')},
+    { name: '最悪',
+      score: Analyze.get_data('最悪')},
+    { name: 'おすすめ',
+      score: Analyze.get_data('おすすめ')},
+    { name: '勉強法',
+      score: Analyze.get_data('勉強法')},
+    { name: '暗記',
+      score: Analyze.get_data('暗記')},
+    { name: 'かっこいい',
+      score: Analyze.get_data('かっこいい')},
+    { name: 'かわいい',
+      score: Analyze.get_data('かわいい')},
+    { name: '動物',
+      score: Analyze.get_data('動物')},
+    { name: 'ホラー',
+      score: Analyze.get_data('ホラー')}
   ]
 )
 
 # 記事
-20.times do |n|
+10.times do |n|
   2.times do |m|
     user = User.find(rand(1..20))
     movie_id = rand(2..6)
-    title = "【#{user.language}】#{Movie.find(movie_id).title}は勉強になります。"
-    content = "【#{user.language}】内容も良くて楽しみながら勉強できます。#{user.name}" + Faker::Lorem.characters(number:50)
-    rate1 = rand(1..5)
-    rate2 = rand(1..5)
-    rate3 = rand(1..5)
-    rate4 = rand(1..5)
-    rate5 = rand(1..5)
+    title = "【#{user.language}】#{Movie.find(movie_id).title}で勉強してみました。"
+    content = "【#{user.language}】内容も良くて楽しみながら勉強できます。#{user.name}"
+    rate1 = rand(3..5)
+    rate2 = rand(3..5)
+    rate3 = rand(3..5)
+    rate4 = rand(3..5)
+    rate5 = rand(3..5)
     rate = ((rate1 + rate2+ rate3 + rate4 + rate5)/5).round
     counter = rand(0..21)
     date = Faker::Time.between(from: '2020-07-01', to: '2020-08-01')
@@ -116,63 +138,123 @@ Tag.create!(
       speed: rate4,
       accent: rate5,
       impressions_count: counter,
-      created_at: date
+      created_at: date,
+      score: Analyze.get_data(content)
     )
     Article.last.article_tags.create!(
       tag_id: 1
     )
     Article.last.article_tags.create!(
-      tag_id: rand(3..6),
+      tag_id: rand(3..18),
+    )
+  end
+  2.times do |p|
+    user = User.find(rand(1..20))
+    movie_id = rand(2..6)
+    title = "【#{user.language}】#{Movie.find(movie_id).title}で勉強してみました。"
+    content = "【#{user.language}】内容が悪く勉強には向いていません。#{user.name}"
+    rate1 = rand(1..3)
+    rate2 = rand(1..3)
+    rate3 = rand(1..3)
+    rate4 = rand(1..3)
+    rate5 = rand(1..3)
+    rate = ((rate1 + rate2+ rate3 + rate4 + rate5)/5).round
+    counter = rand(0..21)
+    date = Faker::Time.between(from: '2020-07-01', to: '2020-08-01')
+    user.articles.create!(
+      movie_id: movie_id,
+      title: title,
+      content: content,
+      rate: rate,
+      difficulty: rate1,
+      length: rate2,
+      practicality: rate3,
+      speed: rate4,
+      accent: rate5,
+      impressions_count: counter,
+      created_at: date,
+      score: Analyze.get_data(content)
+    )
+    Article.last.article_tags.create!(
+      tag_id: 1
+    )
+    Article.last.article_tags.create!(
+      tag_id: rand(3..18),
     )
   end
   user = User.find(rand(1..20))
     movie_id = 1
     title = "【tipcorn】こんな勉強しています。"
-    content = "【#{user.language}】よかったら皆さんも試してみてください。#{user.name}" + Faker::Lorem.characters(number:50)
+    content = "【#{user.language}】よかったら皆さんも試してみてください。#{user.name}"
     counter = rand(0..20)
     user.articles.create!(
       movie_id: movie_id,
       title: title,
       content: content,
       impressions_count: counter,
-      image: open("./app/assets/images/pop#{rand(1..4)}.jpg")
+      image: open("./app/assets/images/pop#{rand(1..4)}.jpg"),
+      score: Analyze.get_data(content)
     )
     Article.last.article_tags.create!(
-      tag_id: 1
+      tag_id: 2
     )
     Article.last.article_tags.create!(
-      tag_id: rand(3..6)
+      tag_id: rand(3..18)
     )
 end
 
 # コメント
-2.times do |n|
-  users = User.all[1..20]
-  users.each do |user|
-    content = "[comment]#{user.name}コメントしました。"
-    user.comments.create!(
-      article_id: rand(1..30),
-      content: content,
-    )
-  end
+users = User.all[1..20]
+users.each do |user|
+  content = "[comment]#{user.name}のコメント。良いです。高評価"
+  user.comments.create!(
+    article_id: rand(1..30),
+    content: content,
+    score: Analyze.get_data(content)
+  )
+end
+users2 = User.all[1..20]
+users2.each do |user|
+  content = "[comment]#{user.name}のコメントしました。悪いです。低評価"
+  user.comments.create!(
+    article_id: rand(1..30),
+    content: content,
+    score: Analyze.get_data(content)
+  )
 end
 
 # 返信コメント
-4.times do |n|
-  users = User.all[1..20]
-  users.each do |user|
-  content = "[reply]#{n}への返信コメント"
+2.times do |n|
+  users3 = User.all[1..20]
+  users3.each do |user|
+  content = "[reply]#{n}へ返信コメント。うれしい。ありがとう。"
   reply_to = rand(1..40)
   article = Comment.find(reply_to).article_id
   user.comments.create!(
     reply_to: reply_to,
     article_id: article,
-    content: content
+    content: content,
+    score: Analyze.get_data(content)
     )
   end
 end
 
-# 言語（確定）
+2.times do |n|
+  users4 = User.all[1..20]
+  users4.each do |user|
+  content = "[reply]#{n}への返信コメント。ひどい。やめてください。"
+  reply_to = rand(1..40)
+  article = Comment.find(reply_to).article_id
+  user.comments.create!(
+    reply_to: reply_to,
+    article_id: article,
+    content: content,
+    score: Analyze.get_data(content)
+    )
+  end
+end
+
+# 言語
 Language.create!(
   [
     { language:'英語' },

@@ -5,6 +5,7 @@ class Learner::CommentsController < ApplicationController
     comment = current_learner_user.comments.new(comment_params)
     @article = Article.find(params[:article_id])
     comment.article_id = @article.id
+    comment.score = Analyze.get_data(comment.content)
     if comment.save
       @new_comment = Comment.new
       @comments = @article.comments.order(created_at: "desc")
