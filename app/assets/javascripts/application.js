@@ -26,7 +26,7 @@ $(function() {
       var offsetTop = $(this).offset().top;
       var scrollTop = $(window).scrollTop();
       var windowHeight = $(window).height();
-      if (scrollTop > offsetTop - windowHeight + 400){
+      if (scrollTop > offsetTop - windowHeight + 400) {
         $(this).addClass('afterscroll');
       }
     });
@@ -44,7 +44,7 @@ $(function() {
 
 // 画像プレビュー
 $(function() {
-  $(document).on('change','#change_image' , function(e) {
+  $(document).on('change','#change_image', function(e) {
     var new_image = new FileReader();
     new_image.onload = function(e) {
       $("#prev_image").attr('src', e.target.result);
